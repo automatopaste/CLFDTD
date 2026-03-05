@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\dev\FDTD\src\main.cpp" />
+    <ClCompile Include="C:\dev\FDTD\src\sim\sim.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\dev\FDTD\src\sim\sim.h">
+      <Filter>sim</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\FDTD\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sim">
+      <UniqueIdentifier>{B7547408-BB0A-36EA-840D-0C8748E6E482}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

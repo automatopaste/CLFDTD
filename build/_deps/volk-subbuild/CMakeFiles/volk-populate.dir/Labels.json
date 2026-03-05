@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/volk-populate"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/97e0696618854abd85b37a5f6bbc9f79/volk-populate.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/4557befe18720eb32495a76d0025dbb2/volk-populate-complete.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-build.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-configure.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-download.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-install.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-patch.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-test.rule"
+		},
+		{
+			"file" : "C:/dev/FDTD/build/_deps/volk-subbuild/CMakeFiles/8ea4986106a216578f0722b1eede0e65/volk-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"volk-populate"
+		],
+		"name" : "volk-populate"
+	}
+}

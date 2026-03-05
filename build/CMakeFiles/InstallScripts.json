@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/dev/FDTD/build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/volk/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/volk-build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/fmt/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/fmt-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
