@@ -3,7 +3,7 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "fmt-module.dir\\Debug\\fmt.obj",
+            "primary-output": "fmt-module.dir\\Release\\fmt.obj",
             "outputs": [
                 "C:\\dev\\FDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.module.json",
                 "C:\\dev\\FDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.d.json",

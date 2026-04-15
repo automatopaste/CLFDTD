@@ -7,3 +7,7 @@ C:/dev/FDTD/build/_deps/fmt-build/CMakeFiles/fmt.dir
 C:/dev/FDTD/build/_deps/fmt-build/CMakeFiles/fmt-module.dir
 C:/dev/FDTD/build/_deps/fmt-build/CMakeFiles/fmt-c.dir
 C:/dev/FDTD/build/_deps/fmt-build/CMakeFiles/ALL_BUILD.dir
+C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/SDL3-shared.dir
+C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/SDL3_test.dir
+C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/SDL_uclibc.dir
+C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/ALL_BUILD.dir

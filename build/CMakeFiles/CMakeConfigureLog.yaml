@@ -1842,3 +1842,1932 @@ events:
         - "C:/Program Files/CMake"
         - "C:/Program Files/FDTD"
 ...
+
+---
+events:
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:30 (find_package)"
+    name: "SDL2"
+    configs:
+      -
+        filename: "SDL2Config.cmake"
+        kind: "cmake"
+      -
+        filename: "sdl2-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "SDL2"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/dev/FDTD/build/CMakeFiles/pkgRedirects/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/dev/FDTD/build/CMakeFiles/pkgRedirects/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VulkanSDK/1.4.328.1/Bin/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VulkanSDK/1.4.328.1/Bin/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VulkanSDK/1.4.313.1/Bin/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VulkanSDK/1.4.313.1/Bin/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Rockwell Software/RSCommon/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Rockwell Software/RSCommon/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/dotnet/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Common Files/Rockwell/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Common Files/Rockwell/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/MATLAB/R2025a/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/MATLAB/R2025a/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/SDL2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/sdl2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found: null
+    search_context:
+      ENV{PATH}:
+        - "C:\\VulkanSDK\\1.4.328.1\\Bin"
+        - "C:\\VulkanSDK\\1.4.313.1\\Bin"
+        - "C:\\Program Files (x86)\\Rockwell Software\\RSCommon"
+        - "C:\\VulkanSDK\\1.3.296.0\\Bin"
+        - "C:\\VulkanSDK\\1.3.283.0\\Bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files (x86)\\Common Files\\Rockwell\\"
+        - "C:\\Program Files (x86)\\CODESYS\\APInstaller\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\MATLAB\\R2025a\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\raner\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\raner\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/FDTD"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/FDTD"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/FindPkgConfig.cmake:517 (find_program)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:66 (find_package)"
+    mode: "program"
+    variable: "PKG_CONFIG_EXECUTABLE"
+    description: "pkg-config executable"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pkg-config.bat"
+      - "pkg-config"
+      - "pkgconf"
+    candidate_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/CMake/sbin/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/bin/"
+      - "C:/Program Files/FDTD/sbin/"
+      - "C:/Program Files/FDTD/"
+    searched_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config.bat.com"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config.bat.exe"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config.bat"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config.com"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config.exe"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkg-config"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkgconf.com"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkgconf.exe"
+      - "C:/VulkanSDK/1.4.328.1/Bin/pkgconf"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config.bat.com"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config.bat.exe"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config.bat"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config.com"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config.exe"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkg-config"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkgconf.com"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkgconf.exe"
+      - "C:/VulkanSDK/1.4.313.1/Bin/pkgconf"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config.bat.com"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config.bat"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config.com"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config.exe"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkg-config"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkgconf.com"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkgconf.exe"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/pkgconf"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config.bat.com"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config.bat.exe"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config.bat"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config.com"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config.exe"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkg-config"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkgconf.com"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkgconf.exe"
+      - "C:/VulkanSDK/1.3.296.0/Bin/pkgconf"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config.bat.com"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config.bat.exe"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config.bat"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config.com"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config.exe"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkg-config"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkgconf.com"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkgconf.exe"
+      - "C:/VulkanSDK/1.3.283.0/Bin/pkgconf"
+      - "C:/Windows/System32/pkg-config.bat.com"
+      - "C:/Windows/System32/pkg-config.bat.exe"
+      - "C:/Windows/System32/pkg-config.bat"
+      - "C:/Windows/System32/pkg-config.com"
+      - "C:/Windows/System32/pkg-config.exe"
+      - "C:/Windows/System32/pkg-config"
+      - "C:/Windows/System32/pkgconf.com"
+      - "C:/Windows/System32/pkgconf.exe"
+      - "C:/Windows/System32/pkgconf"
+      - "C:/Windows/pkg-config.bat.com"
+      - "C:/Windows/pkg-config.bat.exe"
+      - "C:/Windows/pkg-config.bat"
+      - "C:/Windows/pkg-config.com"
+      - "C:/Windows/pkg-config.exe"
+      - "C:/Windows/pkg-config"
+      - "C:/Windows/pkgconf.com"
+      - "C:/Windows/pkgconf.exe"
+      - "C:/Windows/pkgconf"
+      - "C:/Windows/System32/wbem/pkg-config.bat.com"
+      - "C:/Windows/System32/wbem/pkg-config.bat.exe"
+      - "C:/Windows/System32/wbem/pkg-config.bat"
+      - "C:/Windows/System32/wbem/pkg-config.com"
+      - "C:/Windows/System32/wbem/pkg-config.exe"
+      - "C:/Windows/System32/wbem/pkg-config"
+      - "C:/Windows/System32/wbem/pkgconf.com"
+      - "C:/Windows/System32/wbem/pkgconf.exe"
+      - "C:/Windows/System32/wbem/pkgconf"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.bat"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkg-config"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/pkgconf"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat.com"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat.exe"
+      - "C:/Windows/System32/OpenSSH/pkg-config.bat"
+      - "C:/Windows/System32/OpenSSH/pkg-config.com"
+      - "C:/Windows/System32/OpenSSH/pkg-config.exe"
+      - "C:/Windows/System32/OpenSSH/pkg-config"
+      - "C:/Windows/System32/OpenSSH/pkgconf.com"
+      - "C:/Windows/System32/OpenSSH/pkgconf.exe"
+      - "C:/Windows/System32/OpenSSH/pkgconf"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config.bat.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config.bat"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkg-config"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkgconf.com"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkgconf.exe"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/pkgconf"
+      - "C:/Program Files/dotnet/pkg-config.bat.com"
+      - "C:/Program Files/dotnet/pkg-config.bat.exe"
+      - "C:/Program Files/dotnet/pkg-config.bat"
+      - "C:/Program Files/dotnet/pkg-config.com"
+      - "C:/Program Files/dotnet/pkg-config.exe"
+      - "C:/Program Files/dotnet/pkg-config"
+      - "C:/Program Files/dotnet/pkgconf.com"
+      - "C:/Program Files/dotnet/pkgconf.exe"
+      - "C:/Program Files/dotnet/pkgconf"
+      - "C:/Program Files/Git/cmd/pkg-config.bat.com"
+      - "C:/Program Files/Git/cmd/pkg-config.bat.exe"
+      - "C:/Program Files/Git/cmd/pkg-config.bat"
+      - "C:/Program Files/Git/cmd/pkg-config.com"
+      - "C:/Program Files/Git/cmd/pkg-config.exe"
+      - "C:/Program Files/Git/cmd/pkg-config"
+      - "C:/Program Files/Git/cmd/pkgconf.com"
+      - "C:/Program Files/Git/cmd/pkgconf.exe"
+      - "C:/Program Files/Git/cmd/pkgconf"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config.bat.com"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config.bat"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config.com"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config.exe"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkg-config"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkgconf.com"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkgconf.exe"
+      - "C:/Program Files (x86)/Common Files/Rockwell/pkgconf"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config.bat.com"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config.bat"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config.com"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config.exe"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkg-config"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkgconf.com"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkgconf.exe"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/pkgconf"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config.bat.com"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config.bat.exe"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config.bat"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config.com"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config.exe"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkg-config"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkgconf.com"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkgconf.exe"
+      - "C:/Program Files/MATLAB/R2025a/bin/pkgconf"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/bin/pkg-config.bat"
+      - "C:/Program Files/CMake/bin/pkg-config.com"
+      - "C:/Program Files/CMake/bin/pkg-config.exe"
+      - "C:/Program Files/CMake/bin/pkg-config"
+      - "C:/Program Files/CMake/bin/pkgconf.com"
+      - "C:/Program Files/CMake/bin/pkgconf.exe"
+      - "C:/Program Files/CMake/bin/pkgconf"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.bat"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkg-config"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/pkgconf"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config.bat.com"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config.bat.exe"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config.bat"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config.com"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config.exe"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkg-config"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkgconf.com"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkgconf.exe"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/pkgconf"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config.bat.com"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config.bat.exe"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config.bat"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config.com"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config.exe"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkg-config"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkgconf.com"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkgconf.exe"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/pkgconf"
+      - "C:/Program Files/bin/pkg-config.bat.com"
+      - "C:/Program Files/bin/pkg-config.bat.exe"
+      - "C:/Program Files/bin/pkg-config.bat"
+      - "C:/Program Files/bin/pkg-config.com"
+      - "C:/Program Files/bin/pkg-config.exe"
+      - "C:/Program Files/bin/pkg-config"
+      - "C:/Program Files/bin/pkgconf.com"
+      - "C:/Program Files/bin/pkgconf.exe"
+      - "C:/Program Files/bin/pkgconf"
+      - "C:/Program Files/sbin/pkg-config.bat.com"
+      - "C:/Program Files/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/sbin/pkg-config.bat"
+      - "C:/Program Files/sbin/pkg-config.com"
+      - "C:/Program Files/sbin/pkg-config.exe"
+      - "C:/Program Files/sbin/pkg-config"
+      - "C:/Program Files/sbin/pkgconf.com"
+      - "C:/Program Files/sbin/pkgconf.exe"
+      - "C:/Program Files/sbin/pkgconf"
+      - "C:/Program Files/pkg-config.bat.com"
+      - "C:/Program Files/pkg-config.bat.exe"
+      - "C:/Program Files/pkg-config.bat"
+      - "C:/Program Files/pkg-config.com"
+      - "C:/Program Files/pkg-config.exe"
+      - "C:/Program Files/pkg-config"
+      - "C:/Program Files/pkgconf.com"
+      - "C:/Program Files/pkgconf.exe"
+      - "C:/Program Files/pkgconf"
+      - "C:/Program Files (x86)/bin/pkg-config.bat.com"
+      - "C:/Program Files (x86)/bin/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/bin/pkg-config.bat"
+      - "C:/Program Files (x86)/bin/pkg-config.com"
+      - "C:/Program Files (x86)/bin/pkg-config.exe"
+      - "C:/Program Files (x86)/bin/pkg-config"
+      - "C:/Program Files (x86)/bin/pkgconf.com"
+      - "C:/Program Files (x86)/bin/pkgconf.exe"
+      - "C:/Program Files (x86)/bin/pkgconf"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat.com"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/sbin/pkg-config.bat"
+      - "C:/Program Files (x86)/sbin/pkg-config.com"
+      - "C:/Program Files (x86)/sbin/pkg-config.exe"
+      - "C:/Program Files (x86)/sbin/pkg-config"
+      - "C:/Program Files (x86)/sbin/pkgconf.com"
+      - "C:/Program Files (x86)/sbin/pkgconf.exe"
+      - "C:/Program Files (x86)/sbin/pkgconf"
+      - "C:/Program Files (x86)/pkg-config.bat.com"
+      - "C:/Program Files (x86)/pkg-config.bat.exe"
+      - "C:/Program Files (x86)/pkg-config.bat"
+      - "C:/Program Files (x86)/pkg-config.com"
+      - "C:/Program Files (x86)/pkg-config.exe"
+      - "C:/Program Files (x86)/pkg-config"
+      - "C:/Program Files (x86)/pkgconf.com"
+      - "C:/Program Files (x86)/pkgconf.exe"
+      - "C:/Program Files (x86)/pkgconf"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/bin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/bin/pkg-config.bat"
+      - "C:/Program Files/CMake/bin/pkg-config.com"
+      - "C:/Program Files/CMake/bin/pkg-config.exe"
+      - "C:/Program Files/CMake/bin/pkg-config"
+      - "C:/Program Files/CMake/bin/pkgconf.com"
+      - "C:/Program Files/CMake/bin/pkgconf.exe"
+      - "C:/Program Files/CMake/bin/pkgconf"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat.com"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/sbin/pkg-config.bat"
+      - "C:/Program Files/CMake/sbin/pkg-config.com"
+      - "C:/Program Files/CMake/sbin/pkg-config.exe"
+      - "C:/Program Files/CMake/sbin/pkg-config"
+      - "C:/Program Files/CMake/sbin/pkgconf.com"
+      - "C:/Program Files/CMake/sbin/pkgconf.exe"
+      - "C:/Program Files/CMake/sbin/pkgconf"
+      - "C:/Program Files/CMake/pkg-config.bat.com"
+      - "C:/Program Files/CMake/pkg-config.bat.exe"
+      - "C:/Program Files/CMake/pkg-config.bat"
+      - "C:/Program Files/CMake/pkg-config.com"
+      - "C:/Program Files/CMake/pkg-config.exe"
+      - "C:/Program Files/CMake/pkg-config"
+      - "C:/Program Files/CMake/pkgconf.com"
+      - "C:/Program Files/CMake/pkgconf.exe"
+      - "C:/Program Files/CMake/pkgconf"
+      - "C:/Program Files/FDTD/bin/pkg-config.bat.com"
+      - "C:/Program Files/FDTD/bin/pkg-config.bat.exe"
+      - "C:/Program Files/FDTD/bin/pkg-config.bat"
+      - "C:/Program Files/FDTD/bin/pkg-config.com"
+      - "C:/Program Files/FDTD/bin/pkg-config.exe"
+      - "C:/Program Files/FDTD/bin/pkg-config"
+      - "C:/Program Files/FDTD/bin/pkgconf.com"
+      - "C:/Program Files/FDTD/bin/pkgconf.exe"
+      - "C:/Program Files/FDTD/bin/pkgconf"
+      - "C:/Program Files/FDTD/sbin/pkg-config.bat.com"
+      - "C:/Program Files/FDTD/sbin/pkg-config.bat.exe"
+      - "C:/Program Files/FDTD/sbin/pkg-config.bat"
+      - "C:/Program Files/FDTD/sbin/pkg-config.com"
+      - "C:/Program Files/FDTD/sbin/pkg-config.exe"
+      - "C:/Program Files/FDTD/sbin/pkg-config"
+      - "C:/Program Files/FDTD/sbin/pkgconf.com"
+      - "C:/Program Files/FDTD/sbin/pkgconf.exe"
+      - "C:/Program Files/FDTD/sbin/pkgconf"
+      - "C:/Program Files/FDTD/pkg-config.bat.com"
+      - "C:/Program Files/FDTD/pkg-config.bat.exe"
+      - "C:/Program Files/FDTD/pkg-config.bat"
+      - "C:/Program Files/FDTD/pkg-config.com"
+      - "C:/Program Files/FDTD/pkg-config.exe"
+      - "C:/Program Files/FDTD/pkg-config"
+      - "C:/Program Files/FDTD/pkgconf.com"
+      - "C:/Program Files/FDTD/pkgconf.exe"
+      - "C:/Program Files/FDTD/pkgconf"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\VulkanSDK\\1.4.328.1\\Bin"
+        - "C:\\VulkanSDK\\1.4.313.1\\Bin"
+        - "C:\\Program Files (x86)\\Rockwell Software\\RSCommon"
+        - "C:\\VulkanSDK\\1.3.296.0\\Bin"
+        - "C:\\VulkanSDK\\1.3.283.0\\Bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files (x86)\\Common Files\\Rockwell\\"
+        - "C:\\Program Files (x86)\\CODESYS\\APInstaller\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\MATLAB\\R2025a\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\raner\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\raner\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/FDTD"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/FDTD"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "build/_deps/sdl2-src/cmake/sdlcpu.cmake:95 (try_compile)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:83 (SDL_DetectTargetCPUArchitectures)"
+    directories:
+      source: "C:/dev/FDTD/build/_deps/sdl2-build/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp"
+      binary: "C:/dev/FDTD/build/_deps/sdl2-build/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "SDL_CPU_CHECK_ALL"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/_deps/sdl2-build/CMakeFiles/CMakeTmp/SDL_detect_arch/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1be30.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:26 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\cmTC_1be30.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\".
+          Creating directory "cmTC_1be30.dir\\Debug\\cmTC_1be30.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_1be30.dir\\Debug\\cmTC_1be30.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_1be30.dir\\Debug\\cmTC_1be30.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_1be30.dir\\Debug\\\\" /Fd"C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_1be30.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_1be30.dir\\Debug\\\\" /Fd"C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_1be30.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch.c"
+          SDL_detect_arch.c
+        Lib:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\Lib.exe /OUT:"C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_1be30.lib" /NOLOGO /MACHINE:X64  /machine:x64 cmTC_1be30.dir\\Debug\\SDL_detect_arch.obj
+          cmTC_1be30.vcxproj -> C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\Debug\\cmTC_1be30.lib
+        FinalizeBuildStatus:
+          Deleting file "cmTC_1be30.dir\\Debug\\cmTC_1be30.tlog\\unsuccessfulbuild".
+          Touching "cmTC_1be30.dir\\Debug\\cmTC_1be30.tlog\\cmTC_1be30.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\_deps\\sdl2-build\\CMakeFiles\\CMakeTmp\\SDL_detect_arch\\CMakeFiles\\CMakeTmp\\cmTC_1be30.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.53
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/PreseedMSVCCache.cmake:3 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:434 (SDL_Preseed_CMakeCache)"
+    checks:
+      - "Performing Test CAN_PRESEED"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-sjldex"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-sjldex"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "CAN_PRESEED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-sjldex'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3cb29.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:27 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\cmTC_3cb29.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\Debug\\".
+          Creating directory "cmTC_3cb29.dir\\Debug\\cmTC_3cb29.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_3cb29.dir\\Debug\\cmTC_3cb29.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_3cb29.dir\\Debug\\cmTC_3cb29.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D CAN_PRESEED /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_3cb29.dir\\Debug\\\\" /Fd"cmTC_3cb29.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D CAN_PRESEED /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_3cb29.dir\\Debug\\\\" /Fd"cmTC_3cb29.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\Debug\\cmTC_3cb29.exe" /INCREMENTAL /ILK:"cmTC_3cb29.dir\\Debug\\cmTC_3cb29.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-sjldex/Debug/cmTC_3cb29.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-sjldex/Debug/cmTC_3cb29.lib" /MACHINE:X64  /machine:x64 cmTC_3cb29.dir\\Debug\\src.obj
+          cmTC_3cb29.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\Debug\\cmTC_3cb29.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_3cb29.dir\\Debug\\cmTC_3cb29.tlog\\unsuccessfulbuild".
+          Touching "cmTC_3cb29.dir\\Debug\\cmTC_3cb29.tlog\\cmTC_3cb29.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-sjldex\\cmTC_3cb29.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:706 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_MMX"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-xoj6l0"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-xoj6l0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_MMX"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-xoj6l0'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_13b3b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:28 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\cmTC_13b3b.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\Debug\\".
+          Creating directory "cmTC_13b3b.dir\\Debug\\cmTC_13b3b.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_13b3b.dir\\Debug\\cmTC_13b3b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_13b3b.dir\\Debug\\cmTC_13b3b.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_MMX /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_13b3b.dir\\Debug\\\\" /Fd"cmTC_13b3b.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_MMX /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_13b3b.dir\\Debug\\\\" /Fd"cmTC_13b3b.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\src.c"
+          src.c
+        C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\src.c(15,25): error C2440: '=': cannot convert from 'int' to '__m64' [C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\cmTC_13b3b.vcxproj]
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\cmTC_13b3b.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\cmTC_13b3b.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\src.c(15,25): error C2440: '=': cannot convert from 'int' to '__m64' [C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xoj6l0\\cmTC_13b3b.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.38
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:727 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-dmq78r"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-dmq78r"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-dmq78r'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2a067.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:28 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\cmTC_2a067.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\Debug\\".
+          Creating directory "cmTC_2a067.dir\\Debug\\cmTC_2a067.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_2a067.dir\\Debug\\cmTC_2a067.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_2a067.dir\\Debug\\cmTC_2a067.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_2a067.dir\\Debug\\\\" /Fd"cmTC_2a067.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_2a067.dir\\Debug\\\\" /Fd"cmTC_2a067.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\Debug\\cmTC_2a067.exe" /INCREMENTAL /ILK:"cmTC_2a067.dir\\Debug\\cmTC_2a067.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-dmq78r/Debug/cmTC_2a067.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-dmq78r/Debug/cmTC_2a067.lib" /MACHINE:X64  /machine:x64 cmTC_2a067.dir\\Debug\\src.obj
+          cmTC_2a067.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\Debug\\cmTC_2a067.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_2a067.dir\\Debug\\cmTC_2a067.tlog\\unsuccessfulbuild".
+          Touching "cmTC_2a067.dir\\Debug\\cmTC_2a067.tlog\\cmTC_2a067.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-dmq78r\\cmTC_2a067.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:748 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE2"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ov6uxx"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ov6uxx"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ov6uxx'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a1ee9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:29 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\cmTC_a1ee9.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\Debug\\".
+          Creating directory "cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_a1ee9.dir\\Debug\\\\" /Fd"cmTC_a1ee9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_a1ee9.dir\\Debug\\\\" /Fd"cmTC_a1ee9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\Debug\\cmTC_a1ee9.exe" /INCREMENTAL /ILK:"cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ov6uxx/Debug/cmTC_a1ee9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ov6uxx/Debug/cmTC_a1ee9.lib" /MACHINE:X64  /machine:x64 cmTC_a1ee9.dir\\Debug\\src.obj
+          cmTC_a1ee9.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\Debug\\cmTC_a1ee9.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.tlog\\unsuccessfulbuild".
+          Touching "cmTC_a1ee9.dir\\Debug\\cmTC_a1ee9.tlog\\cmTC_a1ee9.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ov6uxx\\cmTC_a1ee9.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.63
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:769 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE3"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-uqyq1x"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-uqyq1x"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE3"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-uqyq1x'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_dddc9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:30 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\cmTC_dddc9.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\Debug\\".
+          Creating directory "cmTC_dddc9.dir\\Debug\\cmTC_dddc9.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_dddc9.dir\\Debug\\cmTC_dddc9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_dddc9.dir\\Debug\\cmTC_dddc9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE3 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_dddc9.dir\\Debug\\\\" /Fd"cmTC_dddc9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE3 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_dddc9.dir\\Debug\\\\" /Fd"cmTC_dddc9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\Debug\\cmTC_dddc9.exe" /INCREMENTAL /ILK:"cmTC_dddc9.dir\\Debug\\cmTC_dddc9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-uqyq1x/Debug/cmTC_dddc9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-uqyq1x/Debug/cmTC_dddc9.lib" /MACHINE:X64  /machine:x64 cmTC_dddc9.dir\\Debug\\src.obj
+          cmTC_dddc9.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\Debug\\cmTC_dddc9.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_dddc9.dir\\Debug\\cmTC_dddc9.tlog\\unsuccessfulbuild".
+          Touching "cmTC_dddc9.dir\\Debug\\cmTC_dddc9.tlog\\cmTC_dddc9.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uqyq1x\\cmTC_dddc9.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:790 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE4_1"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nk3zeg"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nk3zeg"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE4_1"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nk3zeg'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b4257.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:31 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\cmTC_b4257.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\Debug\\".
+          Creating directory "cmTC_b4257.dir\\Debug\\cmTC_b4257.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_b4257.dir\\Debug\\cmTC_b4257.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_b4257.dir\\Debug\\cmTC_b4257.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_b4257.dir\\Debug\\\\" /Fd"cmTC_b4257.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_b4257.dir\\Debug\\\\" /Fd"cmTC_b4257.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\Debug\\cmTC_b4257.exe" /INCREMENTAL /ILK:"cmTC_b4257.dir\\Debug\\cmTC_b4257.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nk3zeg/Debug/cmTC_b4257.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nk3zeg/Debug/cmTC_b4257.lib" /MACHINE:X64  /machine:x64 cmTC_b4257.dir\\Debug\\src.obj
+          cmTC_b4257.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\Debug\\cmTC_b4257.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_b4257.dir\\Debug\\cmTC_b4257.tlog\\unsuccessfulbuild".
+          Touching "cmTC_b4257.dir\\Debug\\cmTC_b4257.tlog\\cmTC_b4257.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nk3zeg\\cmTC_b4257.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.60
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:811 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_SSE4_2"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-bvl6d1"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-bvl6d1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_SSE4_2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-bvl6d1'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a2c72.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:32 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\cmTC_a2c72.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\Debug\\".
+          Creating directory "cmTC_a2c72.dir\\Debug\\cmTC_a2c72.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_a2c72.dir\\Debug\\cmTC_a2c72.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_a2c72.dir\\Debug\\cmTC_a2c72.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_a2c72.dir\\Debug\\\\" /Fd"cmTC_a2c72.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_SSE4_2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_a2c72.dir\\Debug\\\\" /Fd"cmTC_a2c72.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\Debug\\cmTC_a2c72.exe" /INCREMENTAL /ILK:"cmTC_a2c72.dir\\Debug\\cmTC_a2c72.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-bvl6d1/Debug/cmTC_a2c72.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-bvl6d1/Debug/cmTC_a2c72.lib" /MACHINE:X64  /machine:x64 cmTC_a2c72.dir\\Debug\\src.obj
+          cmTC_a2c72.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\Debug\\cmTC_a2c72.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_a2c72.dir\\Debug\\cmTC_a2c72.tlog\\unsuccessfulbuild".
+          Touching "cmTC_a2c72.dir\\Debug\\cmTC_a2c72.tlog\\cmTC_a2c72.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bvl6d1\\cmTC_a2c72.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:829 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-17ujzu"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-17ujzu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-17ujzu'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6c885.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:33 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\cmTC_6c885.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\Debug\\".
+          Creating directory "cmTC_6c885.dir\\Debug\\cmTC_6c885.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_6c885.dir\\Debug\\cmTC_6c885.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_6c885.dir\\Debug\\cmTC_6c885.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6c885.dir\\Debug\\\\" /Fd"cmTC_6c885.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6c885.dir\\Debug\\\\" /Fd"cmTC_6c885.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\Debug\\cmTC_6c885.exe" /INCREMENTAL /ILK:"cmTC_6c885.dir\\Debug\\cmTC_6c885.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-17ujzu/Debug/cmTC_6c885.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-17ujzu/Debug/cmTC_6c885.lib" /MACHINE:X64  /machine:x64 cmTC_6c885.dir\\Debug\\src.obj
+          cmTC_6c885.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\Debug\\cmTC_6c885.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_6c885.dir\\Debug\\cmTC_6c885.tlog\\unsuccessfulbuild".
+          Touching "cmTC_6c885.dir\\Debug\\cmTC_6c885.tlog\\cmTC_6c885.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-17ujzu\\cmTC_6c885.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:850 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX2"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-46uyhk"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-46uyhk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX2"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-46uyhk'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_48955.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:34 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\cmTC_48955.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\Debug\\".
+          Creating directory "cmTC_48955.dir\\Debug\\cmTC_48955.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_48955.dir\\Debug\\cmTC_48955.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_48955.dir\\Debug\\cmTC_48955.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_48955.dir\\Debug\\\\" /Fd"cmTC_48955.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX2 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_48955.dir\\Debug\\\\" /Fd"cmTC_48955.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\Debug\\cmTC_48955.exe" /INCREMENTAL /ILK:"cmTC_48955.dir\\Debug\\cmTC_48955.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-46uyhk/Debug/cmTC_48955.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-46uyhk/Debug/cmTC_48955.lib" /MACHINE:X64  /machine:x64 cmTC_48955.dir\\Debug\\src.obj
+          cmTC_48955.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\Debug\\cmTC_48955.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_48955.dir\\Debug\\cmTC_48955.tlog\\unsuccessfulbuild".
+          Touching "cmTC_48955.dir\\Debug\\cmTC_48955.tlog\\cmTC_48955.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-46uyhk\\cmTC_48955.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/cmake/sdlcompilers.cmake:180 (check_c_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:871 (check_x86_source_compiles)"
+    checks:
+      - "Performing Test COMPILER_SUPPORTS_AVX512F"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ml79wq"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ml79wq"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "COMPILER_SUPPORTS_AVX512F"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ml79wq'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6cdb8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:35 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\cmTC_6cdb8.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\Debug\\".
+          Creating directory "cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX512F /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6cdb8.dir\\Debug\\\\" /Fd"cmTC_6cdb8.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D COMPILER_SUPPORTS_AVX512F /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6cdb8.dir\\Debug\\\\" /Fd"cmTC_6cdb8.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\Debug\\cmTC_6cdb8.exe" /INCREMENTAL /ILK:"cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ml79wq/Debug/cmTC_6cdb8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-ml79wq/Debug/cmTC_6cdb8.lib" /MACHINE:X64  /machine:x64 cmTC_6cdb8.dir\\Debug\\src.obj
+          cmTC_6cdb8.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\Debug\\cmTC_6cdb8.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.tlog\\unsuccessfulbuild".
+          Touching "cmTC_6cdb8.dir\\Debug\\cmTC_6cdb8.tlog\\cmTC_6cdb8.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ml79wq\\cmTC_6cdb8.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:1112 (check_symbol_exists)"
+    checks:
+      - "Looking for _copysign"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-7wf7aq"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-7wf7aq"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "LIBC_HAS__COPYSIGN"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-7wf7aq'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_77251.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:36 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\cmTC_77251.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\Debug\\".
+          Creating directory "cmTC_77251.dir\\Debug\\cmTC_77251.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_77251.dir\\Debug\\cmTC_77251.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_77251.dir\\Debug\\cmTC_77251.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_77251.dir\\Debug\\\\" /Fd"cmTC_77251.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\CheckSymbolExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_77251.dir\\Debug\\\\" /Fd"cmTC_77251.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\CheckSymbolExists.c"
+          CheckSymbolExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\Debug\\cmTC_77251.exe" /INCREMENTAL /ILK:"cmTC_77251.dir\\Debug\\cmTC_77251.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-7wf7aq/Debug/cmTC_77251.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-7wf7aq/Debug/cmTC_77251.lib" /MACHINE:X64  /machine:x64 cmTC_77251.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_77251.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\Debug\\cmTC_77251.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_77251.dir\\Debug\\cmTC_77251.tlog\\unsuccessfulbuild".
+          Touching "cmTC_77251.dir\\Debug\\cmTC_77251.tlog\\cmTC_77251.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-7wf7aq\\cmTC_77251.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.65
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:1112 (check_symbol_exists)"
+    checks:
+      - "Looking for _fseeki64"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-9dczla"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-9dczla"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "LIBC_HAS__FSEEKI64"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-9dczla'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_5e9ad.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:37 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\cmTC_5e9ad.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\Debug\\".
+          Creating directory "cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_5e9ad.dir\\Debug\\\\" /Fd"cmTC_5e9ad.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\CheckSymbolExists.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_5e9ad.dir\\Debug\\\\" /Fd"cmTC_5e9ad.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\CheckSymbolExists.c"
+          CheckSymbolExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\Debug\\cmTC_5e9ad.exe" /INCREMENTAL /ILK:"cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-9dczla/Debug/cmTC_5e9ad.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-9dczla/Debug/cmTC_5e9ad.lib" /MACHINE:X64  /machine:x64 cmTC_5e9ad.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_5e9ad.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\Debug\\cmTC_5e9ad.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.tlog\\unsuccessfulbuild".
+          Touching "cmTC_5e9ad.dir\\Debug\\cmTC_5e9ad.tlog\\cmTC_5e9ad.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9dczla\\cmTC_5e9ad.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.64
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2238 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_GAMEINPUT_H"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nsmrba"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nsmrba"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "HAVE_GAMEINPUT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nsmrba'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_45496.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:37 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\cmTC_45496.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\Debug\\".
+          Creating directory "cmTC_45496.dir\\Debug\\cmTC_45496.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_45496.dir\\Debug\\cmTC_45496.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_45496.dir\\Debug\\cmTC_45496.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_GAMEINPUT_H /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_45496.dir\\Debug\\\\" /Fd"cmTC_45496.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_GAMEINPUT_H /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_45496.dir\\Debug\\\\" /Fd"cmTC_45496.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\Debug\\cmTC_45496.exe" /INCREMENTAL /ILK:"cmTC_45496.dir\\Debug\\cmTC_45496.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nsmrba/Debug/cmTC_45496.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-nsmrba/Debug/cmTC_45496.lib" /MACHINE:X64  /machine:x64 cmTC_45496.dir\\Debug\\src.obj
+          cmTC_45496.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\Debug\\cmTC_45496.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_45496.dir\\Debug\\cmTC_45496.tlog\\unsuccessfulbuild".
+          Touching "cmTC_45496.dir\\Debug\\cmTC_45496.tlog\\cmTC_45496.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-nsmrba\\cmTC_45496.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.84
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckIncludeFile.cmake:174 (try_compile)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2244 (check_include_file)"
+    checks:
+      - "Looking for dxgi1_5.h"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k7o2km"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k7o2km"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "HAVE_DXGI1_5_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k7o2km'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_db3c9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:39 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\cmTC_db3c9.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\Debug\\".
+          Creating directory "cmTC_db3c9.dir\\Debug\\cmTC_db3c9.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_db3c9.dir\\Debug\\cmTC_db3c9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_db3c9.dir\\Debug\\cmTC_db3c9.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_db3c9.dir\\Debug\\\\" /Fd"cmTC_db3c9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_db3c9.dir\\Debug\\\\" /Fd"cmTC_db3c9.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\Debug\\cmTC_db3c9.exe" /INCREMENTAL /ILK:"cmTC_db3c9.dir\\Debug\\cmTC_db3c9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k7o2km/Debug/cmTC_db3c9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k7o2km/Debug/cmTC_db3c9.lib" /MACHINE:X64  /machine:x64 cmTC_db3c9.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_db3c9.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\Debug\\cmTC_db3c9.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_db3c9.dir\\Debug\\cmTC_db3c9.tlog\\unsuccessfulbuild".
+          Touching "cmTC_db3c9.dir\\Debug\\cmTC_db3c9.tlog\\cmTC_db3c9.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k7o2km\\cmTC_db3c9.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.83
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckIncludeFile.cmake:174 (try_compile)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2245 (check_include_file)"
+    checks:
+      - "Looking for dxgi1_6.h"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-r78xx7"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-r78xx7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "HAVE_DXGI1_6_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-r78xx7'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6ce29.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:40 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\cmTC_6ce29.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\Debug\\".
+          Creating directory "cmTC_6ce29.dir\\Debug\\cmTC_6ce29.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_6ce29.dir\\Debug\\cmTC_6ce29.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_6ce29.dir\\Debug\\cmTC_6ce29.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6ce29.dir\\Debug\\\\" /Fd"cmTC_6ce29.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_6ce29.dir\\Debug\\\\" /Fd"cmTC_6ce29.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\Debug\\cmTC_6ce29.exe" /INCREMENTAL /ILK:"cmTC_6ce29.dir\\Debug\\cmTC_6ce29.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-r78xx7/Debug/cmTC_6ce29.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-r78xx7/Debug/cmTC_6ce29.lib" /MACHINE:X64  /machine:x64 cmTC_6ce29.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_6ce29.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\Debug\\cmTC_6ce29.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_6ce29.dir\\Debug\\cmTC_6ce29.tlog\\unsuccessfulbuild".
+          Touching "cmTC_6ce29.dir\\Debug\\cmTC_6ce29.tlog\\cmTC_6ce29.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r78xx7\\cmTC_6ce29.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.83
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2252 (check_c_source_compiles)"
+    checks:
+      - "Performing Test HAVE_MFAPI_H"
+    directories:
+      source: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k5ms0h"
+      binary: "C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k5ms0h"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/dev/FDTD/build/_deps/sdl2-src/cmake"
+    buildResult:
+      variable: "HAVE_MFAPI_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k5ms0h'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9cdcc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 5/03/2026 7:46:41 PM.
+        
+        Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\cmTC_9cdcc.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\Debug\\".
+          Creating directory "cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_MFAPI_H /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_9cdcc.dir\\Debug\\\\" /Fd"cmTC_9cdcc.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\src.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35223 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _GNU_SOURCE=1 /D HAVE_MFAPI_H /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_9cdcc.dir\\Debug\\\\" /Fd"cmTC_9cdcc.dir\\Debug\\vc143.pdb" /external:W1 /TC /errorReport:queue "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\Debug\\cmTC_9cdcc.exe" /INCREMENTAL /ILK:"cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k5ms0h/Debug/cmTC_9cdcc.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/FDTD/build/CMakeFiles/CMakeScratch/TryCompile-k5ms0h/Debug/cmTC_9cdcc.lib" /MACHINE:X64  /machine:x64 cmTC_9cdcc.dir\\Debug\\src.obj
+          cmTC_9cdcc.vcxproj -> C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\Debug\\cmTC_9cdcc.exe
+        FinalizeBuildStatus:
+          Deleting file "cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.tlog\\unsuccessfulbuild".
+          Touching "cmTC_9cdcc.dir\\Debug\\cmTC_9cdcc.tlog\\cmTC_9cdcc.lastbuildstate".
+        Done Building Project "C:\\dev\\FDTD\\build\\CMakeFiles\\CMakeScratch\\TryCompile-k5ms0h\\cmTC_9cdcc.vcxproj" (default targets).
+        
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        
+        Time Elapsed 00:00:00.88
+        
+      exitCode: 0
+  -
+    kind: "find-v1"
+    backtrace:
+      - "build/_deps/sdl2-src/cmake/FindLibUSB.cmake:12 (find_library)"
+      - "build/_deps/sdl2-src/cmake/sdlchecks.cmake:1259 (find_package)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2411 (CheckHIDAPI)"
+    mode: "library"
+    variable: "LibUSB_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "usb-1.0"
+      - "libusb-1.0"
+      - "usb"
+    candidate_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/lib/"
+      - "C:/Program Files/FDTD/"
+      - "C:/Program Files/FDTD/bin/"
+      - "/bin/"
+    searched_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/lib/"
+      - "C:/Program Files/FDTD/"
+      - "C:/Program Files/FDTD/bin/"
+      - "/bin/"
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/lib/"
+      - "C:/Program Files/FDTD/"
+      - "C:/Program Files/FDTD/bin/"
+      - "/bin/"
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/lib/"
+      - "C:/Program Files/FDTD/"
+      - "C:/Program Files/FDTD/bin/"
+      - "/bin/"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\VulkanSDK\\1.4.328.1\\Bin"
+        - "C:\\VulkanSDK\\1.4.313.1\\Bin"
+        - "C:\\Program Files (x86)\\Rockwell Software\\RSCommon"
+        - "C:\\VulkanSDK\\1.3.296.0\\Bin"
+        - "C:\\VulkanSDK\\1.3.283.0\\Bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files (x86)\\Common Files\\Rockwell\\"
+        - "C:\\Program Files (x86)\\CODESYS\\APInstaller\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\MATLAB\\R2025a\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\raner\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\raner\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/FDTD"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/FDTD"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/FDTD/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "build/_deps/sdl2-src/cmake/FindLibUSB.cmake:17 (find_path)"
+      - "build/_deps/sdl2-src/cmake/sdlchecks.cmake:1259 (find_package)"
+      - "build/_deps/sdl2-src/CMakeLists.txt:2411 (CheckHIDAPI)"
+    mode: "path"
+    variable: "LibUSB_INCLUDE_PATH"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "libusb.h"
+    candidate_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/libusb-1.0/"
+      - "C:/VulkanSDK/1.4.328.1/Bin/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/libusb-1.0/"
+      - "C:/VulkanSDK/1.4.313.1/Bin/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/libusb-1.0/"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/libusb-1.0/"
+      - "C:/VulkanSDK/1.3.296.0/Bin/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/libusb-1.0/"
+      - "C:/VulkanSDK/1.3.283.0/Bin/"
+      - "C:/Windows/System32/libusb-1.0/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/libusb-1.0/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/libusb-1.0/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/libusb-1.0/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/libusb-1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/libusb-1.0/"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/"
+      - "C:/Program Files/dotnet/libusb-1.0/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files/Git/cmd/libusb-1.0/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/libusb-1.0/"
+      - "C:/Program Files (x86)/Common Files/Rockwell/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/libusb-1.0/"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/"
+      - "C:/Program Files/MATLAB/R2025a/bin/libusb-1.0/"
+      - "C:/Program Files/MATLAB/R2025a/bin/"
+      - "C:/Program Files/CMake/bin/libusb-1.0/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/libusb-1.0/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/libusb-1.0/"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/libusb-1.0/"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Program Files/include/libusb-1.0/"
+      - "C:/Program Files/include/"
+      - "C:/Program Files/libusb-1.0/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/include/libusb-1.0/"
+      - "C:/Program Files (x86)/include/"
+      - "C:/Program Files (x86)/libusb-1.0/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/include/libusb-1.0/"
+      - "C:/Program Files/CMake/include/"
+      - "C:/Program Files/CMake/libusb-1.0/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/FDTD/include/libusb-1.0/"
+      - "C:/Program Files/FDTD/include/"
+      - "C:/Program Files/FDTD/libusb-1.0/"
+      - "C:/Program Files/FDTD/"
+    searched_directories:
+      - "C:/VulkanSDK/1.4.328.1/Bin/libusb-1.0/libusb.h"
+      - "C:/VulkanSDK/1.4.328.1/Bin/libusb.h"
+      - "C:/VulkanSDK/1.4.313.1/Bin/libusb-1.0/libusb.h"
+      - "C:/VulkanSDK/1.4.313.1/Bin/libusb.h"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/Rockwell Software/RSCommon/libusb.h"
+      - "C:/VulkanSDK/1.3.296.0/Bin/libusb-1.0/libusb.h"
+      - "C:/VulkanSDK/1.3.296.0/Bin/libusb.h"
+      - "C:/VulkanSDK/1.3.283.0/Bin/libusb-1.0/libusb.h"
+      - "C:/VulkanSDK/1.3.283.0/Bin/libusb.h"
+      - "C:/Windows/System32/libusb-1.0/libusb.h"
+      - "C:/Windows/System32/libusb.h"
+      - "C:/Windows/libusb-1.0/libusb.h"
+      - "C:/Windows/libusb.h"
+      - "C:/Windows/System32/wbem/libusb-1.0/libusb.h"
+      - "C:/Windows/System32/wbem/libusb.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/libusb-1.0/libusb.h"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/libusb.h"
+      - "C:/Windows/System32/OpenSSH/libusb-1.0/libusb.h"
+      - "C:/Windows/System32/OpenSSH/libusb.h"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common/libusb.h"
+      - "C:/Program Files/dotnet/libusb-1.0/libusb.h"
+      - "C:/Program Files/dotnet/libusb.h"
+      - "C:/Program Files/Git/cmd/libusb-1.0/libusb.h"
+      - "C:/Program Files/Git/cmd/libusb.h"
+      - "C:/Program Files (x86)/Common Files/Rockwell/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/Common Files/Rockwell/libusb.h"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/CODESYS/APInstaller/libusb.h"
+      - "C:/Program Files/MATLAB/R2025a/bin/libusb-1.0/libusb.h"
+      - "C:/Program Files/MATLAB/R2025a/bin/libusb.h"
+      - "C:/Program Files/CMake/bin/libusb-1.0/libusb.h"
+      - "C:/Program Files/CMake/bin/libusb.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/libusb.h"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/libusb-1.0/libusb.h"
+      - "C:/Users/raner/AppData/Local/Microsoft/WindowsApps/libusb.h"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/libusb-1.0/libusb.h"
+      - "C:/Users/raner/AppData/Local/Programs/Microsoft VS Code/bin/libusb.h"
+      - "C:/Program Files/include/libusb-1.0/libusb.h"
+      - "C:/Program Files/include/libusb.h"
+      - "C:/Program Files/libusb-1.0/libusb.h"
+      - "C:/Program Files/libusb.h"
+      - "C:/Program Files (x86)/include/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/include/libusb.h"
+      - "C:/Program Files (x86)/libusb-1.0/libusb.h"
+      - "C:/Program Files (x86)/libusb.h"
+      - "C:/Program Files/CMake/include/libusb-1.0/libusb.h"
+      - "C:/Program Files/CMake/include/libusb.h"
+      - "C:/Program Files/CMake/libusb-1.0/libusb.h"
+      - "C:/Program Files/CMake/libusb.h"
+      - "C:/Program Files/FDTD/include/libusb-1.0/libusb.h"
+      - "C:/Program Files/FDTD/include/libusb.h"
+      - "C:/Program Files/FDTD/libusb-1.0/libusb.h"
+      - "C:/Program Files/FDTD/libusb.h"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "C:\\VulkanSDK\\1.4.328.1\\Bin"
+        - "C:\\VulkanSDK\\1.4.313.1\\Bin"
+        - "C:\\Program Files (x86)\\Rockwell Software\\RSCommon"
+        - "C:\\VulkanSDK\\1.3.296.0\\Bin"
+        - "C:\\VulkanSDK\\1.3.283.0\\Bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files (x86)\\Common Files\\Rockwell\\"
+        - "C:\\Program Files (x86)\\CODESYS\\APInstaller\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\MATLAB\\R2025a\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\raner\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\raner\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/FDTD"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/FDTD"
+...

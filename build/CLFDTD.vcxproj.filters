@@ -2,12 +2,25 @@
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="C:\dev\FDTD\src\main.cpp" />
+    <ClCompile Include="C:\dev\FDTD\src\sim\renderer.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\FDTD\src\sim\sim.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sim\sim2d.cpp">
       <Filter>sim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\dev\FDTD\src\sim\renderer.h">
+      <Filter>sim</Filter>
+    </ClInclude>
     <ClInclude Include="C:\dev\FDTD\src\sim\sim.h">
+      <Filter>sim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\types.h" />
+    <ClInclude Include="..\src\sim\sim2d.h">
       <Filter>sim</Filter>
     </ClInclude>
   </ItemGroup>

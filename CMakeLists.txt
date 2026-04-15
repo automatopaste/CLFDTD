@@ -27,7 +27,6 @@ set(VULKAN_SDK_TAG "vulkan-sdk-${VULKAN_SDK_VERSION}"
 )
 
 find_package(Vulkan REQUIRED)
-#find_package(SDL2 CONFIG REQUIRED)
 
 add_subdirectory(external)
 
@@ -62,6 +61,7 @@ target_link_libraries(CLFDTD
     PRIVATE
         Vulkan::Headers
         fmt
+        SDL3::SDL3
 )
 
 # output directories
