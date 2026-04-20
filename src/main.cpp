@@ -11,6 +11,8 @@
 #include "sim/sim2d.h"
 #include "sim/renderer.h"
 
+#include "vk/vk_engine.h"
+
 void run_1d() {
 	sim::State state{};
 	sim::init_sim(state);
@@ -132,7 +134,16 @@ void run_sim_2d() {
 int main() {
 	fmt::print("initialising CLFDTD simulation\n");
 
-	run_sim_2d();
+	//run_sim_2d();
+
+	// run shader src copy batch file
+	system("call ../../../batch_shader_copy.bat");
+
+	VulkanEngine engine{};
+
+	engine.init();
+
+	engine.run();
 
 	return 0;
 }

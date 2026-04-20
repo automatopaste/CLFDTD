@@ -1,3 +1,5 @@
 add_subdirectory(volk)
 add_subdirectory(fmt)
-add_subdirectory(SDL3)
+add_subdirectory(SDL2)
+add_subdirectory(vk-bootstrap)
+add_subdirectory(dearimgui)

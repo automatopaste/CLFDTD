@@ -8,8 +8,47 @@
     <ClCompile Include="C:\dev\FDTD\src\sim\sim.cpp">
       <Filter>sim</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\sim\sim2d.cpp">
+    <ClCompile Include="C:\dev\FDTD\src\sim\sim2d.cpp">
       <Filter>sim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\output\r2_output.cpp">
+      <Filter>vk\r2\passes\output</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.cpp">
+      <Filter>vk\r2\passes\reset</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_commander.cpp">
+      <Filter>vk\r2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_resources.cpp">
+      <Filter>vk\r2</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_descriptors.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_dynamic_buffer.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_engine.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_images.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_initialisers.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_pipelines.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_synchronisation.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_tex_store.cpp">
+      <Filter>vk</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\vk_upload_buffer.cpp">
+      <Filter>vk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -19,9 +58,69 @@
     <ClInclude Include="C:\dev\FDTD\src\sim\sim.h">
       <Filter>sim</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\types.h" />
-    <ClInclude Include="..\src\sim\sim2d.h">
+    <ClInclude Include="C:\dev\FDTD\src\sim\sim2d.h">
       <Filter>sim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\types.h" />
+    <ClInclude Include="C:\dev\FDTD\src\vk\buffer_read_write.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\output\r2_output.h">
+      <Filter>vk\r2\passes\output</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.h">
+      <Filter>vk\r2\passes\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_commander.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_config.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_pass_structs.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_push_constant_structs.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_resources.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_shader_structs.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_structs.h">
+      <Filter>vk\r2</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_descriptors.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_dynamic_buffer.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_engine.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_images.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_initialisers.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_pipelines.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_synchronisation.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_tex_store.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_types.h">
+      <Filter>vk</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\vk_upload_buffer.h">
+      <Filter>vk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +129,21 @@
   <ItemGroup>
     <Filter Include="sim">
       <UniqueIdentifier>{B7547408-BB0A-36EA-840D-0C8748E6E482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk">
+      <UniqueIdentifier>{521427C9-6282-34D9-BC42-68B6D8597B8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2">
+      <UniqueIdentifier>{F35C1472-3C4E-3230-A3F7-C584E498B7CD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes">
+      <UniqueIdentifier>{91B80FB3-5629-3FAD-9780-DF81E52A195C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes\output">
+      <UniqueIdentifier>{78E0D219-9B8B-39BF-82BF-688F714918A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes\reset">
+      <UniqueIdentifier>{FEC96E79-1BE4-303F-9A3E-0B1492A1525C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

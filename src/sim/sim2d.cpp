@@ -8,7 +8,7 @@ void sim2d::state_init(State& state)
 {
 	state.x = 800;
 	state.y = 800;
-	state.npml = 0;
+	state.npml = 8;
 
 	state.ga.resize(state.x * state.y);
 	state.dz.resize(state.x * state.y);

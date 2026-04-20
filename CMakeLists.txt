@@ -1,7 +1,7 @@
 # before cmake configure, first run vcpkg install commands
 # git clone https://github.com/microsoft/vcpkg
 # .\vcpkg\bootstrap-vcpkg.bat
-# .\vcpkg\vcpkg install openssl zlib protobuf sdl2[vulkan] lz4 simdjson
+# .\vcpkg\vcpkg install openssl zlib protobuf sdl3[vulkan] lz4 simdjson
 # if using cmake-gui add CMAKE configuration entry: CMAKE_TOOLCHAIN_FILE <MANUALLY SPECIFY PATH>/vcpkg/scripts/buildsystems/vcpkg.cmake
 
 cmake_minimum_required(VERSION 3.21)
@@ -26,7 +26,7 @@ set(VULKAN_SDK_TAG "vulkan-sdk-${VULKAN_SDK_VERSION}"
     CACHE STRING "Vulkan SDK git tag"
 )
 
-find_package(Vulkan REQUIRED)
+find_package(Vulkan REQUIRED COMPONENTS shaderc_combined)
 
 add_subdirectory(external)
 
@@ -59,9 +59,13 @@ endforeach()
 
 target_link_libraries(CLFDTD
     PRIVATE
+	volk
+	Vulkan::shaderc_combined
         Vulkan::Headers
         fmt
         SDL3::SDL3
+	vk-bootstrap
+	dearimgui
 )
 
 # output directories

@@ -1,0 +1,1 @@
+robocopy ..\..\..\shaders\ shaders\ /e /purge

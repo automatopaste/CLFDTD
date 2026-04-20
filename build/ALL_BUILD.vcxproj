@@ -124,6 +124,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{12BCE9E7-8240-39C3-A188-2B1AC4BAA129}</Project>
       <Name>SDL_uclibc</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\dev\FDTD\build\external\dearimgui\dearimgui.vcxproj">
+      <Project>{6B7ED884-4490-33E6-B938-9DE637504230}</Project>
+      <Name>dearimgui</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\dev\FDTD\build\_deps\fmt-build\fmt.vcxproj">
       <Project>{6034AC06-3E69-35EA-8305-AEAED71D3E3C}</Project>
       <Name>fmt</Name>
@@ -135,6 +139,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ProjectReference Include="C:\dev\FDTD\build\_deps\fmt-build\fmt-module.vcxproj">
       <Project>{777F9335-C60D-31A0-89BC-37F258D6EC00}</Project>
       <Name>fmt-module</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\dev\FDTD\build\_deps\vk-bootstrap-build\vk-bootstrap.vcxproj">
+      <Project>{96C56609-7F6F-3C2F-8FF9-FBA217DDCF42}</Project>
+      <Name>vk-bootstrap</Name>
     </ProjectReference>
     <ProjectReference Include="C:\dev\FDTD\build\_deps\volk-build\volk.vcxproj">
       <Project>{49930260-F64B-3849-9CE0-B607E98320D1}</Project>

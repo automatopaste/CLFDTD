@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\72e90c918a7d85d10f7de0d11d5c7177\vk-bootstrap-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\f5b5f88614d237bd4afa9b20b6a3ac88\vk-bootstrap-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\b762cfc9629d4b3ed0328736c533815f\vk-bootstrap-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\dev\FDTD\build\_deps\vk-bootstrap-subbuild\CMakeFiles\vk-bootstrap-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{50A2A308-D81E-36EC-A6D3-EC37F6871E3E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

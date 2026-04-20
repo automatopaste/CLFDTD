@@ -280,6 +280,10 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 FETCHCONTENT_QUIET:BOOL=ON
 
 //When not empty, overrides where to find pre-populated content
+// for dearimgui_src
+FETCHCONTENT_SOURCE_DIR_DEARIMGUI_SRC:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for fmt
 FETCHCONTENT_SOURCE_DIR_FMT:PATH=
 
@@ -292,11 +296,18 @@ FETCHCONTENT_SOURCE_DIR_SDL2:PATH=
 FETCHCONTENT_SOURCE_DIR_SDL3:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for vk-bootstrap
+FETCHCONTENT_SOURCE_DIR_VK-BOOTSTRAP:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for volk
 FETCHCONTENT_SOURCE_DIR_VOLK:PATH=
 
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of dearimgui_src
+FETCHCONTENT_UPDATES_DISCONNECTED_DEARIMGUI_SRC:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of fmt
 FETCHCONTENT_UPDATES_DISCONNECTED_FMT:BOOL=OFF
@@ -306,6 +317,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED_SDL2:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of SDL3
 FETCHCONTENT_UPDATES_DISCONNECTED_SDL3:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of vk-bootstrap
+FETCHCONTENT_UPDATES_DISCONNECTED_VK-BOOTSTRAP:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of volk
 FETCHCONTENT_UPDATES_DISCONNECTED_VOLK:BOOL=OFF
@@ -383,11 +397,17 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
 
+//The directory containing a CMake configuration file for SDL2::SDL2.
+"SDL2::SDL2_DIR":PATH=SDL2::SDL2_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for SDL2.
 SDL2_DIR:PATH=SDL2_DIR-NOTFOUND
 
 //Value Computed by CMake
 SDL3_BINARY_DIR:STATIC=C:/dev/FDTD/build/_deps/sdl3-build
+
+//The directory containing a CMake configuration file for SDL3.
+SDL3_DIR:PATH=SDL3_DIR-NOTFOUND
 
 //Value Computed by CMake
 SDL3_IS_TOP_LEVEL:STATIC=OFF
@@ -672,6 +692,27 @@ SDL_X11:BOOL=OFF
 //Use Xinput for Windows
 SDL_XINPUT:BOOL=ON
 
+//Disable warnings during compilation
+VK_BOOTSTRAP_DISABLE_WARNINGS:BOOL=OFF
+
+//Forces Vulkan-Headers to be acquired using Fetch Content
+VK_BOOTSTRAP_FORCE_FETCH_CONTENT:BOOL=OFF
+
+//Enable installing of vk-bootstrap
+VK_BOOTSTRAP_INSTALL:BOOL=OFF
+
+//Default value is the value of BUILD_SHARED_LIBS
+VK_BOOTSTRAP_POSITION_INDEPENDENT_CODE:BOOL=OFF
+
+//Test Vk-Bootstrap using Catch2 as well as build examples
+VK_BOOTSTRAP_TEST:BOOL=OFF
+
+//Specify the location of the Vulkan-Headers include directory.
+VK_BOOTSTRAP_VULKAN_HEADER_DIR:FILEPATH=
+
+//Enable warnings as errors during compilation
+VK_BOOTSTRAP_WERROR:BOOL=OFF
+
 //Add interface library only
 VOLK_HEADERS_ONLY:BOOL=OFF
 
@@ -697,6 +738,15 @@ VULKAN_SDK_TAG:STRING=vulkan-sdk-1.4.335
 //Vulkan SDK version to target (used for volk, headers, etc.)
 VULKAN_SDK_VERSION:STRING=1.4.335
 
+//Value Computed by CMake
+VulkanBootstrap_BINARY_DIR:STATIC=C:/dev/FDTD/build/_deps/vk-bootstrap-build
+
+//Value Computed by CMake
+VulkanBootstrap_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+VulkanBootstrap_SOURCE_DIR:STATIC=C:/dev/FDTD/build/_deps/vk-bootstrap-src
+
 //Path to a program.
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.328.1/Bin/glslangValidator.exe
 
@@ -708,6 +758,12 @@ Vulkan_INCLUDE_DIR:PATH=C:/VulkanSDK/1.4.328.1/include
 
 //Path to a library.
 Vulkan_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.328.1/Lib/vulkan-1.lib
+
+//Path to a library.
+Vulkan_shaderc_combined_DEBUG_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.328.1/Lib/shaderc_combinedd.lib
+
+//Path to a library.
+Vulkan_shaderc_combined_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.328.1/Lib/shaderc_combined.lib
 
 //Value Computed by CMake
 volk_BINARY_DIR:STATIC=C:/dev/FDTD/build/_deps/volk-build
@@ -839,7 +895,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib
@@ -1231,6 +1287,8 @@ SDL_CHECK_REQUIRED_INCLUDES-ADVANCED:INTERNAL=1
 SDL_CHECK_REQUIRED_LINK_OPTIONS-ADVANCED:INTERNAL=1
 //Result of TRY_COMPILE
 SDL_CPU_CHECK_ALL:INTERNAL=TRUE
+//ADVANCED property for variable: VK_BOOTSTRAP_VULKAN_HEADER_DIR
+VK_BOOTSTRAP_VULKAN_HEADER_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Vulkan_GLSLANG_VALIDATOR_EXECUTABLE
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Vulkan_GLSLC_EXECUTABLE
@@ -1239,6 +1297,10 @@ Vulkan_GLSLC_EXECUTABLE-ADVANCED:INTERNAL=1
 Vulkan_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Vulkan_LIBRARY
 Vulkan_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Vulkan_shaderc_combined_DEBUG_LIBRARY
+Vulkan_shaderc_combined_DEBUG_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Vulkan_shaderc_combined_LIBRARY
+Vulkan_shaderc_combined_LIBRARY-ADVANCED:INTERNAL=1
 //Have symbol _alloca
 _ALLOCA_IN_MALLOC_H:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run

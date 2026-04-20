@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/dev/FDTD/build/CMakeFiles/cmake.verify_globs
+C:/dev/FDTD/build/_deps/vk-bootstrap-src/CMakeLists.txt
+C:/dev/FDTD/build/_deps/vk-bootstrap-src/gen/CurrentBuildVulkanVersion.cmake
