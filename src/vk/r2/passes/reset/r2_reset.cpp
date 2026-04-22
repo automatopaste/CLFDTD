@@ -22,12 +22,9 @@ void Reset::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	builder = DescriptorLayoutBuilder{};
 	builder.add_binding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
-	builder.add_binding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, R2::MAX_TEXTURE_COUNT, VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT);
+	builder.add_binding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
+	//builder.add_binding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, R2::MAX_TEXTURE_COUNT, VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT);
 	renderData.globalDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_ALL);
-
-	builder = DescriptorLayoutBuilder{};
-	builder.add_binding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER); // depth image
-	renderData.attachmentDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_ALL);
 }
 
 void Reset::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
@@ -39,7 +36,6 @@ void Reset::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 	}
 
 	R2::destroy_descriptor(engine, renderData.globalDescriptor);
-	R2::destroy_descriptor(engine, renderData.attachmentDescriptor);
 }
 
 void Reset::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex)
@@ -87,6 +83,7 @@ void Reset::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine
 	DescriptorWriter descriptorWriter{};
 
 	descriptorWriter.write_buffer(0, frameData.globalBuffer.buffer, sizeof(R2::GlobalData), 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
+	descriptorWriter.write_image(1, renderData.drawImage.image.imageView, engine->_defaultSamplerLinear, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	//descriptorWriter.write_images(1, drawCache.materialTextures.get_count(), drawCache.materialTextures.get_views(), drawCache.materialTextures.get_layouts(), engine->_defaultSamplerNearest, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	descriptorWriter.update_set(engine->_device, globalDescriptor);
 

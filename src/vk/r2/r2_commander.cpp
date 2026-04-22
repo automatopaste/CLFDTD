@@ -6,6 +6,7 @@
 #include "r2_config.h"
 
 #include "passes/reset/r2_reset.h"
+#include "passes/update/r2_update.h"
 #include "passes/output/r2_output.h"
 
 void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapchainExtent, VkExtent2D drawExtent)
@@ -34,7 +35,7 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
     // init renderpasses
 
     Reset::init(renderData, engine);
-	
+    Update::init(renderData, engine);
     Output::init(renderData, engine);
 
     // renderpass graph dependencies
@@ -50,6 +51,26 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
         VK_PIPELINE_STAGE_2_TRANSFER_BIT
     );
 
+    R2::pass_add_image_transition(resetRenderPass, &renderData.drawImage,
+        VK_IMAGE_LAYOUT_GENERAL,
+        VK_PIPELINE_STAGE_2_NONE,
+        VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
+        VK_ACCESS_2_NONE,
+        VK_ACCESS_2_SHADER_WRITE_BIT,
+        0
+    );
+
+    RenderPass* updateRenderPass = &renderData.updatePass;
+    R2::pass_init(
+        updateRenderPass,
+        VK_ACCESS_2_SHADER_READ_BIT,
+        VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
+        VK_ACCESS_2_SHADER_WRITE_BIT,
+        VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT
+    );
+
+    R2::pass_add_dependency(resetRenderPass, updateRenderPass);
+
     // output
 
     RenderPass* outputPass = &renderData.outputPass;
@@ -60,7 +81,7 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
         VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT
     );
 
-    R2::pass_add_dependency(resetRenderPass, outputPass);
+    R2::pass_add_dependency(updateRenderPass, outputPass);
 
     R2::pass_add_image_transition(resetRenderPass, &renderData.drawImage,
         VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,

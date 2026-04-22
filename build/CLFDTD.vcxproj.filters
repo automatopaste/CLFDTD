@@ -17,6 +17,9 @@
     <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.cpp">
       <Filter>vk\r2\passes\reset</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\update\r2_update.cpp">
+      <Filter>vk\r2\passes\update</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_commander.cpp">
       <Filter>vk\r2</Filter>
     </ClCompile>
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.h">
       <Filter>vk\r2\passes\reset</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\update\r2_update.h">
+      <Filter>vk\r2\passes\update</Filter>
     </ClInclude>
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_commander.h">
       <Filter>vk\r2</Filter>
@@ -144,6 +150,9 @@
     </Filter>
     <Filter Include="vk\r2\passes\reset">
       <UniqueIdentifier>{FEC96E79-1BE4-303F-9A3E-0B1492A1525C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes\update">
+      <UniqueIdentifier>{1DC70EAA-597A-3088-AF51-3C4907511D1E}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

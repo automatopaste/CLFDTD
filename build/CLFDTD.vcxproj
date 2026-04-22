@@ -223,6 +223,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\output\r2_output.h" />
     <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.cpp" />
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\reset\r2_reset.h" />
+    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\update\r2_update.cpp" />
+    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\update\r2_update.h" />
     <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_commander.cpp" />
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_commander.h" />
     <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_config.h" />

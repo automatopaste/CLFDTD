@@ -27,6 +27,7 @@ namespace R2 {
 		// global descriptor set for global data
 
 		Descriptor globalDescriptor;
+		Descriptor updateDescriptor;
 		Descriptor attachmentDescriptor;
 		Descriptor postProcessingDescriptor;
 		DescriptorAllocatorGrowable descriptorAllocators[FRAME_OVERLAP];
@@ -39,8 +40,10 @@ namespace R2 {
 		// pass-specific data
 
 		RenderPass resetPass;
+		RenderPass updatePass;
 		RenderPass outputPass;
 
+		Update::Data updateData;
 		Output::Data outputData;
 	};
 
