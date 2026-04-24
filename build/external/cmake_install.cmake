@@ -1,8 +1,8 @@
-# Install script for directory: C:/dev/FDTD/external
+# Install script for directory: C:/dev/FDTD/CLFDTD/external
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files/FDTD")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/CLFDTD")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,32 +34,26 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/build/external/volk/cmake_install.cmake")
+  include("C:/dev/FDTD/CLFDTD/build/external/volk/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/build/external/fmt/cmake_install.cmake")
+  include("C:/dev/FDTD/CLFDTD/build/external/fmt/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/build/external/SDL2/cmake_install.cmake")
+  include("C:/dev/FDTD/CLFDTD/build/external/SDL2/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/build/external/vk-bootstrap/cmake_install.cmake")
+  include("C:/dev/FDTD/CLFDTD/build/external/vk-bootstrap/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/build/external/dearimgui/cmake_install.cmake")
+  include("C:/dev/FDTD/CLFDTD/build/external/dearimgui/cmake_install.cmake")
 endif()
 
-string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
-       "${CMAKE_INSTALL_MANIFEST_FILES}")
-if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/dev/FDTD/build/external/install_local_manifest.txt"
-     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
-endif()

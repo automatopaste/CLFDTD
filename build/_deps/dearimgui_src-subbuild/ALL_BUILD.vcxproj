@@ -13,7 +13,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F489772B-D035-334A-B434-89EF8834C794}</ProjectGuid>
+    <ProjectGuid>{20444C0A-9921-3DE0-87FD-399DAF197343}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -49,11 +49,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\CMakeLists.txt">
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/build/_deps/dearimgui_src-subbuild/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/build/_deps/dearimgui_src-subbuild/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/build/_deps/dearimgui_src-subbuild -BC:/dev/FDTD/build/_deps/dearimgui_src-subbuild --check-stamp-file C:/dev/FDTD/build/_deps/dearimgui_src-subbuild/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD/build/_deps/dearimgui_src-subbuild -BC:/dev/FDTD/CLFDTD/build/_deps/dearimgui_src-subbuild --check-stamp-file C:/dev/FDTD/CLFDTD/build/_deps/dearimgui_src-subbuild/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -61,23 +61,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\gitclone.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\gitupdate.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\CMakeFiles\4.2.3\CMakeSystem.cmake;C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\dearimgui_src-populate-prefix\tmp\dearimgui_src-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\gitclone.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\gitupdate.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\CMakeFiles\3.30.5\CMakeSystem.cmake;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\dearimgui_src-populate-prefix\tmp\dearimgui_src-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\ZERO_CHECK.vcxproj">
-      <Project>{536DD5E8-C93A-3D53-975D-6D6CA7AFADFC}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\ZERO_CHECK.vcxproj">
+      <Project>{7D1CECDF-B4D4-39E0-BF6A-859E3FC9F6F9}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\dearimgui_src-subbuild\dearimgui_src-populate.vcxproj">
-      <Project>{66452496-3EF2-3DB4-8D73-0FDE08CB4666}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-subbuild\dearimgui_src-populate.vcxproj">
+      <Project>{F83882A5-F183-37FD-A8BF-6C14C96ECA42}</Project>
       <Name>dearimgui_src-populate</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

@@ -36,6 +36,18 @@ namespace R2 {
 
 	void image_barrier(ImageResource* image, VkCommandBuffer cmd);
 
+	struct PingPongImage {
+		AllocatedImage image0;
+		AllocatedImage image1;
+		uint32_t index;
+
+		inline void swap() { index = (index + 1) % 2; }
+		inline AllocatedImage& src() { return index % 2 == 0 ? image0 : image1; }
+		inline AllocatedImage& dst() { return index % 2 == 0 ? image1 : image0; }
+	};
+	void create_image(VulkanEngine* engine, PingPongImage* dest, VkExtent3D size, VkFormat format, VkImageUsageFlags usage, bool mipmapped, VkImageCreateFlags create, VkImageAspectFlags aspect);
+	void destroy_image(VulkanEngine* engine, PingPongImage& image);
+
 	struct BufferState {
 
 		// buffer

@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{96C56609-7F6F-3C2F-8FF9-FBA217DDCF42}</ProjectGuid>
+    <ProjectGuid>{2BF40331-E9A9-315C-A1A4-5DE28151218A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -41,37 +41,31 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\_deps\vk-bootstrap-build\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vk-bootstrap.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vk-bootstrap</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\_deps\vk-bootstrap-build\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">vk-bootstrap.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">vk-bootstrap</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.328.1/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;VKB_VK_NO_PROTOTYPES;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
@@ -80,10 +74,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;VKB_VK_NO_PROTOTYPES;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.328.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.328.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -96,25 +90,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.328.1/include"</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;VKB_VK_NO_PROTOTYPES;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
@@ -125,10 +113,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;VKB_VK_NO_PROTOTYPES;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.328.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.328.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -140,11 +128,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\CMakeLists.txt">
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/build/_deps/vk-bootstrap-src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/_deps/vk-bootstrap-build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -152,12 +140,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\build\_deps\vk-bootstrap-src\gen\CurrentBuildVulkanVersion.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\_deps\vk-bootstrap-build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\gen\CurrentBuildVulkanVersion.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/build/_deps/vk-bootstrap-src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/_deps/vk-bootstrap-build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -165,22 +153,21 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\build\_deps\vk-bootstrap-src\gen\CurrentBuildVulkanVersion.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\_deps\vk-bootstrap-build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\gen\CurrentBuildVulkanVersion.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\src\VkBootstrap.h" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\src\VkBootstrap.cpp" />
-    <ClInclude Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapDispatch.h" />
-    <ClInclude Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapFeatureChain.h" />
-    <ClInclude Include="C:\dev\FDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapFeatureChain.inl" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src\VkBootstrap.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src\VkBootstrap.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapDispatch.h" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapFeatureChain.h" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src\VkBootstrapFeatureChain.inl" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\dev\FDTD\build\ZERO_CHECK.vcxproj">
-      <Project>{CED30B21-BF51-3EE5-9595-C7318847102C}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\ZERO_CHECK.vcxproj">
+      <Project>{FFFC3D0E-9021-3D40-A411-B518A3BF48D1}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

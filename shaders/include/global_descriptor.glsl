@@ -11,11 +11,3 @@ layout (set = 0, binding = 0) uniform SceneData {
 	vec4 viewPos;
 	uvec4 viewport;
 } sceneData;
-
-layout (set = 0, binding = 1) uniform sampler2D[] materialTextures;
-
-// light culling definitions
-#define TILE_SIZE 8
-#define LIGHTS_PER_TILE 16
-#define SHADOWCASTING_LIGHTS_PER_TILE 16
-#define SHADOWMAP_MAGIC_NUMBER 0xFFFFFFFA

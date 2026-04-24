@@ -1,5 +1,7 @@
 #include "r2_output.h"
 
+#include <format>
+
 #include "imgui.h"
 
 #include "vk/vk_engine.h"
@@ -15,6 +17,8 @@ void Output::init(R2::RenderData& renderData, VulkanEngine* engine)
 	DescriptorLayoutBuilder builder{};
 	builder.add_binding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	builder.add_binding(1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	builder.add_binding(2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	builder.add_binding(3, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	renderData.postProcessingDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
 
 	VkDescriptorSetLayout layouts[] = { renderData.globalDescriptor.layout, renderData.postProcessingDescriptor.layout };
@@ -53,9 +57,17 @@ void Output::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 
 void Output::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex)
 {
-	static bool test{ false };
-	if (ImGui::Begin("Renderer Debug")) {
-		ImGui::Checkbox("Test Checkbox", &test);
+	Update::Data& updateData = renderData.updateData;
+
+	static bool showGa{ false };
+	static float fieldScaleMult{ 500.0f };
+	static float fieldScaleLimit{ 5.0f };
+	if (ImGui::Begin("Simulation Output")) {
+		ImGui::Checkbox("Show Dielectric", &showGa);
+		ImGui::SliderFloat("Scaling Multiplier", &fieldScaleMult, 1.0f, 4000.0f);
+		ImGui::SliderFloat("Scaling Limit", &fieldScaleLimit, 1.0f, 5.0f);
+		ImGui::Text(std::format("Time: {}", updateData.t).c_str());
+		ImGui::Text(std::format("Step: {}", updateData.step).c_str());
 	}
 	ImGui::End();
 
@@ -79,6 +91,8 @@ void Output::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngin
 	DescriptorWriter descriptorWriter{};
 	descriptorWriter.write_image(0, renderData.drawImage.image.imageView, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	descriptorWriter.write_image(1, renderData.frameData[frameIndex].swapchainImageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	descriptorWriter.write_image(2, renderData.updateData.ezImage.dst().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	descriptorWriter.write_image(3, renderData.updateData.gaImage.src().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	descriptorWriter.update_set(engine->_device, postProcessingSet);
 
 	vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, renderData.outputData.postProcessingPipeline.layout, 1, 1, &postProcessingSet, 0, nullptr);
@@ -86,7 +100,8 @@ void Output::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngin
 	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, renderData.outputData.postProcessingPipeline.pipeline);
 
 	R2::PostProcessingPushConstants pushConstants{
-		.hdr = glm::vec4{ 1.0f, 1.0f, 0.0f, 0.0f },
+		.data = glm::uvec4{ showGa ? 1 : 0, 0, 0, 0 },
+		.scaling = glm::vec4{ fieldScaleMult, fieldScaleLimit, 0.0f, 0.0f }
 	};
 	vkCmdPushConstants(cmd, renderData.outputData.postProcessingPipeline.layout, VK_SHADER_STAGE_COMPUTE_BIT, 0, sizeof(R2::PostProcessingPushConstants), &pushConstants);
 

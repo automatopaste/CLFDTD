@@ -27,7 +27,11 @@ namespace R2 {
 		// global descriptor set for global data
 
 		Descriptor globalDescriptor;
-		Descriptor updateDescriptor;
+
+		Descriptor initDescriptor;
+		Descriptor ezDescriptor;
+		Descriptor hxyDescriptor;
+
 		Descriptor attachmentDescriptor;
 		Descriptor postProcessingDescriptor;
 		DescriptorAllocatorGrowable descriptorAllocators[FRAME_OVERLAP];

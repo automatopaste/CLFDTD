@@ -30,6 +30,20 @@ void R2::image_barrier(ImageResource* image, VkCommandBuffer cmd)
     }
 }
 
+void R2::create_image(VulkanEngine* engine, PingPongImage* dest, VkExtent3D size, VkFormat format, VkImageUsageFlags usage, bool mipmapped, VkImageCreateFlags create, VkImageAspectFlags aspect)
+{
+    PingPongImage& image = *dest;
+    image = PingPongImage{};
+    image.image0 = engine->create_image(size, format, usage, mipmapped, create);
+    image.image1 = engine->create_image(size, format, usage, mipmapped, create);
+}
+
+void R2::destroy_image(VulkanEngine* engine, PingPongImage& image)
+{
+    engine->destroy_image(image.image0);
+    engine->destroy_image(image.image1);
+}
+
 void R2::create_buffer(VulkanEngine* engine, BufferState* dest, size_t size, VkBufferUsageFlags usage, bool mapped, uint32_t alignment)
 {
     BufferState& buffer = *dest;

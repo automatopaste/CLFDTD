@@ -46,7 +46,7 @@ void VulkanEngine::init() {
     loadedEngine = this;
 
     _useValidation = false;
-    _compileShaders = false;
+    _compileShaders = true;
     _compileAssetBinaries = false;
 
     resolutionScale = 1.0f;
@@ -320,7 +320,7 @@ void VulkanEngine::run() {
         if (ImGui::Begin("Engine Settings")) {
             int fpsCap = _fpsCap;
             int updateRate = _appUpdateRate;
-            ImGui::SliderInt("fps cap", &fpsCap, 3, 165);
+            ImGui::SliderInt("fps cap", &fpsCap, 3, 5000);
             ImGui::SliderInt("update rate", &updateRate, 3, 165);
             ImGui::SliderFloat("resolution scale", &tempGUIResolutionScale, 0.1f, 2.0f);
             if (ImGui::Button("apply res")) {
@@ -616,13 +616,19 @@ void VulkanEngine::init_vulkan() {
 
     SDL_Vulkan_CreateSurface(_window, _instance, nullptr, &_surface);
 
-    VkPhysicalDeviceFeatures features{};
+    VkPhysicalDeviceFeatures2 features2{ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2 };
+    VkPhysicalDeviceFeatures& features = features2.features;
     features.samplerAnisotropy = true;
     features.shaderInt64 = true;
     features.shaderInt16 = true;
     features.drawIndirectFirstInstance = true;
     features.multiDrawIndirect = true;
     features.geometryShader = true;
+
+    VkPhysicalDeviceShaderFloatControls2Features floatControls{ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES };
+    floatControls.shaderFloatControls2 = VK_TRUE;
+
+    features2.pNext = &floatControls;
 
     //vulkan 1.3 features
     VkPhysicalDeviceVulkan13Features features13{ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES };

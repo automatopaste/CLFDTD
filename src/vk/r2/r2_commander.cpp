@@ -18,7 +18,7 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
 
     VkExtent3D drawExtent3D = VkExtent3D{ .width = renderData.drawExtent.width, .height = renderData.drawExtent.height, .depth = 1 };
 
-    VkImageUsageFlags drawImageUsageFlags = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
+    VkImageUsageFlags drawImageUsageFlags = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     R2::create_image(engine, &renderData.drawImage, drawExtent3D, VK_FORMAT_R16G16B16A16_SFLOAT, drawImageUsageFlags, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
 
     // descriptor allocators
@@ -83,7 +83,7 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
 
     R2::pass_add_dependency(updateRenderPass, outputPass);
 
-    R2::pass_add_image_transition(resetRenderPass, &renderData.drawImage,
+    R2::pass_add_image_transition(updateRenderPass, &renderData.drawImage,
         VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
         VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
         VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT,
@@ -98,6 +98,7 @@ void R2::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
     R2::destroy_image(engine, renderData.drawImage);
 
     Reset::cleanup(renderData, engine);
+    Update::cleanup(renderData, engine);
     Output::cleanup(renderData, engine);
 
     std::vector<uint32_t> undeallocatedImages;
@@ -175,7 +176,11 @@ void R2::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* e
     R2::pass_cmd_barrier(&renderData.resetPass, cmd);
     R2::debug_name_end(cmd);
 
-
+    // update pass
+    R2::debug_name_begin(cmd, "Update");
+    Update::render(cmd, renderData, engine, frameIndex);
+    R2::pass_cmd_barrier(&renderData.updatePass, cmd);
+    R2::debug_name_end(cmd);
 
     // output pass
     R2::debug_name_begin(cmd, "Output");

@@ -14,7 +14,8 @@ const float bayer[16] = float[16](
 );
 
 layout (push_constant) uniform constants {
-	vec4 hdr;
+	uvec4 data;
+	vec4 scaling; // mult, limit
 } pushConstants;
 
 void main() {
@@ -28,14 +29,23 @@ void main() {
 		return;
 	}
 
-	//vec4 drawColour = texture(drawImage, uv);
+	ivec2 ezImageSize = imageSize(ezImage);
 
-	// Position in Bayer matrix (wrap modulo 4)
-    int bx = coord.x / 8 & 3;
-    int by = coord.y / 8 & 3;
-    float threshold = (bayer[by * 4 + bx] + 0.5) / 16.0; // [0,1)
+	vec4 ezColour = vec4(0.1, 0.1, 0.1, 1.0);
+	if (coord.x < ezImageSize.x && coord.y < ezImageSize.y) {
+		const float limit = pushConstants.scaling.y;
+		float ez = imageLoad(ezImage, coord).r * pushConstants.scaling.x;
+		float eR = abs(clamp(ez, 0.0, limit) / limit);
+		float eB = abs(clamp(ez, -limit, 0.0) / limit);
 
-	// Apply dithering per channel
-    vec4 outColour = vec4(uv.x * threshold, uv.y * threshold, 1.0, 1.0);
-	imageStore(swapchainImage, coord, outColour);
+		float gaG = 0.0;
+		if (pushConstants.data.x == 1) {
+			float ga = imageLoad(gaImage, coord).r;
+			gaG = clamp(ga, 0.0, 1.0);
+		}
+
+		ezColour.rgb = vec3(eR, gaG, eB);
+	}
+
+	imageStore(swapchainImage, coord, ezColour);
 }

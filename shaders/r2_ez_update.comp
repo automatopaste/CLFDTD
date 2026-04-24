@@ -1,0 +1,97 @@
+#version 460
+
+#include "include/default_header.glsl"
+#include "include/global_descriptor.glsl"
+
+layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
+
+layout (set = 1, binding = 0, r32f) uniform image2D ezDst;
+layout (set = 1, binding = 1, r32f) uniform image2D dzSrc;
+layout (set = 1, binding = 2, r32f) uniform image2D dzDst;
+layout (set = 1, binding = 3, r32f) uniform image2D gaSrc;
+layout (set = 1, binding = 4, r32f) uniform image2D hxSrc;
+layout (set = 1, binding = 5, r32f) uniform image2D hySrc;
+
+layout (buffer_reference, scalar) readonly buffer GI2Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer GI3Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer GJ2Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer GJ3Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FI1Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FI2Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FI3Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FJ1Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FJ2Buffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer FJ3Buffer { float values[]; };
+
+layout (buffer_reference, scalar) buffer PMLBuffers {
+	GI2Buffer gi2;
+	GI3Buffer gi3;
+	GJ2Buffer gj2;
+	GJ3Buffer gj3;
+	FI1Buffer fi1;
+	FI2Buffer fi2;
+	FI3Buffer fi3;
+	FJ1Buffer fj1;
+	FJ2Buffer fj2;
+	FJ3Buffer fj3;
+};
+
+layout (buffer_reference, scalar) buffer SampleBuffer {
+	float values[];
+};
+
+layout (push_constant) uniform PushConstants {
+	uvec4 dimensions;		// x, y, z, unused
+	vec4 simData;			// ddx, dt, t, unused
+	ivec4 simDataInt;		// step, npml, sample buffer size, unused
+	PMLBuffers pmlBuffers;
+	SampleBuffer sampleBuffer;
+} pushConstants;
+
+void main() {
+	ivec2 ij = ivec2(gl_GlobalInvocationID.xy);
+	int i = ij.x;
+    int j = ij.y;
+	uint x = pushConstants.dimensions.x;
+	uint y = pushConstants.dimensions.y;
+
+	if (
+		i >= 1 && i < x - 1 &&
+		j >= 1 && j < y - 1
+	) {
+		float dz = imageLoad(dzSrc, ij).r;
+		float ga = imageLoad(gaSrc, ij).r;
+		float hy = imageLoad(hySrc, ij).r;
+		float hx = imageLoad(hxSrc, ij).r;
+		float hx0 = imageLoad(hxSrc, ivec2(i, j - 1)).r;
+		float hy0 = imageLoad(hySrc, ivec2(i - 1, j)).r;
+
+		float gi2 = pushConstants.pmlBuffers.gi2.values[i];
+		float gi3 = pushConstants.pmlBuffers.gi3.values[i];
+		float gj2 = pushConstants.pmlBuffers.gj2.values[j];
+		float gj3 = pushConstants.pmlBuffers.gj3.values[j];
+
+		float dzNew = gi3 * gj3 * dz + gi2 * gj2 * 0.5 * (hy - hy0 - hx + hx0);
+		float ezNew = dzNew * ga;
+
+		int simStep = pushConstants.simDataInt.x;
+		int maxSimStep = pushConstants.simDataInt.z;
+		if (i == x / 2 - 10 && j == y / 2 - 10 && simStep > 0) {
+			float dt = pushConstants.simData.y;
+			float t0 = 800.0 * dt;
+			float t = pushConstants.simData.z;
+			float spread = 300.0 * dt;
+			const float pi = 3.14159265359;
+			float ex = exp(-0.5 * pow((t0 - t) / spread, 2.0));
+			float pulse = sin(2.0 * pi * 500.0 * 1e6 * dt * float(simStep));
+			dzNew += pulse * ex;
+		}
+
+		if (i == x / 2 - 5 && j == y / 2 - 5 && simStep < maxSimStep) {
+			pushConstants.sampleBuffer.values[simStep] = ezNew;
+		}
+
+		imageStore(dzDst, ij, vec4(dzNew, 0.0, 0.0, 0.0));
+		imageStore(ezDst, ij, vec4(ezNew, 0.0, 0.0, 0.0));
+	}
+}

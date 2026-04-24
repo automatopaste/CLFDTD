@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\fmt-src\src\fmt-c.cc">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\src\fmt-c.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\build\_deps\fmt-src\CMakeLists.txt" />
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{5D9D4E0F-92AA-3CED-B5F5-1D179763B01B}</UniqueIdentifier>
+      <UniqueIdentifier>{63FE997D-D319-38F0-AB5D-FFF641F11A59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E3612342-B490-3176-8B6D-5A76CA65393C}</ProjectGuid>
+    <ProjectGuid>{64F99202-4ABA-3BCE-9B7B-4FE0948A2F9B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -68,11 +68,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\CMakeLists.txt">
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -80,12 +80,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindVulkan.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeCCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeCXXCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeRCCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeSystem.cmake;C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindVulkan.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeCCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeCXXCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeRCCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeSystem.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -93,59 +93,58 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindVulkan.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeCCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeCXXCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeRCCompiler.cmake;C:\dev\FDTD\build\CMakeFiles\4.2.3\CMakeSystem.cmake;C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindVulkan.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeCCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeCXXCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeRCCompiler.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\3.30.5\CMakeSystem.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\dev\FDTD\build\ZERO_CHECK.vcxproj">
-      <Project>{CED30B21-BF51-3EE5-9595-C7318847102C}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\ZERO_CHECK.vcxproj">
+      <Project>{FFFC3D0E-9021-3D40-A411-B518A3BF48D1}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\CLFDTD.vcxproj">
-      <Project>{22B259FF-5BE3-3F97-939C-EEF7C212D2D1}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\CLFDTD.vcxproj">
+      <Project>{3A455292-8231-3B0C-A12A-88BE6C76B270}</Project>
       <Name>CLFDTD</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\sdl3-build\SDL3-shared.vcxproj">
-      <Project>{10C311B1-C703-3048-A1B5-32D48772C6A9}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\SDL3-shared.vcxproj">
+      <Project>{7DC1068B-834C-3D48-AC11-07100EA53EE7}</Project>
       <Name>SDL3-shared</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\sdl3-build\SDL3_test.vcxproj">
-      <Project>{3325D5DB-AEF0-3B30-91E4-EF7F8C68269F}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\SDL3_test.vcxproj">
+      <Project>{A01F511E-A5A7-3A1B-B068-7B23669EDE0C}</Project>
       <Name>SDL3_test</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\sdl3-build\SDL_uclibc.vcxproj">
-      <Project>{12BCE9E7-8240-39C3-A188-2B1AC4BAA129}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\SDL_uclibc.vcxproj">
+      <Project>{9F56A33A-07A8-39B0-B723-E9A5736F346F}</Project>
       <Name>SDL_uclibc</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\external\dearimgui\dearimgui.vcxproj">
-      <Project>{6B7ED884-4490-33E6-B938-9DE637504230}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\external\dearimgui\dearimgui.vcxproj">
+      <Project>{6F5AE50A-507F-378D-AF59-AF863C7951D0}</Project>
       <Name>dearimgui</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\fmt-build\fmt.vcxproj">
-      <Project>{6034AC06-3E69-35EA-8305-AEAED71D3E3C}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-build\fmt.vcxproj">
+      <Project>{434E1DFD-35F2-3C16-BE71-85EA69C29D72}</Project>
       <Name>fmt</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\fmt-build\fmt-c.vcxproj">
-      <Project>{A234EBD7-62A0-3CE7-BC51-EC885222B69E}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-build\fmt-c.vcxproj">
+      <Project>{8D5EE247-66F5-3BB3-9AD9-CD72A6AB1E1C}</Project>
       <Name>fmt-c</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\fmt-build\fmt-module.vcxproj">
-      <Project>{777F9335-C60D-31A0-89BC-37F258D6EC00}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-build\fmt-module.vcxproj">
+      <Project>{BB96E00F-F731-3F54-96D1-98CA8ED4A80D}</Project>
       <Name>fmt-module</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\vk-bootstrap-build\vk-bootstrap.vcxproj">
-      <Project>{96C56609-7F6F-3C2F-8FF9-FBA217DDCF42}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-build\vk-bootstrap.vcxproj">
+      <Project>{2BF40331-E9A9-315C-A1A4-5DE28151218A}</Project>
       <Name>vk-bootstrap</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\dev\FDTD\build\_deps\volk-build\volk.vcxproj">
-      <Project>{49930260-F64B-3849-9CE0-B607E98320D1}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\_deps\volk-build\volk.vcxproj">
+      <Project>{C8F7E7E5-0B3A-3E61-84D1-BC09FFAAA1C3}</Project>
       <Name>volk</Name>
     </ProjectReference>
   </ItemGroup>

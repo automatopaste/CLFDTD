@@ -1,51 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_assert.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_assert.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_common.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_common.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_compare.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_compare.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_crc32.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_crc32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_font.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_font.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_fuzzer.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_fuzzer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_harness.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_harness.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_log.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_log.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_md5.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_md5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_memory.c">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_memory.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\dev\FDTD\build\_deps\sdl3-src\src\test\SDL_test_internal.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\test\SDL_test_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\build\_deps\sdl3-src\CMakeLists.txt" />
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{DE025C7B-A1FF-371D-8AC0-CE44BD43930A}</UniqueIdentifier>
+      <UniqueIdentifier>{ABF0A0DD-76E6-3200-B58A-9A58AE8868D2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{5D9D4E0F-92AA-3CED-B5F5-1D179763B01B}</UniqueIdentifier>
+      <UniqueIdentifier>{63FE997D-D319-38F0-AB5D-FFF641F11A59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
