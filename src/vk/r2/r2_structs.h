@@ -4,33 +4,26 @@
 #include "vk/vk_descriptors.h"
 
 #include "r2_pass_structs.h"
+#include "r2_resources.h"
 
 namespace R2 {
 
 	struct FrameData {
-
 		// reference to swapchain image
 		VkImage swapchainImage;
 		VkImageView swapchainImageView;
-
-		// global data buffer
-		BufferState globalBuffer;
-
 	};
 
 	struct RenderData {
+		VkQueue computeQueue;
+		uint32_t computeQueueFamily;
+
 		FrameData frameData[FRAME_OVERLAP];
 
 		VkExtent2D swapchainExtent;
 		VkExtent2D drawExtent;
 
 		// global descriptor set for global data
-
-		Descriptor globalDescriptor;
-
-		Descriptor initDescriptor;
-		Descriptor ezDescriptor;
-		Descriptor hxyDescriptor;
 
 		Descriptor attachmentDescriptor;
 		Descriptor postProcessingDescriptor;
@@ -41,14 +34,12 @@ namespace R2 {
 		ImageState drawImage;
 		//ImageState postImage;
 
-		// pass-specific data
+		void* userData;
 
-		RenderPass resetPass;
-		RenderPass updatePass;
-		RenderPass outputPass;
-
-		Update::Data updateData;
-		Output::Data outputData;
+		template <typename T>
+		inline T& get_user_data() const {
+			return *static_cast<T*>(userData);
+		}
 	};
 
 }

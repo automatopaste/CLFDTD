@@ -1,0 +1,17 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/dev/FDTD/build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/volk/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/volk-build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/fmt/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/fmt-build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/SDL2/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/sdl3-build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/vk-bootstrap/cmake_install.cmake",
+		"C:/dev/FDTD/build/_deps/vk-bootstrap-build/cmake_install.cmake",
+		"C:/dev/FDTD/build/external/dearimgui/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

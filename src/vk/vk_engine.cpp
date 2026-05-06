@@ -708,6 +708,11 @@ void VulkanEngine::init_vulkan() {
     // use vkbootstrap to get a Graphics queue
     _graphicsQueue = vkbDevice.get_queue(vkb::QueueType::graphics).value();
     _graphicsQueueFamily = vkbDevice.get_queue_index(vkb::QueueType::graphics).value();
+	renderData.computeQueue = vkbDevice.get_queue(vkb::QueueType::compute).value();
+	renderData.computeQueueFamily = vkbDevice.get_queue_index(vkb::QueueType::compute).value();
+
+	fmt::print("graphics queue family: {}\n", _graphicsQueueFamily);
+	fmt::print("compute queue family: {}\n", renderData.computeQueueFamily);
 
     VmaVulkanFunctions vmaVulkanFunctions{ 0 };
     vmaVulkanFunctions.vkGetInstanceProcAddr = (PFN_vkGetInstanceProcAddr)vkGetInstanceProcAddr(_instance, "vkGetInstanceProcAddr");

@@ -1,4 +1,4 @@
-# Install script for directory: C:/dev/FDTD/CLFDTD/external/vk-bootstrap
+# Install script for directory: C:/dev/FDTD/external/vk-bootstrap
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,6 +34,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-build/cmake_install.cmake")
+  include("C:/dev/FDTD/build/_deps/vk-bootstrap-build/cmake_install.cmake")
 endif()
 
+string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+       "${CMAKE_INSTALL_MANIFEST_FILES}")
+if(CMAKE_INSTALL_LOCAL_ONLY)
+  file(WRITE "C:/dev/FDTD/build/external/vk-bootstrap/install_local_manifest.txt"
+     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+endif()

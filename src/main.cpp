@@ -131,11 +131,7 @@ void run_sim_2d() {
 	}
 }
 
-int main() {
-	fmt::print("initialising CLFDTD simulation\n");
-
-	//run_sim_2d();
-
+void run_gpu_sim() {
 	// run shader src copy batch file
 	system("call ../../../batch_shader_copy.bat");
 
@@ -144,6 +140,14 @@ int main() {
 	engine.init();
 
 	engine.run();
+}
+
+int main() {
+	fmt::print("initialising CLFDTD simulation\n");
+
+	//run_sim_2d();
+
+	run_gpu_sim();
 
 	return 0;
 }
