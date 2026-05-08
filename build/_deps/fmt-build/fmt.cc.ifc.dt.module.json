@@ -3,16 +3,16 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "fmt-module.dir\\Debug\\fmt.obj",
+            "primary-output": "fmt-module.dir\\Release\\fmt.obj",
             "outputs": [
-                "C:\\dev\\FDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.module.json",
-                "C:\\dev\\FDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.d.json",
-                "C:\\dev\\FDTD\\build\\_deps\\fmt-build\\fmt.ifc"
+                "C:\\dev\\FDTD\\CLFDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.module.json",
+                "C:\\dev\\FDTD\\CLFDTD\\build\\_deps\\fmt-build\\fmt.cc.ifc.dt.d.json",
+                "C:\\dev\\FDTD\\CLFDTD\\build\\_deps\\fmt-build\\fmt.ifc"
             ],
             "provides": [
                 {
                     "logical-name": "fmt",
-                    "source-path": "c:\\dev\\fdtd\\build\\_deps\\fmt-src\\src\\fmt.cc",
+                    "source-path": "c:\\dev\\fdtd\\clfdtd\\build\\_deps\\fmt-src\\src\\fmt.cc",
                     "is-interface": true
                 }
             ],

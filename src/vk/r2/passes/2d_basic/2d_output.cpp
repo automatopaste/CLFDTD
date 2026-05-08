@@ -105,7 +105,7 @@ void Output::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngin
 	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, data.outputData.postProcessingPipeline.pipeline);
 
 	D2::PostProcessingPushConstants pushConstants{
-		.data = glm::uvec4{ showGa ? 1 : 0, 0, 0, 0 },
+		.data = glm::uvec4{ showGa ? 1 : 0, 1, 0, 0 },
 		.scaling = glm::vec4{ fieldScaleMult, fieldScaleLimit, 0.0f, 0.0f }
 	};
 	vkCmdPushConstants(cmd, data.outputData.postProcessingPipeline.layout, VK_SHADER_STAGE_COMPUTE_BIT, 0, sizeof(D2::PostProcessingPushConstants), &pushConstants);

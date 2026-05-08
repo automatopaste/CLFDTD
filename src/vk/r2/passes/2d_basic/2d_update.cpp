@@ -144,9 +144,9 @@ void Update::init(R2::RenderData& renderData, VulkanEngine* engine)
 	VkShaderModule initShader;
 	VkShaderModule ezShader;
 	VkShaderModule hxyShader;
-	vkutil::check_compile_load("r2_initialise.comp", engine, &initShader, engine->_compileShaders);
-	vkutil::check_compile_load("r2_ez_update.comp", engine, &ezShader, engine->_compileShaders);
-	vkutil::check_compile_load("r2_hxy_update.comp", engine, &hxyShader, engine->_compileShaders);
+	vkutil::check_compile_load("2d_basic/2d_initialise.comp", engine, &initShader, engine->_compileShaders);
+	vkutil::check_compile_load("2d_basic/2d_ez_update.comp", engine, &ezShader, engine->_compileShaders);
+	vkutil::check_compile_load("2d_basic/2d_hxy_update.comp", engine, &hxyShader, engine->_compileShaders);
 
 	ComputePipelineBuilder computePipelineBuilder;
 

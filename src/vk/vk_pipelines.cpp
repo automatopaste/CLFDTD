@@ -92,8 +92,9 @@ void vkutil::compile_shader_module(const char* filePath, shaderc::Compiler& comp
 }
 
 void vkutil::load_shader_module(const char* fileName, VkDevice device, VkShaderModule* outShaderModule) {
+    std::filesystem::path f(fileName);
     std::filesystem::path cwd = std::filesystem::current_path();
-    std::filesystem::path p = cwd / SPIRV_OUTPUT / fileName;
+    std::filesystem::path p = cwd / SPIRV_OUTPUT / f.filename();
 
     std::string str = p.string() + ".spirv";
 

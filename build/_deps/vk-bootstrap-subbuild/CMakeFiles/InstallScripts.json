@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/dev/FDTD/build/_deps/vk-bootstrap-subbuild/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

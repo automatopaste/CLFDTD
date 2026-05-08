@@ -81,6 +81,8 @@ namespace D2 {
 	struct Data {
 		std::thread simThread;
 		std::shared_mutex simThreadMutex{};
+		std::atomic_bool simExitFlag{ false };
+		std::atomic_bool simReadFlag{ false };
 
 		R2::Descriptor globalDescriptor;
 

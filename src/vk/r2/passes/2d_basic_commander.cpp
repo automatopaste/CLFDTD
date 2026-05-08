@@ -14,7 +14,7 @@
 
 #include "imgui.h"
 
-void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, D2::UpdateData updateData)
+void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, D2::UpdateData updateData, std::atomic_bool& exitFlag, std::atomic_bool& readFlag)
 {
     fmt::print("Simulation thread launching...\n");
 
@@ -80,6 +80,10 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, D2::Updat
         if (updateData.step >= updateData.maxStep) {
             exit = true;
         }
+
+        if (updateData.step % 100 == 0) {
+            fmt::print("Simulation step: {}/{}\n", updateData.step, updateData.maxStep);
+		}
     }
 
     vkDeviceWaitIdle(engine->_device);
@@ -94,6 +98,8 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, D2::Updat
 
 		updateData.descriptorAllocators[i].destroy_pools(engine->_device);
 	}
+
+    exitFlag = true;
 }
 
 void D2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapchainExtent, VkExtent2D drawExtent)
@@ -267,10 +273,16 @@ void D2::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* e
     ImGui::End();
 
     if (restart) {
+		data.simExitFlag = false;
+
         D2::UpdateData updateData = data.updateData;
         updateData.maxStep = 12000;
 
-        sim_launch(renderData, engine, updateData);
+        if (data.simThread.joinable()) {
+            data.simThread.join();
+		}
+
+        data.simThread = std::thread(sim_launch, renderData, engine, updateData, std::ref(data.simExitFlag), std::ref(data.simReadFlag));
     }
 
     // output pass

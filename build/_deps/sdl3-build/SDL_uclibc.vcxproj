@@ -14,7 +14,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{12BCE9E7-8240-39C3-A188-2B1AC4BAA129}</ProjectGuid>
+    <ProjectGuid>{9F56A33A-07A8-39B0-B723-E9A5736F346F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -41,36 +41,30 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\_deps\sdl3-build\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SDL_uclibc.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SDL_uclibc</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\_deps\sdl3-build\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SDL_uclibc.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SDL_uclibc</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>
       </ExceptionHandling>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;USING_GENERATED_CONFIG_H;DEBUG;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
@@ -79,10 +73,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;USING_GENERATED_CONFIG_H;DEBUG;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-debug\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -95,24 +89,18 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <BufferSecurityCheck></BufferSecurityCheck>
-      <CallingConvention></CallingConvention>
       <ExceptionHandling>
       </ExceptionHandling>
-      <FloatingPointModel></FloatingPointModel>
-      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SupportJustMyCode></SupportJustMyCode>
-      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;USING_GENERATED_CONFIG_H;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
@@ -123,10 +111,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;USING_GENERATED_CONFIG_H;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-config-release\build_config;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -138,11 +126,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\build\_deps\sdl3-src\CMakeLists.txt">
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/build/_deps/sdl3-src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/build/_deps/sdl3-src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/_deps/sdl3-build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -150,12 +138,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCSourceRuns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCXXCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckStructHasMember.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckSourceRuns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\SDL_build_config.h.intermediate;C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\git-data\grabRef.cmake;C:\dev\FDTD\build\_deps\sdl3-src\.git\HEAD;C:\dev\FDTD\build\_deps\sdl3-src\cmake\3rdparty.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\FindLibUSB.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake.in;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedEmscriptenCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedMSVCCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedNokiaNGageCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\SDL3Config.cmake.in;C:\dev\FDTD\build\_deps\sdl3-src\cmake\macros.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlchecks.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcommands.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcompilers.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcpu.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlmanpages.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlplatform.cmake;C:\dev\FDTD\build\_deps\sdl3-src\include\build_config\SDL_build_config.h.cmake;C:\dev\FDTD\build\_deps\sdl3-src\include\build_config\SDL_revision.h.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCSourceRuns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckStructHasMember.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckSourceRuns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\WriteBasicConfigVersionFile.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\SDL_build_config.h.intermediate;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\git-data\grabRef.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\.git\HEAD;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\3rdparty.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\FindLibUSB.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake.in;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedEmscriptenCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedMSVCCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedNokiaNGageCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\SDL3Config.cmake.in;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\macros.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlchecks.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcommands.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcompilers.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcpu.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlmanpages.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlplatform.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include\build_config\SDL_build_config.h.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include\build_config\SDL_revision.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/build/_deps/sdl3-src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/FDTD/CLFDTD/build/_deps/sdl3-src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD -BC:/dev/FDTD/build --check-stamp-file C:/dev/FDTD/build/_deps/sdl3-build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/FDTD/CLFDTD -BC:/dev/FDTD/CLFDTD/build --check-stamp-file C:/dev/FDTD/CLFDTD/build/_deps/sdl3-build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -163,42 +151,41 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCSourceRuns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCXXCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckStructHasMember.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CheckSourceRuns.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\WriteBasicConfigVersionFile.cmake;C:\dev\FDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\SDL_build_config.h.intermediate;C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\git-data\grabRef.cmake;C:\dev\FDTD\build\_deps\sdl3-src\.git\HEAD;C:\dev\FDTD\build\_deps\sdl3-src\cmake\3rdparty.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\FindLibUSB.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake.in;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedEmscriptenCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedMSVCCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\PreseedNokiaNGageCache.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\SDL3Config.cmake.in;C:\dev\FDTD\build\_deps\sdl3-src\cmake\macros.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlchecks.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcommands.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcompilers.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlcpu.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlmanpages.cmake;C:\dev\FDTD\build\_deps\sdl3-src\cmake\sdlplatform.cmake;C:\dev\FDTD\build\_deps\sdl3-src\include\build_config\SDL_build_config.h.cmake;C:\dev\FDTD\build\_deps\sdl3-src\include\build_config\SDL_revision.h.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\build\_deps\sdl3-build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\BasicConfigVersion-AnyNewerVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakePushCheckState.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCSourceRuns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCXXCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckIncludeFiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckStructHasMember.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckCompilerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Internal\CheckSourceRuns.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\WriteBasicConfigVersionFile.cmake;C:\dev\FDTD\CLFDTD\build\CMakeFiles\cmake.verify_globs;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\SDL_build_config.h.intermediate;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\git-data\grabRef.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\.git\HEAD;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\3rdparty.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\FindLibUSB.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\GetGitRevisionDescription.cmake.in;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedEmscriptenCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedMSVCCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\PreseedNokiaNGageCache.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\SDL3Config.cmake.in;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\macros.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlchecks.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcommands.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcompilers.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlcpu.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlmanpages.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\cmake\sdlplatform.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include\build_config\SDL_build_config.h.cmake;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include\build_config\SDL_revision.h.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_atan2.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_exp.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_fmod.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_log.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_log10.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_pow.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_rem_pio2.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\e_sqrt.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\k_cos.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\k_rem_pio2.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\k_sin.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\k_tan.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_atan.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_copysign.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_cos.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_fabs.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_floor.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_isinf.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_isinff.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_isnan.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_isnanf.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_modf.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_scalbn.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_sin.c" />
-    <ClCompile Include="C:\dev\FDTD\build\_deps\sdl3-src\src\libm\s_tan.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_atan2.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_exp.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_fmod.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_log.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_log10.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_pow.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_rem_pio2.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\e_sqrt.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\k_cos.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\k_rem_pio2.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\k_sin.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\k_tan.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_atan.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_copysign.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_cos.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_fabs.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_floor.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_isinf.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_isinff.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_isnan.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_isnanf.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_modf.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_scalbn.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_sin.c" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\src\libm\s_tan.c" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="C:\dev\FDTD\build\ZERO_CHECK.vcxproj">
-      <Project>{CED30B21-BF51-3EE5-9595-C7318847102C}</Project>
+    <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\ZERO_CHECK.vcxproj">
+      <Project>{FFFC3D0E-9021-3D40-A411-B518A3BF48D1}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

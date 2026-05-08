@@ -78,8 +78,9 @@ void VulkanEngine::init() {
         fmt::print("SDL error: {}\n", SDL_GetError());
     }
 
-    _appUpdateRate = 120;
-    _fpsCap = (uint32_t)displayMode->refresh_rate == 0 ? 60u : displayMode->refresh_rate;
+    _appUpdateRate = 60;
+    //_fpsCap = (uint32_t)displayMode->refresh_rate == 0 ? 60u : displayMode->refresh_rate;
+    _fpsCap = 60;
 
     _windowExtent = VkExtent2D{ (uint32_t)displayMode->w, (uint32_t)displayMode->h };
     vsync = false;
@@ -320,7 +321,7 @@ void VulkanEngine::run() {
         if (ImGui::Begin("Engine Settings")) {
             int fpsCap = _fpsCap;
             int updateRate = _appUpdateRate;
-            ImGui::SliderInt("fps cap", &fpsCap, 3, 5000);
+            ImGui::SliderInt("fps cap", &fpsCap, 3, 165);
             ImGui::SliderInt("update rate", &updateRate, 3, 165);
             ImGui::SliderFloat("resolution scale", &tempGUIResolutionScale, 0.1f, 2.0f);
             if (ImGui::Button("apply res")) {

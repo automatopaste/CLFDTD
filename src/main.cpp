@@ -9,6 +9,7 @@
 
 #include "sim/sim.h"
 #include "sim/sim2d.h"
+#include "sim/sim2d_dispersion.h"
 #include "sim/renderer.h"
 
 #include "vk/vk_engine.h"
@@ -106,8 +107,57 @@ void run_sim_2d() {
 			}
 		}
 
-		if (state.step < 12000) {
+		if (state.step < 2000) {
 			sim2d::state_update(state);
+		}
+		
+		if (state.step >= 2000 && !fileWritten) {
+			fileWritten = true;
+
+			FILE* f = fopen("data.bin", "wb");
+			if (!f) {
+				return;
+			}
+
+			fwrite(state.samples.data(), sizeof(float), state.samples.size(), f);
+			fclose(f);
+		}
+
+		if (state.step % 1 == 0) {
+			render::render_sim_2d(renderData, &state);
+			render::render_frame(renderData);
+		}
+
+		//std::this_thread::sleep_for(std::chrono::milliseconds(16));
+	}
+}
+
+void run_sim_2d_dispersion() {
+	sim2d_dispersion::State state{};
+	sim2d_dispersion::state_init(state);
+
+	render::Data renderData{};
+	render::init_data(renderData, 800, 800);
+
+	bool quit = false;
+	bool fileWritten = false;
+
+	while (!quit)
+	{
+		SDL_Event event;;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type)
+			{
+			case SDL_EVENT_QUIT:
+				quit = true;
+				break;
+			default:
+				break;
+			}
+		}
+
+		if (state.step < 12000) {
+			sim2d_dispersion::state_update(state);
 		}
 		
 		if (state.step >= 12000 && !fileWritten) {
@@ -123,7 +173,7 @@ void run_sim_2d() {
 		}
 
 		if (state.step % 1 == 0) {
-			render::render_sim_2d(renderData, &state);
+			render::render_sim_2d_dispersion(renderData, &state);
 			render::render_frame(renderData);
 		}
 
@@ -146,8 +196,9 @@ int main() {
 	fmt::print("initialising CLFDTD simulation\n");
 
 	//run_sim_2d();
+	run_sim_2d_dispersion();
 
-	run_gpu_sim();
+	//run_gpu_sim();
 
 	return 0;
 }

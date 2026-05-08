@@ -29,17 +29,25 @@ void main() {
 		return;
 	}
 
+	const bool showGa = pushConstants.data.x == 1;
+	const bool showEz = pushConstants.data.y == 1;
+
 	ivec2 ezImageSize = imageSize(ezImage);
 
 	vec4 ezColour = vec4(0.1, 0.1, 0.1, 1.0);
 	if (coord.x < ezImageSize.x && coord.y < ezImageSize.y) {
 		const float limit = pushConstants.scaling.y;
-		float ez = imageLoad(ezImage, coord).r * pushConstants.scaling.x;
+		float ez;
+		if (showEz) {
+			ez = imageLoad(ezImage, coord).r * pushConstants.scaling.x;
+		} else {
+			ez = bayer[(coord.y % 4) * 4 + (coord.x % 4)] / 15.0;
+		}
 		float eR = abs(clamp(ez, 0.0, limit) / limit);
 		float eB = abs(clamp(ez, -limit, 0.0) / limit);
 
 		float gaG = 0.0;
-		if (pushConstants.data.x == 1) {
+		if (showGa) {
 			float ga = imageLoad(gaImage, coord).r;
 			gaG = clamp(ga, 0.0, 1.0);
 		}

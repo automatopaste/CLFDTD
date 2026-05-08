@@ -31,8 +31,10 @@ void sim2d::state_init(State& state)
 
 	state.samples.clear();
 
-	state.ddx = 0.01f;
-	state.dt = state.ddx / 6e8f;
+	const float c0 = 299792458.0f;
+
+	state.ddx = 0.001f;
+	state.dt = state.ddx * 0.99f / c0;
 	state.t = 0.0f;
 
 	for (uint32_t j = 0; j < state.y; j++) {
@@ -48,7 +50,7 @@ void sim2d::state_init(State& state)
 
 	// init resonator cavity
 
-	const float wg_eps = 9.0f;
+	/*const float wg_eps = 9.0f;
 	const float wg_w = 20.0f;
 	for (uint32_t j = 0; j < state.y; j++) {
 		for (uint32_t i = 0; i < state.x; i++) {
@@ -59,7 +61,7 @@ void sim2d::state_init(State& state)
 				state.ga[idx] = 1.0f / wg_eps;
 			}
 		}
-	}
+	}*/
 
 	// pml parameters
 
@@ -162,32 +164,22 @@ void sim2d::state_update(State& state)
 	}
 
 	// pulse insertion
+	const float pi = 3.14159265359f;
 
 	//float pulse = 100.0 * expf(-0.5 * powf((t0 - t) / spread, 2.0f));
-	float t0 = 800.0 * state.dt;
+	/*float t0 = 800.0 * state.dt;
 	float t = state.t;
 	float spread = 300.0 * state.dt;
-	const float pi = 3.14159265359f;
 	float ex = expf(-0.5f * powf((t0 - t) / spread, 2.0f));
 	float pulse = sinf(2.0f * pi * 500.0f * 1e6f * state.dt * state.step);
 	uint32_t ip = state.x / 2 - 10;
 	uint32_t jp = state.y / 2 - 10;
-	dz[jp * state.x + ip] += pulse * ex;
+	dz[jp * state.x + ip] += pulse * ex;*/
 
-	// set ez edges to 0.0 for pml
-
-	/*for (uint32_t j = 0; j < state.y - 1; j++) {
-		uint32_t idx0 = j * state.x + 0;
-		uint32_t idx1 = j * state.x + state.x - 1;
-		ez[idx0] = 0.0f;
-		ez[idx1] = 0.0f;
-	}
-	for (uint32_t i = 0; i < state.x - 1; i++) {
-		uint32_t idx0 = 0 * state.x + i;
-		uint32_t idx1 = (state.y - 1) * state.x + i;
-		ez[idx0] = 0.0f;
-		ez[idx1] = 0.0f;
-	}*/
+	float pulse = sinf(2.0f * pi * 3e3f * 1e6f * state.dt * state.step);
+	uint32_t ip = state.x / 2 - 10;
+	uint32_t jp = state.y / 2 - 10;
+	dz[jp * state.x + ip] += pulse;
 
 	// hx field
 

@@ -1,158 +1,185 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\dev\FDTD\src\main.cpp" />
-    <ClCompile Include="C:\dev\FDTD\src\sim\renderer.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\main.cpp" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\renderer.cpp">
       <Filter>sim</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\sim\sim.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim.cpp">
       <Filter>sim</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\sim\sim2d.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim2d.cpp">
       <Filter>sim</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_output.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim2d_dispersion.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_output.cpp">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_reset.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_reset.cpp">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_update.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_update.cpp">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic_commander.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic_commander.cpp">
       <Filter>vk\r2\passes</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\passes\2d_dispersion_commander.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.cpp">
       <Filter>vk\r2\passes</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_commander.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.cpp">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_reset.cpp">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_update.cpp">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_commander.cpp">
       <Filter>vk\r2</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\r2\r2_resources.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_resources.cpp">
       <Filter>vk\r2</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_descriptors.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_descriptors.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_dynamic_buffer.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_dynamic_buffer.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_engine.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_engine.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_images.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_images.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_initialisers.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_initialisers.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_pipelines.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_pipelines.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_synchronisation.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_synchronisation.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_tex_store.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_tex_store.cpp">
       <Filter>vk</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\FDTD\src\vk\vk_upload_buffer.cpp">
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\vk_upload_buffer.cpp">
       <Filter>vk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\dev\FDTD\src\sim\renderer.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\renderer.h">
       <Filter>sim</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\sim\sim.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim.h">
       <Filter>sim</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\sim\sim2d.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim2d.h">
       <Filter>sim</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\types.h" />
-    <ClInclude Include="C:\dev\FDTD\src\vk\buffer_read_write.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim2d_dispersion.h">
+      <Filter>sim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\types.h" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\buffer_read_write.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_output.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_output.h">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_reset.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_reset.h">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic\2d_update.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_update.h">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\2d_basic_commander.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic_commander.h">
       <Filter>vk\r2\passes</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\passes\2d_dispersion_commander.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.h">
       <Filter>vk\r2\passes</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_commander.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.h">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_reset.h">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_update.h">
+      <Filter>vk\r2\passes\d2disp</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_commander.h">
       <Filter>vk\r2</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_config.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_config.h">
       <Filter>vk\r2</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_pass_structs.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_pass_structs.h">
       <Filter>vk\r2</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_resources.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_resources.h">
       <Filter>vk\r2</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\r2\r2_structs.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\r2_structs.h">
       <Filter>vk\r2</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_descriptors.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_descriptors.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_dynamic_buffer.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_dynamic_buffer.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_engine.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_engine.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_images.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_images.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_initialisers.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_initialisers.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_pipelines.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_pipelines.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_synchronisation.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_synchronisation.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_tex_store.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_tex_store.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_types.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_types.h">
       <Filter>vk</Filter>
     </ClInclude>
-    <ClInclude Include="C:\dev\FDTD\src\vk\vk_upload_buffer.h">
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\vk_upload_buffer.h">
       <Filter>vk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\dev\FDTD\CMakeLists.txt" />
+    <CustomBuild Include="C:\dev\FDTD\CLFDTD\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="sim">
-      <UniqueIdentifier>{B7547408-BB0A-36EA-840D-0C8748E6E482}</UniqueIdentifier>
+      <UniqueIdentifier>{4895E8E6-722E-379A-8B39-3C2FC06066C9}</UniqueIdentifier>
     </Filter>
     <Filter Include="vk">
-      <UniqueIdentifier>{521427C9-6282-34D9-BC42-68B6D8597B8E}</UniqueIdentifier>
+      <UniqueIdentifier>{D1FBED7C-4943-387E-A01D-595869149E60}</UniqueIdentifier>
     </Filter>
     <Filter Include="vk\r2">
-      <UniqueIdentifier>{F35C1472-3C4E-3230-A3F7-C584E498B7CD}</UniqueIdentifier>
+      <UniqueIdentifier>{591965A2-194D-3F61-868F-E13BC506CF4C}</UniqueIdentifier>
     </Filter>
     <Filter Include="vk\r2\passes">
-      <UniqueIdentifier>{91B80FB3-5629-3FAD-9780-DF81E52A195C}</UniqueIdentifier>
+      <UniqueIdentifier>{E7F311FB-878B-3AE6-9DCD-B17FD080B84D}</UniqueIdentifier>
     </Filter>
     <Filter Include="vk\r2\passes\2d_basic">
-      <UniqueIdentifier>{1E759EBE-BD08-3246-BB4F-80E604CFF526}</UniqueIdentifier>
+      <UniqueIdentifier>{62C0DDB9-1A0B-36A9-82FA-24A23FB3C3B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes\d2disp">
+      <UniqueIdentifier>{AC0E4393-ACBD-3381-9FAF-69C11594745C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

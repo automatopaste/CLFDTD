@@ -4,6 +4,7 @@
 
 #include "sim/sim.h"
 #include "sim/sim2d.h"
+#include "sim/sim2d_dispersion.h"
 
 #include "glm/glm.hpp"
 
@@ -156,6 +157,48 @@ void render::render_sim_2d(Data& data, sim2d::State* state)
 			{
 				float ez = s.ez[y + s.y * x] * 100.0f;
 				float ga = s.ga[y + s.y * x] * 0.0f;
+				//float hx = s.hx[y + s.y * x] * H_SCALE;
+				//float hy = s.hy[y + (s.y - 1) * x] * H_SCALE;
+
+				const float MAX_VALUE = 1.0f;
+				float electricR = abs(glm::clamp(ez, 0.0f, MAX_VALUE) / MAX_VALUE);
+				float electricB = abs(glm::clamp(ez, -MAX_VALUE, 0.0f) / MAX_VALUE);
+				//hx = abs(glm::clamp(hx, -MAX_VALUE, MAX_VALUE) / MAX_VALUE);
+				//hy = abs(glm::clamp(hy, -MAX_VALUE, MAX_VALUE) / MAX_VALUE);
+				//float magneticG = (hx + hy) / 2.0f;
+
+				u8 R = (u8)(std::min(std::max(electricR * 255.0f, 0.0f), 255.0f));
+				u8 G = (u8)(std::min(std::max(ga * 255.0f, 0.0f), 255.0f));
+				u8 B = (u8)(std::min(std::max(electricB * 255.0f, 0.0f), 255.0f));
+
+				data.pixels[index] = (u32)((0xFF << 24) | (B << 16) | (G << 8) | R);
+			}
+			else {
+				data.pixels[index] = 0xFF000000; // black for areas outside the simulation dimension
+			}
+		}
+	}
+}
+
+void render::render_sim_2d_dispersion(Data& data, sim2d_dispersion::State* state)
+{
+	sim2d_dispersion::State& s = *state;
+
+	data.numSteps = state->step;
+
+	u32 width = data.width;
+	u32 height = data.height;
+
+	for (u32 x = 0; x < width; x++)
+	{
+		for (u32 y = 0; y < height; y++)
+		{
+			u32 index = y * width + x;
+
+			if ((x + 4) < s.x && (y + 4) < s.y)
+			{
+				float ez = s.ez[y + s.y * x] * 10.0f;
+				float ga = 0.0f;
 				//float hx = s.hx[y + s.y * x] * H_SCALE;
 				//float hy = s.hy[y + (s.y - 1) * x] * H_SCALE;
 
