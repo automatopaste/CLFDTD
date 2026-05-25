@@ -18,6 +18,10 @@ namespace sim2d_dispersion {
 	struct State;
 }
 
+namespace sim3d {
+	struct State;
+}
+
 namespace render {
 
 	struct Data {
@@ -42,5 +46,7 @@ namespace render {
 
 	void render_sim_2d(Data& data, sim2d::State* state);
 	void render_sim_2d_dispersion(Data& data, sim2d_dispersion::State* state);
+
+	void render_sim_3d(Data& data, sim3d::State* state);
 
 }

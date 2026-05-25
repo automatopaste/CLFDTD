@@ -3,41 +3,56 @@
 #include <vector>
 #include <cstdint>
 
-namespace sim2d
+#include "glm/glm.hpp"
+
+typedef glm::vec3 vec3;
+typedef glm::ivec3 ivec3;
+
+namespace sim3d
 {
 
+	class field_vec {
+	public:
+
+		void resize(ivec3 dimensions) {
+			clear();
+			size = (size_t)dimensions.x * (size_t)dimensions.y * (size_t)dimensions.z * sizeof(vec3);
+			data = (vec3*)_aligned_malloc(size, alignof(vec3));
+			this->dimensions = dimensions;
+		}
+
+		void clear() {
+			if (data) {
+				_aligned_free(data);
+			}
+			size = 0;
+			dimensions = ivec3{ 0, 0, 0 };
+		}
+
+		inline vec3& at(size_t i, size_t j, size_t k) {
+			return data[k * dimensions.x * dimensions.y + j * dimensions.x + i];
+		}
+
+	private:
+		vec3* data{ nullptr };
+		size_t size{ 0 };
+		ivec3 dimensions{ 0, 0, 0 };
+	};
+
 	struct State {
-		std::vector<float> ga;
-		std::vector<float> dz;
-		std::vector<float> ez;
-		std::vector<float> hx;
-		std::vector<float> hy;
+		field_vec ga;
+		field_vec d;
+		field_vec e;
+		field_vec h;
 
-		std::vector<float> gi2;
-		std::vector<float> gi3;
-		std::vector<float> gj2;
-		std::vector<float> gj3;
-
-		std::vector<float> fi1;
-		std::vector<float> fi2;
-		std::vector<float> fi3;
-
-		std::vector<float> fj1;
-		std::vector<float> fj2;
-		std::vector<float> fj3;
-
-		std::vector<float> ihx;
-		std::vector<float> ihy;
-
-		std::vector<float> samples;
+		std::vector<vec3> samples;
 
 		float ddx;
 		float dt;
 		float t;
 		uint32_t step;
-		uint32_t x;
-		uint32_t y;
-		uint32_t npml;
+		ivec3 dim;
+		int npml;
 	};
 
 	void state_init(State& state);

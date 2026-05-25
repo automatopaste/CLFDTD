@@ -5,6 +5,7 @@
 #include "sim/sim.h"
 #include "sim/sim2d.h"
 #include "sim/sim2d_dispersion.h"
+#include "sim/sim3d.h"
 
 #include "glm/glm.hpp"
 
@@ -217,6 +218,40 @@ void render::render_sim_2d_dispersion(Data& data, sim2d_dispersion::State* state
 			}
 			else {
 				data.pixels[index] = 0xFF000000; // black for areas outside the simulation dimension
+			}
+		}
+	}
+}
+
+void render::render_sim_3d(Data& data, sim3d::State* state)
+{
+	sim3d::State& s = *state;
+
+	data.numSteps = state->step;
+
+	u32 width = data.width;
+	u32 height = data.height;
+
+	for (u32 x = 0; x < width; x++)
+	{
+		for (u32 y = 0; y < height; y++)
+		{
+			if ((x + 4) < s.dim.x && (y + 4) < s.dim.y)
+			{
+				int kc = s.dim.z / 2;
+				vec3 e = s.e.at(x, y, kc) / 0.000001f;
+				float ga = 0.0f;
+
+				vec3 eScaled = e * 0.5f + 0.5f;
+
+				u8 R = (u8)glm::clamp(eScaled.x * 255.0f, 0.0f, 255.0f);
+				u8 G = (u8)glm::clamp(eScaled.y * 255.0f, 0.0f, 255.0f);
+				u8 B = (u8)glm::clamp(eScaled.z * 255.0f, 0.0f, 255.0f);
+
+				data.pixels[y * width + x] = (u32)((0xFF << 24) | (B << 16) | (G << 8) | R);
+			}
+			else {
+				data.pixels[y * width + x] = 0xFF000000; // black for areas outside the simulation dimension
 			}
 		}
 	}

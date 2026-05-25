@@ -178,7 +178,7 @@ void sim2d_dispersion::state_update(State& state)
 
 	// modified lorentz coefficients for free space
 	const float epsInf = 3.0f;
-	const float a0 = 0.0f;
+	const float a0 = 10.0f;
 	const float a1 = 0.0f;
 	const float b0 = 0.0f;
 	const float b1 = 0.0f;
