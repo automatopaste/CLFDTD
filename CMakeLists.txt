@@ -19,11 +19,14 @@ set(CMAKE_CONFIGURATION_TYPES
     CACHE STRING "" FORCE
 )
 
-set(VULKAN_SDK_VERSION "1.4.335"
+set(VULKAN_SDK_VERSION "1.4.350"
     CACHE STRING "Vulkan SDK version to target (used for volk, headers, etc.)"
 )
 set(VULKAN_SDK_TAG "vulkan-sdk-${VULKAN_SDK_VERSION}"
     CACHE STRING "Vulkan SDK git tag"
+)
+set(VKBOOTSTRAP_TAG "v1.4.350"
+    CACHE STRING "VK-Bootstrap git tag"
 )
 
 find_package(Vulkan REQUIRED COMPONENTS shaderc_combined)

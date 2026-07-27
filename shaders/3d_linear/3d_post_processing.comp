@@ -1,0 +1,66 @@
+#version 460
+
+#include "include/default_header.glsl"
+#include "include/global_descriptor.glsl"
+
+layout (set = 1, binding = 0) uniform sampler2D drawImage;
+layout (rgba8, set = 1, binding = 1) uniform restrict writeonly image2D swapchainImage;
+layout (rgba32f, set = 1, binding = 2) uniform restrict readonly image3D eImage;
+layout (rgba32f, set = 1, binding = 3) uniform restrict readonly image3D gaImage;
+
+layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
+
+const float bayer[16] = float[16](
+     0.0,  8.0,  2.0, 10.0,
+    12.0,  4.0, 14.0,  6.0,
+     3.0, 11.0,  1.0,  9.0,
+    15.0,  7.0, 13.0,  5.0
+);
+
+layout (push_constant) uniform constants {
+	uvec4 data;
+	vec4 scaling; // mult, limit
+} pushConstants;
+
+void main() {
+	ivec2 coord = ivec2(gl_GlobalInvocationID.xy);
+
+	ivec2 swapchainSize = imageSize(swapchainImage);
+	vec2 uv = (vec2(coord) + 0.5) / vec2(swapchainSize);
+
+	// do nothing if thread is outside image
+	if (coord.x >= swapchainSize.x || coord.y >= swapchainSize.y) {
+		return;
+	}
+
+	const bool showGa = pushConstants.data.x == 1;
+	const bool showE = pushConstants.data.y == 1;
+    const uint zRead = pushConstants.data.z;
+
+	ivec3 eImageSize = imageSize(eImage);
+    ivec3 readCoord = ivec3(coord.x, coord.y, clamp(zRead, 0, eImageSize.z - 1));
+
+	vec4 eColour = vec4(0.1, 0.1, 0.1, 1.0);
+	if (coord.x < eImageSize.x && coord.y < eImageSize.y) {
+		const float limit = pushConstants.scaling.y;
+		vec3 e;
+		if (showE) {
+			e = imageLoad(eImage, readCoord).rgb;
+		} else {
+			e = vec3(bayer[(coord.y % 4) * 4 + (coord.x % 4)] / 15.0);
+		}
+
+        e = clamp((e / 0.000001) * 0.5 + 0.5, 0.0, 1.0);
+
+        eColour.rgb = e;
+
+		vec3 gaG = vec3(0.0);
+		if (showGa) {
+			vec3 ga = imageLoad(gaImage, readCoord).rgb;
+			gaG = clamp(ga, 0.0, 1.0);
+            eColour.rgb = gaG;
+		}
+	}
+
+	imageStore(swapchainImage, coord, eColour);
+}

@@ -65,7 +65,7 @@ void vkutil::compile_shader_module(const char* filePath, shaderc::Compiler& comp
     size_t numErrors = result.GetNumErrors();
     if (numErrors > 0) {
         std::string errmsg = result.GetErrorMessage();
-        std::string errstr = numErrors +  " shader compilation errors:\n";
+        std::string errstr = std::format("{}", numErrors) + " shader compilation errors:\n";
         errstr.append(errmsg);
         fmt::print("{}", errstr);
     }

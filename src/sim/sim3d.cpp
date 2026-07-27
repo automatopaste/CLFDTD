@@ -63,13 +63,13 @@ void sim3d::state_update(State& state)
 	float t0 = 20.0f;
 	float spread = 6.0f;
 	float epsz = 8.8e-12f;
-	float pi = 3.14159f;
+	float pi = 3.14159265359f;
 	float pulse = expf(-0.5f * powf((t0 - state.t) / spread, 2.0f));
 
 	int ic = state.dim.x / 2;
 	int jc = state.dim.y / 2;
 	int kc = state.dim.z / 2;
-	state.d.at(ic, jc, kc).z = pulse;
+	state.d.at(ic, jc, kc).z += pulse;
 
 	// E update
 

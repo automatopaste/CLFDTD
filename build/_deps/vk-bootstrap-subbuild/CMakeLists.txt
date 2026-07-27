@@ -27,7 +27,7 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 
 include(ExternalProject)
 ExternalProject_Add(vk-bootstrap-populate
-                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/charles-lunarg/vk-bootstrap.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "main"
+                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/charles-lunarg/vk-bootstrap.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "v1.4.350"
                     SOURCE_DIR          "C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-src"
                     BINARY_DIR          "C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-build"
                     CONFIGURE_COMMAND   ""

@@ -27,7 +27,7 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 
 include(ExternalProject)
 ExternalProject_Add(volk-populate
-                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/zeux/volk.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "vulkan-sdk-1.4.335"
+                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/zeux/volk.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "vulkan-sdk-1.4.350"
                     SOURCE_DIR          "C:/dev/FDTD/CLFDTD/build/_deps/volk-src"
                     BINARY_DIR          "C:/dev/FDTD/CLFDTD/build/_deps/volk-build"
                     CONFIGURE_COMMAND   ""

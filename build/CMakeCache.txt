@@ -169,10 +169,10 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=CLFDTD
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=335
+CMAKE_PROJECT_VERSION:STATIC=350
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_MAJOR:STATIC=335
+CMAKE_PROJECT_VERSION_MAJOR:STATIC=350
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_MINOR:STATIC=
@@ -662,6 +662,9 @@ SDL_X11:BOOL=OFF
 //Use Xinput for Windows
 SDL_XINPUT:BOOL=ON
 
+//VK-Bootstrap git tag
+VKBOOTSTRAP_TAG:STRING=v1.4.350
+
 //Disable warnings during compilation
 VK_BOOTSTRAP_DISABLE_WARNINGS:BOOL=OFF
 
@@ -703,10 +706,10 @@ VOLK_STATIC_DEFINES:STRING=
 VULKAN_HEADERS_INSTALL_DIR:PATH=
 
 //Vulkan SDK git tag
-VULKAN_SDK_TAG:STRING=vulkan-sdk-1.4.335
+VULKAN_SDK_TAG:STRING=vulkan-sdk-1.4.350
 
 //Vulkan SDK version to target (used for volk, headers, etc.)
-VULKAN_SDK_VERSION:STRING=1.4.335
+VULKAN_SDK_VERSION:STRING=1.4.350
 
 //Value Computed by CMake
 VulkanBootstrap_BINARY_DIR:STATIC=C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-build
@@ -718,22 +721,22 @@ VulkanBootstrap_IS_TOP_LEVEL:STATIC=OFF
 VulkanBootstrap_SOURCE_DIR:STATIC=C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-src
 
 //Path to a program.
-Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.335.0/Bin/glslangValidator.exe
+Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.350.0/Bin/glslangValidator.exe
 
 //Path to a program.
-Vulkan_GLSLC_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.335.0/Bin/glslc.exe
+Vulkan_GLSLC_EXECUTABLE:FILEPATH=C:/VulkanSDK/1.4.350.0/Bin/glslc.exe
 
 //Path to a file.
-Vulkan_INCLUDE_DIR:PATH=C:/VulkanSDK/1.4.335.0/Include
+Vulkan_INCLUDE_DIR:PATH=C:/VulkanSDK/1.4.350.0/Include
 
 //Path to a library.
-Vulkan_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.335.0/Lib/vulkan-1.lib
+Vulkan_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.350.0/Lib/vulkan-1.lib
 
 //Path to a library.
-Vulkan_shaderc_combined_DEBUG_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.335.0/Lib/shaderc_combinedd.lib
+Vulkan_shaderc_combined_DEBUG_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.350.0/Lib/shaderc_combinedd.lib
 
 //Path to a library.
-Vulkan_shaderc_combined_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.335.0/Lib/shaderc_combined.lib
+Vulkan_shaderc_combined_LIBRARY:FILEPATH=C:/VulkanSDK/1.4.350.0/Lib/shaderc_combined.lib
 
 //Value Computed by CMake
 volk_BINARY_DIR:STATIC=C:/dev/FDTD/CLFDTD/build/_deps/volk-build
@@ -932,7 +935,7 @@ COMPILER_SUPPORTS_SSE4_2:INTERNAL=1
 //Test /W3
 COMPILER_SUPPORTS_W3:INTERNAL=1
 //Details about finding Vulkan
-FIND_PACKAGE_MESSAGE_DETAILS_Vulkan:INTERNAL=[C:/VulkanSDK/1.4.335.0/Lib/vulkan-1.lib][C:/VulkanSDK/1.4.335.0/Include][cfound components: glslc glslangValidator ][v1.4.335()]
+FIND_PACKAGE_MESSAGE_DETAILS_Vulkan:INTERNAL=[C:/VulkanSDK/1.4.350.0/Lib/vulkan-1.lib][C:/VulkanSDK/1.4.350.0/Include][cfound components: glslc glslangValidator ][v1.4.350()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //Have include alloca.h

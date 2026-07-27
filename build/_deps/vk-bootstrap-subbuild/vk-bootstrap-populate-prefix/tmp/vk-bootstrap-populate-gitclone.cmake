@@ -52,13 +52,13 @@ endif()
 
 execute_process(
   COMMAND "C:/Program Files/Git/cmd/git.exe"
-          checkout "main" --
+          checkout "v1.4.350" --
   WORKING_DIRECTORY "C:/dev/FDTD/CLFDTD/build/_deps/vk-bootstrap-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to checkout tag: 'main'")
+  message(FATAL_ERROR "Failed to checkout tag: 'v1.4.350'")
 endif()
 
 set(init_submodules TRUE)

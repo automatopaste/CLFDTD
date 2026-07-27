@@ -1,0 +1,163 @@
+#version 460
+
+#include "include/default_header.glsl"
+#include "include/global_descriptor.glsl"
+
+layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
+
+layout (set = 1, binding = 0, rgba32f) uniform image3D gaDst;
+layout (set = 1, binding = 1, rgba32f) uniform image3D dDst;
+layout (set = 1, binding = 2, rgba32f) uniform image3D eDst;
+layout (set = 1, binding = 3, rgba32f) uniform image3D hDst;
+
+// layout (buffer_reference, scalar) buffer GI2Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer GI3Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer GJ2Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer GJ3Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FI1Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FI2Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FI3Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FJ1Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FJ2Buffer { float values[]; };
+// layout (buffer_reference, scalar) buffer FJ3Buffer { float values[]; };
+
+// layout (buffer_reference, scalar) buffer PMLBuffers {
+// 	GI2Buffer gi2;
+// 	GI3Buffer gi3;
+// 	GJ2Buffer gj2;
+// 	GJ3Buffer gj3;
+// 	FI1Buffer fi1;
+// 	FI2Buffer fi2;
+// 	FI3Buffer fi3;
+// 	FJ1Buffer fj1;
+// 	FJ2Buffer fj2;
+// 	FJ3Buffer fj3;
+// };
+
+layout (push_constant) uniform PushConstants {
+	uvec4 dimensions;		// x, y, z, unused
+	vec4 simData;			// ddx, dt, t, unused
+	ivec4 simDataInt;		// step, npml, unused, unused
+	// PMLBuffers pmlBuffers;
+} pushConstants;
+
+void main() {
+	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
+	int i = ijk.x;
+    int j = ijk.y;
+    int k = ijk.z;
+	uint x = pushConstants.dimensions.x;
+	uint y = pushConstants.dimensions.y;
+	uint z = pushConstants.dimensions.z;
+	ivec3 dim = ivec3(x, y, z);
+
+	// GI2Buffer gi2 = pushConstants.pmlBuffers.gi2;
+	// GI3Buffer gi3 = pushConstants.pmlBuffers.gi3;
+	// GJ2Buffer gj2 = pushConstants.pmlBuffers.gj2;
+	// GJ3Buffer gj3 = pushConstants.pmlBuffers.gj3;
+	// FI1Buffer fi1 = pushConstants.pmlBuffers.fi1;
+	// FI2Buffer fi2 = pushConstants.pmlBuffers.fi2;
+	// FI3Buffer fi3 = pushConstants.pmlBuffers.fi3;
+	// FJ1Buffer fj1 = pushConstants.pmlBuffers.fj1;
+	// FJ2Buffer fj2 = pushConstants.pmlBuffers.fj2;
+	// FJ3Buffer fj3 = pushConstants.pmlBuffers.fj3;
+
+	// field initial states
+
+	// initialise resonator cavity
+	// const float wg_eps = 9.0;
+	// const float wg_w = 20.0;
+
+	// if (all(lessThan(ijk, dim))) {
+	// 	imageStore(dDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+	// 	imageStore(eDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+	// 	imageStore(hDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+
+	// 	vec3 p = vec3(ijk);
+	// 	vec3 centre = vec3(pushConstants.dimensions.xyz / 2);
+	// 	vec3 ga = length(p - centre) < wg_w ? vec3(1.0 / wg_eps) : vec3(1.0);
+	// 	imageStore(gaDst, ijk, vec4(ga, 0.0));
+	// }
+
+	// initialise dipole
+
+	if (all(lessThan(ijk, dim))) {
+		imageStore(dDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+		imageStore(eDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+		imageStore(hDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+
+		ivec3 c = ivec3(pushConstants.dimensions.xyz / 2);
+
+		vec3 ga = vec3(1.0, 1.0, 1.0);
+
+		// dipole structure
+		int kd = k - c.z;
+		if ((kd >= -10 || kd < 10) && i == c.x && j == c.y && k != c.z) {
+			ga.z = 0.0;
+		}
+
+		imageStore(gaDst, ijk, vec4(ga, 0.0));
+	}
+
+	// pml parameters
+
+	int npml = pushConstants.simDataInt.y;
+
+	// if (i < npml && j == 0) {
+	// 	float xnum = float(npml - i);
+	// 	float xd = float(npml);
+	// 	float xxn = xnum / xd;
+	// 	float xn = 0.25 * pow(xxn, 3.0);
+
+	// 	gi2.values[i] = 1.0 / (1.0 + xn);
+	// 	gi2.values[x - 1 - i] = 1.0 / (1.0 + xn);
+	// 	gi3.values[i] = (1.0 - xn) / (1.0 + xn);
+	// 	gi3.values[x - i - 1] = (1.0 - xn) / (1.0 + xn);
+
+	// 	xxn = (xnum - 0.5) / xd;
+	// 	xn = 0.25 * pow(xxn, 3.0);
+
+	// 	fi1.values[i] = xn;
+	// 	fi1.values[x - 2 - i] = xn;
+	// 	fi2.values[i] = 1.0 / (1.0 + xn);
+	// 	fi2.values[x - 2 - i] = 1.0 / (1.0 + xn);
+	// 	fi3.values[i] = (1.0 - xn) / (1.0 + xn);
+	// 	fi3.values[x - 2 - i] = (1.0 - xn) / (1.0 + xn);
+	// }
+	// else if (i >= npml && i < x - npml) {
+	// 	gi2.values[i] = 1.0;
+	// 	gi3.values[i] = 1.0;
+	// 	fi1.values[i] = 0.0;
+	// 	fi2.values[i] = 1.0;
+	// 	fi3.values[i] = 1.0;
+	// }
+
+	// if (j < npml && i == 0) {
+	// 	float xnum = float(npml - j);
+	// 	float xd = float(npml);
+	// 	float xxn = xnum / xd;
+	// 	float xn = 0.25 * pow(xxn, 3.0);
+
+	// 	gj2.values[j] = 1.0 / (1.0 + xn);
+	// 	gj2.values[y - 1 - j] = 1.0 / (1.0 + xn);
+	// 	gj3.values[j] = (1.0 - xn) / (1.0 + xn);
+	// 	gj3.values[y - j - 1] = (1.0 - xn) / (1.0 + xn);
+
+	// 	xxn = (xnum - 0.5) / xd;
+	// 	xn = 0.25 * pow(xxn, 3.0);
+
+	// 	fj1.values[j] = xn;
+	// 	fj1.values[y - 2 - j] = xn;
+	// 	fj2.values[j] = 1.0 / (1.0 + xn);
+	// 	fj2.values[y - 2 - j] = 1.0 / (1.0 + xn);
+	// 	fj3.values[j] = (1.0 - xn) / (1.0 + xn);
+	// 	fj3.values[y - 2 - j] = (1.0 - xn) / (1.0 + xn);
+	// }
+	// else if (j >= npml && j < y - npml) {
+	// 	gj2.values[j] = 1.0;
+	// 	gj3.values[j] = 1.0;
+	// 	fj1.values[j] = 0.0;
+	// 	fj2.values[j] = 1.0;
+	// 	fj3.values[j] = 1.0;
+	// }
+}

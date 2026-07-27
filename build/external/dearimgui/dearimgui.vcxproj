@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.350.0/Include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -73,10 +73,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;VK_NO_PROTOTYPES;IMGUI_IMPL_VULKAN_HAS_DYNAMIC_RENDERING;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -90,7 +90,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.350.0/Include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -111,10 +111,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;VK_NO_PROTOTYPES;IMGUI_IMPL_VULKAN_HAS_DYNAMIC_RENDERING;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

@@ -59,7 +59,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include" /utf-8</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.350.0/Include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -81,10 +81,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;NOMINMAX;VK_NO_PROTOTYPES;GLM_ENABLE_EXPERIMENTAL;VK_USE_PLATFORM_WIN32_KHR;IMGUI_IMPL_VULKAN_HAS_DYNAMIC_RENDERING;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -92,7 +92,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>_deps\volk-build\Debug\volk.lib;C:\VulkanSDK\1.4.335.0\Lib\shaderc_combinedd.lib;_deps\fmt-build\Debug\fmtd.lib;_deps\vk-bootstrap-build\Debug\vk-bootstrap.lib;external\dearimgui\Debug\dearimgui.lib;_deps\sdl3-build\Debug\SDL3.lib;C:\VulkanSDK\1.4.335.0\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>_deps\volk-build\Debug\volk.lib;C:\VulkanSDK\1.4.350.0\Lib\shaderc_combinedd.lib;_deps\fmt-build\Debug\fmtd.lib;_deps\vk-bootstrap-build\Debug\vk-bootstrap.lib;external\dearimgui\Debug\dearimgui.lib;_deps\sdl3-build\Debug\SDL3.lib;C:\VulkanSDK\1.4.350.0\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -108,7 +108,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.335.0/Include" /utf-8</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/VulkanSDK/1.4.350.0/Include" /utf-8</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
@@ -135,10 +135,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NOMINMAX;VK_NO_PROTOTYPES;GLM_ENABLE_EXPERIMENTAL;VK_USE_PLATFORM_WIN32_KHR;IMGUI_IMPL_VULKAN_HAS_DYNAMIC_RENDERING;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.335.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\FDTD\CLFDTD\src;C:\dev\FDTD\CLFDTD\build\_deps\volk-src;C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-build\include-revision;C:\dev\FDTD\CLFDTD\build\_deps\sdl3-src\include;C:\dev\FDTD\CLFDTD\build\_deps\vk-bootstrap-src\src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src;C:\dev\FDTD\CLFDTD\build\_deps\dearimgui_src-src\backends;C:\VulkanSDK\1.4.350.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -146,7 +146,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>_deps\volk-build\Release\volk.lib;C:\VulkanSDK\1.4.335.0\Lib\shaderc_combined.lib;_deps\fmt-build\Release\fmt.lib;_deps\vk-bootstrap-build\Release\vk-bootstrap.lib;external\dearimgui\Release\dearimgui.lib;_deps\sdl3-build\Release\SDL3.lib;C:\VulkanSDK\1.4.335.0\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>_deps\volk-build\Release\volk.lib;C:\VulkanSDK\1.4.350.0\Lib\shaderc_combined.lib;_deps\fmt-build\Release\fmt.lib;_deps\vk-bootstrap-build\Release\vk-bootstrap.lib;external\dearimgui\Release\dearimgui.lib;_deps\sdl3-build\Release\SDL3.lib;C:\VulkanSDK\1.4.350.0\Lib\vulkan-1.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -215,6 +215,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic_commander.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.cpp" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_output.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_output.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_reset.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_reset.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_update.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_update.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.cpp" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_reset.cpp" />

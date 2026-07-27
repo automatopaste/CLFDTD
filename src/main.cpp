@@ -206,11 +206,13 @@ void run_sim_3d() {
 			}
 		}
 
-		if (state.step < 2000) {
+		constexpr uint32_t STEPS = 200;
+
+		if (state.step < STEPS) {
 			sim3d::state_update(state);
 		}
 
-		if (state.step >= 2000 && !fileWritten) {
+		if (state.step >= STEPS && !fileWritten) {
 			fileWritten = true;
 
 			FILE* f = fopen("data.bin", "wb");
@@ -247,9 +249,9 @@ int main() {
 
 	//run_sim_2d();
 	//run_sim_2d_dispersion();
-	run_sim_3d();
+	//run_sim_3d();
 
-	//run_gpu_sim();
+	run_gpu_sim();
 
 	return 0;
 }

@@ -52,13 +52,13 @@ endif()
 
 execute_process(
   COMMAND "C:/Program Files/Git/cmd/git.exe"
-          checkout "vulkan-sdk-1.4.335" --
+          checkout "vulkan-sdk-1.4.350" --
   WORKING_DIRECTORY "C:/dev/FDTD/CLFDTD/build/_deps/volk-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to checkout tag: 'vulkan-sdk-1.4.335'")
+  message(FATAL_ERROR "Failed to checkout tag: 'vulkan-sdk-1.4.350'")
 endif()
 
 set(init_submodules TRUE)

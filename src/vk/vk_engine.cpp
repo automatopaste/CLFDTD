@@ -1212,6 +1212,7 @@ AllocatedImage VulkanEngine::create_image(VkExtent3D size, VkFormat format, VkIm
         img_info.mipLevels = vkutil::max_mip_levels(size);
     }
     img_info.flags = create;
+    img_info.imageType = size.depth > 1 ? VK_IMAGE_TYPE_3D : VK_IMAGE_TYPE_2D;
 
     bool isCubemap = create & VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
 
@@ -1238,6 +1239,7 @@ AllocatedImage VulkanEngine::create_image(VkExtent3D size, VkFormat format, VkIm
     view_info.subresourceRange.baseMipLevel = 0;
     view_info.subresourceRange.levelCount = img_info.mipLevels;
     view_info.subresourceRange.layerCount = img_info.arrayLayers;
+    view_info.viewType = size.depth > 1 ? VK_IMAGE_VIEW_TYPE_3D : VK_IMAGE_VIEW_TYPE_2D;
 
     if (isCubemap) {
         view_info.viewType = VK_IMAGE_VIEW_TYPE_CUBE;
@@ -1251,6 +1253,10 @@ AllocatedImage VulkanEngine::create_image(VkExtent3D size, VkFormat format, VkIm
     imagesAllocated.insert(newImage.allocationIndex);
 
     createdImages.push_back(newImage.image);
+
+    if ((uintptr_t)newImage.image == 0x570000000057ull) {
+        int i = 0;
+    }
 
     return newImage;
 }
