@@ -237,22 +237,6 @@ void L3DUpdate::render(VkCommandBuffer cmd, L3D::UpdateData& updateData, VulkanE
 
 	bool updateSimulation = updateData.step < updateData.maxStep;
 
-	if (updateData.step >= updateData.maxStep && updateData.fileWrite) {
-		updateData.fileWrite = false;
-
-		std::vector<glm::vec3> sampleData;
-		sampleData.resize(updateData.sampleBuffer.size / sizeof(glm::vec3));
-		memcpy(sampleData.data(), updateData.sampleBuffer.info.pMappedData, updateData.sampleBuffer.size);
-
-		FILE* f = fopen("data_gpu_sim.bin", "wb");
-		if (!f) {
-			return;
-		}
-
-		fwrite(sampleData.data(), sizeof(glm::vec3), updateData.maxStep, f);
-		fclose(f);
-	}
-
 	L3D::UpdatePushConstants pushConstants{
 		.dimensions = glm::uvec4{ updateData.x, updateData.y, updateData.z, 0 },
 		.simData = glm::vec4{ updateData.ddx, updateData.dt, updateData.t, 0.0f },
@@ -375,5 +359,21 @@ void L3DUpdate::render(VkCommandBuffer cmd, L3D::UpdateData& updateData, VulkanE
 		// increment step
 		updateData.step++;
 		updateData.t += updateData.dt;
+	}
+
+	if (updateData.step >= updateData.maxStep && updateData.fileWrite) {
+		updateData.fileWrite = false;
+
+		std::vector<glm::vec3> sampleData;
+		sampleData.resize(updateData.sampleBuffer.size / sizeof(glm::vec3));
+		memcpy(sampleData.data(), updateData.sampleBuffer.info.pMappedData, updateData.sampleBuffer.size);
+
+		FILE* f = fopen("data_gpu_sim.bin", "wb");
+		if (!f) {
+			return;
+		}
+
+		fwrite(sampleData.data(), sizeof(glm::vec3), updateData.maxStep, f);
+		fclose(f);
 	}
 }

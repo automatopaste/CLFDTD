@@ -220,7 +220,7 @@ void run_sim_3d() {
 				return;
 			}
 
-			fwrite(state.samples.data(), sizeof(float), state.samples.size(), f);
+			fwrite(state.samples.data(), sizeof(vec3), state.samples.size(), f);
 			fclose(f);
 		}
 
@@ -249,9 +249,9 @@ int main() {
 
 	//run_sim_2d();
 	//run_sim_2d_dispersion();
-	//run_sim_3d();
+	run_sim_3d();
 
-	run_gpu_sim();
+	//run_gpu_sim();
 
 	return 0;
 }
