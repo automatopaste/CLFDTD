@@ -6,7 +6,7 @@
 
 void sim3d::state_init(State& state)
 {
-	state.resolution = 2;
+	state.resolution = 1;
 	state.dim = state.resolution * ivec3{ 100, 100, 100 };
 	state.npml = 8;
 	state.step = 0;
@@ -38,13 +38,12 @@ void sim3d::state_init(State& state)
 
 	// init dipole
 
-	/*int ic = state.dim.x / 2;
+	int ic = state.dim.x / 2;
 	int jc = state.dim.y / 2;
 	int kc = state.dim.z / 2;
 	for (int k = kc - 10; k < kc + 10; k++) {
-		state.ga.at(ic, jc, k).z = 10.0f;
+		state.ga.at(ic, jc, k).z = 1.0 / 12.0f;
 	}
-	state.ga.at(ic, jc, kc).z = 1.0f;*/
 
 	//state.d.at(ic, jc, kc).x = 10.0f;
 }
@@ -135,7 +134,7 @@ void sim3d::state_update(State& state)
 		}
 	}
 
-	if (state.t - state.lastSample >= 0.1f) {
+	if (state.t - state.lastSample >= 1.0f) {
 		state.lastSample = state.t;
 		ivec3 p = state.resolution * ivec3{ 10, 10, 10 };
 		vec3 sample = state.e.at(ic + p.x, jc + p.y, kc + p.z);
