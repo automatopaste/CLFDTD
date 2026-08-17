@@ -21,12 +21,12 @@ void L3DUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	updateData.t = 0.0f;
 	updateData.step = 0;
 	updateData.npml = 8;
-	updateData.x = 300;
-	updateData.y = 300;
-	updateData.z = 50;
+	updateData.x = 100;
+	updateData.y = 100;
+	updateData.z = 100;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 200;
+	updateData.maxStep = 50;
 
 	size_t sizeX = updateData.x * sizeof(float);
 	size_t sizeY = updateData.y * sizeof(float);

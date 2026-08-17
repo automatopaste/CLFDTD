@@ -92,12 +92,12 @@ void main() {
 	int maxSimStep = pushConstants.simDataInt.z;
 
 	if (all(equal(ijk, centre))) {
-		// float dt = pushConstants.simData.y;
-		float t0 = 20.0;
+		const float dt = pushConstants.simData.y;
+		float t0 = 70.0 * dt;
+		float spread = 60.0 * dt;
 		float t = pushConstants.simData.z;
-		float spread = 6.0;
 		const float pi = 3.14159265359;
-		float pulse = exp(-0.5 * pow((t0 - t) / spread, 2.0));
+		float pulse = 50.0 * exp(-0.5 * pow((t0 - t) / spread, 2.0));
 		d.z += pulse;
 	}
 

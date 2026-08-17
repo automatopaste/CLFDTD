@@ -45,13 +45,16 @@ namespace sim3d
 		field_vec e;
 		field_vec h;
 
+		float lastSample;
 		std::vector<vec3> samples;
 
-		float ddx;
+		float dx;
+		float c;
 		float dt;
 		float t;
 		uint32_t step;
 		ivec3 dim;
+		int resolution;
 		int npml;
 	};
 

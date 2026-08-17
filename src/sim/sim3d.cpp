@@ -6,18 +6,23 @@
 
 void sim3d::state_init(State& state)
 {
-	state.dim = ivec3{ 300, 300, 50 };
+	state.resolution = 2;
+	state.dim = state.resolution * ivec3{ 100, 100, 100 };
 	state.npml = 8;
+	state.step = 0;
 
 	state.ga.resize(state.dim);
 	state.d.resize(state.dim);
 	state.e.resize(state.dim);
 	state.h.resize(state.dim);
 
+	state.lastSample = -1.1f;
 	state.samples.clear();
 
-	state.ddx = 0.001f;
-	state.dt = state.ddx / 6e8f;
+	state.dx = 1.0f / (float)state.resolution;
+	state.c = 1.0f;
+	float courant = 0.5f;
+	state.dt = courant * state.dx / state.c;
 	state.t = 0.0f;
 
 	for (int k = 0; k < state.dim.z; k++) {
@@ -33,17 +38,21 @@ void sim3d::state_init(State& state)
 
 	// init dipole
 
-	int ic = state.dim.x / 2;
+	/*int ic = state.dim.x / 2;
 	int jc = state.dim.y / 2;
 	int kc = state.dim.z / 2;
 	for (int k = kc - 10; k < kc + 10; k++) {
-		state.ga.at(ic, kc, k).z = 0.0f;
+		state.ga.at(ic, jc, k).z = 10.0f;
 	}
-	state.ga.at(ic, jc, kc).z = 1.0f;
+	state.ga.at(ic, jc, kc).z = 1.0f;*/
+
+	//state.d.at(ic, jc, kc).x = 10.0f;
 }
 
 void sim3d::state_update(State& state)
 {
+	float cdt_dx = state.c * state.dt / state.dx;
+
 	// D update
 
 	for (int k = 1; k < state.dim.z; k++) {
@@ -55,21 +64,25 @@ void sim3d::state_update(State& state)
 				float chz = h.y - state.h.at(i - 1, j, k).y - h.x + state.h.at(i, j - 1, k).x;
 				vec3 curlH = vec3{ chx, chy, chz };
 
-				state.d.at(i, j, k) += 0.5f * curlH;
+				state.d.at(i, j, k) += cdt_dx * curlH;
 			}
 		}
 	}
 	
-	float t0 = 20.0f;
-	float spread = 6.0f;
-	float epsz = 8.8e-12f;
+	float frequency = 0.1f;
+	float width = 2.0f;
+	float cutoff = 1.0f;
 	float pi = 3.14159265359f;
-	float pulse = expf(-0.5f * powf((t0 - state.t) / spread, 2.0f));
+
+	float tPeak = cutoff * width;
+
+	float envelope = expf(-0.5f * powf((state.t - tPeak) / width, 2.0f));
+	float pulse = envelope * cosf(2.0f * pi * frequency * (state.t - tPeak));
 
 	int ic = state.dim.x / 2;
 	int jc = state.dim.y / 2;
 	int kc = state.dim.z / 2;
-	state.d.at(ic, jc, kc).z += pulse;
+	state.d.at(ic, jc, kc).z -= cdt_dx * pulse;
 
 	// E update
 
@@ -92,7 +105,7 @@ void sim3d::state_update(State& state)
 				float cez = state.e.at(i, j + 1, k).x - e.x - state.e.at(i + 1, j, k).y + e.y;
 				vec3 curlE = vec3{ cex, cey, cez };
 
-				state.h.at(i, j, k) += 0.5f * curlE;
+				state.h.at(i, j, k) += cdt_dx * curlE;
 			}
 		}
 	}
@@ -102,7 +115,7 @@ void sim3d::state_update(State& state)
 			int i = state.dim.x - 1;
 			vec3 e = state.e.at(i, j, k);
 			float cex = state.e.at(i, j, k + 1).y - e.y - state.e.at(i, j + 1, k).z + e.z;
-			state.h.at(i, j, k).x += 0.5f * cex;
+			state.h.at(i, j, k).x += cdt_dx * cex;
 		}
 	}
 	for (int k = 1; k < state.dim.z - 1; k++) {
@@ -110,7 +123,7 @@ void sim3d::state_update(State& state)
 			int j = state.dim.y - 1;
 			vec3 e = state.e.at(i, j, k);
 			float cey = state.e.at(i + 1, j, k).z - e.z - state.e.at(i, j, k + 1).x + e.x;
-			state.h.at(i, j, k).y += 0.5f * cey;
+			state.h.at(i, j, k).y += cdt_dx * cey;
 		}
 	}
 	for (int j = 1; j < state.dim.y - 1; j++) {
@@ -118,12 +131,16 @@ void sim3d::state_update(State& state)
 			int k = state.dim.z - 1;
 			vec3 e = state.e.at(i, j, k);
 			float cez = state.e.at(i, j + 1, k).x - e.x - state.e.at(i + 1, j, k).y + e.y;
-			state.h.at(i, j, k).z += 0.5f * cez;
+			state.h.at(i, j, k).z += cdt_dx * cez;
 		}
 	}
 
-	vec3 sample = state.e.at(ic + 5, jc + 5, kc + 5);
-	state.samples.push_back(sample);
+	if (state.t - state.lastSample >= 0.1f) {
+		state.lastSample = state.t;
+		ivec3 p = state.resolution * ivec3{ 10, 10, 10 };
+		vec3 sample = state.e.at(ic + p.x, jc + p.y, kc + p.z);
+		state.samples.push_back(sample);
+	}
 
 	state.t += state.dt;
 	state.step++;

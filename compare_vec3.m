@@ -22,16 +22,15 @@ fid = fopen(fullfile(path2,file2),'rb');
 B = fread(fid,'float32');
 fclose(fid);
 
+%% Modify
+
 %% Validate
 
 assert(mod(numel(A),3)==0,'First file is not a vec3 array.');
 assert(mod(numel(B),3)==0,'Second file is not a vec3 array.');
 
 A = reshape(A,3,[])';
-B = reshape(B,3,[])';
-
-assert(size(A,1)==size(B,1), ...
-    'Files contain different numbers of timesteps.');
+B = resize(reshape(B,3,[])', size(A));
 
 N = size(A,1);
 t = 0:N-1;

@@ -14,8 +14,6 @@ void render::init_data(Data& data, u32 width, u32 height)
 	data.width = width;
 	data.height = height;
 
-	SDL_Init(SDL_INIT_VIDEO);
-
 	data.window = SDL_CreateWindow("FDTD Simulation", width, height, 0);
 	data.renderer = SDL_CreateRenderer(data.window, nullptr);
 	data.texture = SDL_CreateTexture(data.renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, width, height);
@@ -239,7 +237,7 @@ void render::render_sim_3d(Data& data, sim3d::State* state)
 			if ((x + 4) < s.dim.x && (y + 4) < s.dim.y)
 			{
 				int kc = s.dim.z / 2;
-				vec3 e = s.e.at(x, y, kc) / 0.000001f;
+				vec3 e = s.e.at(x, y, kc) / 0.01f;
 				float ga = 0.0f;
 
 				vec3 eScaled = e * 0.5f + 0.5f;

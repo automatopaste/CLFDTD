@@ -82,18 +82,23 @@ void main() {
 	// initialise dipole
 
 	if (all(lessThan(ijk, dim))) {
-		imageStore(dDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
+		ivec3 c = ivec3(pushConstants.dimensions.xyz / 2);
+
+		vec4 d = vec4(0.0, 0.0, 0.0, 0.0);
+		if (all(equal(ijk, c))) {
+			//d.x = 10.0;
+		}
+
+		imageStore(dDst, ijk, d);
 		imageStore(eDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
 		imageStore(hDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
-
-		ivec3 c = ivec3(pushConstants.dimensions.xyz / 2);
 
 		vec3 ga = vec3(1.0, 1.0, 1.0);
 
 		// dipole structure
 		int kd = k - c.z;
 		if ((kd >= -10 || kd < 10) && i == c.x && j == c.y && k != c.z) {
-			ga.z = 0.0;
+			//ga.z = 0.0;
 		}
 
 		imageStore(gaDst, ijk, vec4(ga, 0.0));

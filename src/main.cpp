@@ -182,6 +182,8 @@ void run_sim_2d_dispersion() {
 	}
 }
 
+constexpr float FINISH_TIME = 50.0f;
+
 void run_sim_3d() {
 	sim3d::State state{};
 	sim3d::state_init(state);
@@ -194,7 +196,7 @@ void run_sim_3d() {
 
 	while (!quit)
 	{
-		SDL_Event event;;
+		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type)
 			{
@@ -206,13 +208,11 @@ void run_sim_3d() {
 			}
 		}
 
-		constexpr uint32_t STEPS = 200;
-
-		if (state.step < STEPS) {
+		if (state.t < FINISH_TIME) {
 			sim3d::state_update(state);
 		}
 
-		if (state.step >= STEPS && !fileWritten) {
+		if (state.t >= FINISH_TIME && !fileWritten) {
 			fileWritten = true;
 
 			FILE* f = fopen("data.bin", "wb");
@@ -233,7 +233,7 @@ void run_sim_3d() {
 	}
 }
 
-void run_gpu_sim() {
+void run_sim() {
 	// run shader src copy batch file
 	system("call ../../../batch_shader_copy.bat");
 
@@ -241,7 +241,11 @@ void run_gpu_sim() {
 
 	engine.init();
 
+	std::thread cpuSimThread(run_sim_3d);
+
 	engine.run();
+
+	cpuSimThread.join();
 }
 
 int main() {
@@ -249,9 +253,8 @@ int main() {
 
 	//run_sim_2d();
 	//run_sim_2d_dispersion();
-	run_sim_3d();
 
-	//run_gpu_sim();
+	run_sim();
 
 	return 0;
 }

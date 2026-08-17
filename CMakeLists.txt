@@ -92,6 +92,12 @@ if (WIN32)
         $<$<CONFIG:Release>:/LTCG>
     )
 
+    if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+        add_compile_options(-fno-fast-math -fno-unsafe-math-optimizations)
+    elseif(MSVC)
+        add_compile_options(/fp:precise) # Use /fp:strict for maximum rigidity
+    endif()
+
     set_target_properties(CLFDTD PROPERTIES
         WIN32_EXECUTABLE FALSE
 
