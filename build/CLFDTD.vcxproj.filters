@@ -17,6 +17,12 @@
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d.cpp">
       <Filter>sim</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d_dispersion.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d_saturable_gain.cpp">
+      <Filter>sim</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic\2d_output.cpp">
       <Filter>vk\r2\passes\2d_basic</Filter>
     </ClCompile>
@@ -101,6 +107,12 @@
       <Filter>sim</Filter>
     </ClInclude>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d.h">
+      <Filter>sim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d_dispersion.h">
+      <Filter>sim</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\sim\sim3d_saturable_gain.h">
       <Filter>sim</Filter>
     </ClInclude>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\types.h" />

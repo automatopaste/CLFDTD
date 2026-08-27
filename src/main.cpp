@@ -11,6 +11,8 @@
 #include "sim/sim2d.h"
 #include "sim/sim2d_dispersion.h"
 #include "sim/sim3d.h"
+#include "sim/sim3d_dispersion.h"
+#include "sim/sim3d_saturable_gain.h"
 #include "sim/renderer.h"
 
 #include "vk/vk_engine.h"
@@ -233,19 +235,121 @@ void run_sim_3d() {
 	}
 }
 
+void run_sim_3d_dispersion() {
+	sim3ddisp::State state{};
+	sim3ddisp::state_init(state);
+
+	render::Data renderData{};
+	render::init_data(renderData, 800, 800);
+
+	bool quit = false;
+	bool fileWritten = false;
+
+	while (!quit)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type)
+			{
+			case SDL_EVENT_QUIT:
+				quit = true;
+				break;
+			default:
+				break;
+			}
+		}
+
+		if (state.t < FINISH_TIME) {
+			sim3ddisp::state_update(state);
+		}
+
+		if (state.t >= FINISH_TIME && !fileWritten) {
+			fileWritten = true;
+
+			FILE* f = fopen("data.bin", "wb");
+			if (!f) {
+				return;
+			}
+
+			fwrite(state.samples.data(), sizeof(vec3), state.samples.size(), f);
+			fclose(f);
+		}
+
+		if (state.step % 1 == 0) {
+			render::render_sim_3d_dispersion(renderData, &state);
+			render::render_frame(renderData);
+		}
+
+		//std::this_thread::sleep_for(std::chrono::milliseconds(16));
+	}
+}
+
+void run_sim_3d_saturable_gain() {
+	sim3dsat::State state{};
+	sim3dsat::state_init(state);
+
+	render::Data renderData{};
+	render::init_data(renderData, 800, 800);
+
+	bool quit = false;
+	bool fileWritten = false;
+
+	while (!quit)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type)
+			{
+			case SDL_EVENT_QUIT:
+				quit = true;
+				break;
+			default:
+				break;
+			}
+		}
+
+		constexpr int STEPS = 4000;
+
+		if (state.step < STEPS) {
+			sim3dsat::state_update(state);
+		}
+
+		if (state.step >= STEPS && !fileWritten) {
+			fileWritten = true;
+
+			FILE* f = fopen("data.bin", "wb");
+			if (!f) {
+				return;
+			}
+
+			fwrite(state.samples.data(), sizeof(vec3), state.samples.size(), f);
+			fclose(f);
+		}
+
+		if (state.step % 1 == 0) {
+			render::render_sim_3d_saturable_gain(renderData, &state);
+			render::render_frame(renderData);
+		}
+
+		//std::this_thread::sleep_for(std::chrono::milliseconds(16));
+	}
+}
+
 void run_sim() {
 	// run shader src copy batch file
 	system("call ../../../batch_shader_copy.bat");
 
-	VulkanEngine engine{};
+	//VulkanEngine engine{};
 
-	engine.init();
+	//engine.init();
 
-	std::thread cpuSimThread(run_sim_3d);
+	//std::thread cpuSimThread(run_sim_3d);
+	//std::thread cpuSimThread(run_sim_3d_dispersion);
+	std::thread cpuSimThread0(run_sim_3d_saturable_gain);
 
-	engine.run();
+	//engine.run();
 
-	cpuSimThread.join();
+	cpuSimThread0.join();
 }
 
 int main() {

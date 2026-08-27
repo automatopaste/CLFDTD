@@ -22,6 +22,14 @@ namespace sim3d {
 	struct State;
 }
 
+namespace sim3ddisp {
+	struct State;
+}
+
+namespace sim3dsat {
+	struct State;
+}
+
 namespace render {
 
 	struct Data {
@@ -48,5 +56,9 @@ namespace render {
 	void render_sim_2d_dispersion(Data& data, sim2d_dispersion::State* state);
 
 	void render_sim_3d(Data& data, sim3d::State* state);
+
+	void render_sim_3d_dispersion(Data& data, sim3ddisp::State* state);
+
+	void render_sim_3d_saturable_gain(Data& data, sim3dsat::State* state);
 
 }

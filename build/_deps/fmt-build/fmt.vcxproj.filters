@@ -27,6 +27,9 @@
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\format.h">
       <Filter>Header Files</Filter>
     </ClInclude>

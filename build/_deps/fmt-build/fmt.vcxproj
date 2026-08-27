@@ -162,6 +162,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\color.h" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\compile.h" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\core.h" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\enum.h" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\format.h" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\format-inl.h" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\build\_deps\fmt-src\include\fmt\os.h" />
