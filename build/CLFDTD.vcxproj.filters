@@ -50,6 +50,18 @@
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.cpp">
       <Filter>vk\r2\passes</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_output.cpp">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_reset.cpp">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_update.cpp">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat_commander.cpp">
+      <Filter>vk\r2\passes</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.cpp">
       <Filter>vk\r2\passes\d2disp</Filter>
     </ClCompile>
@@ -146,6 +158,18 @@
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.h">
       <Filter>vk\r2\passes</Filter>
     </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_output.h">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_reset.h">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_update.h">
+      <Filter>vk\r2\passes\3d_sat</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat_commander.h">
+      <Filter>vk\r2\passes</Filter>
+    </ClInclude>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.h">
       <Filter>vk\r2\passes\d2disp</Filter>
     </ClInclude>
@@ -222,6 +246,9 @@
     </Filter>
     <Filter Include="vk\r2\passes\3d_linear">
       <UniqueIdentifier>{6ECF3650-7A78-3788-99CA-CDF80AFCF4BD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vk\r2\passes\3d_sat">
+      <UniqueIdentifier>{92F2A198-89B9-3AF1-A81D-370F38B3241C}</UniqueIdentifier>
     </Filter>
     <Filter Include="vk\r2\passes\d2disp">
       <UniqueIdentifier>{AC0E4393-ACBD-3381-9FAF-69C11594745C}</UniqueIdentifier>

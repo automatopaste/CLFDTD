@@ -339,17 +339,15 @@ void run_sim() {
 	// run shader src copy batch file
 	system("call ../../../batch_shader_copy.bat");
 
-	//VulkanEngine engine{};
+	VulkanEngine engine{};
 
-	//engine.init();
+	engine.init();
 
-	//std::thread cpuSimThread(run_sim_3d);
-	//std::thread cpuSimThread(run_sim_3d_dispersion);
-	std::thread cpuSimThread0(run_sim_3d_saturable_gain);
+	//std::thread cpuSimThread0(run_sim_3d);
 
-	//engine.run();
+	engine.run();
 
-	cpuSimThread0.join();
+	//cpuSimThread0.join();
 }
 
 int main() {

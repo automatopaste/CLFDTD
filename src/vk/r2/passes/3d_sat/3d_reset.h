@@ -4,7 +4,7 @@
 
 class VulkanEngine;
 
-namespace L3DReset {
+namespace L3DsatReset {
 
 	void init(R2::RenderData& renderData, VulkanEngine* engine);
 

@@ -4,7 +4,7 @@
 
 class VulkanEngine;
 
-namespace L3DOutput {
+namespace L3DsatOutput {
 
 	void init(R2::RenderData& renderData, VulkanEngine* engine);
 

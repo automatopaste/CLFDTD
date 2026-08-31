@@ -29,6 +29,4 @@ for c = 1:3
     title(sprintf('%s Component',labels{c}))
     legend('File 1','File 2')
 
-    subplot(4,2,2*c)
-
 end

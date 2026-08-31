@@ -2,15 +2,17 @@
 
 #include "passes/2d_basic_commander.h"
 #include "passes/3d_linear_commander.h"
+#include "passes/3d_sat_commander.h"
 
 #include "vk/vk_initialisers.h"
 
 enum class SimulationType {
 	BASIC_2D,
 	DISPERSION_2D,
-	LINEAR_3D
+	LINEAR_3D,
+	SAT_3D
 };
-constexpr SimulationType SIMULATION_TYPE = SimulationType::LINEAR_3D;
+constexpr SimulationType SIMULATION_TYPE = SimulationType::SAT_3D;
 
 void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapchainExtent, VkExtent2D drawExtent)
 {
@@ -20,6 +22,9 @@ void R2::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapc
 		break;
 	case SimulationType::LINEAR_3D:
 		L3D::init(renderData, engine, swapchainExtent, drawExtent);
+		break;
+	case SimulationType::SAT_3D:
+		L3Dsat::init(renderData, engine, swapchainExtent, drawExtent);
 		break;
 	default:
 		break;
@@ -35,6 +40,9 @@ void R2::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 	case SimulationType::LINEAR_3D:
 		L3D::cleanup(renderData, engine);
 		break;
+	case SimulationType::SAT_3D:
+		L3Dsat::cleanup(renderData, engine);
+		break;
 	default:
 		break;
 	}
@@ -48,6 +56,9 @@ void R2::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* e
 		break;
 	case SimulationType::LINEAR_3D:
 		L3D::render(cmd, renderData, engine, frameIndex, swapchainImage, swapchainImageView);
+		break;
+	case SimulationType::SAT_3D:
+		L3Dsat::render(cmd, renderData, engine, frameIndex, swapchainImage, swapchainImageView);
 		break;
 	default:
 		break;

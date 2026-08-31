@@ -180,7 +180,7 @@ void sim3dsat::state_update(State& state)
 
 				float B = 8.0f * epsilon * T2 * (dt + T2) + dt * dt * (2.0f * epsilon * Z2 + s * omega0 * (dt + 2.0f * T2));
 
-				float A1 = (4.0f * t * s * sigma0 * (dt + 2.0f * T2)) / (B * dx);
+				float A1 = (4.0f * dt * s * sigma0 * (dt + 2.0f * T2)) / (B * dx);
 				float A2 = (8.0f * epsilon * s * sigma0 * dt) / B;
 				float A3 = -(4.0f * dt * (2.0f * epsilon * Z2 + s * omega0 * (dt + 2.0f * T2))) / B;
 				float A4 = (-(8.0f * epsilon * T2 * (dt - T2)) / B) - ((dt * dt * (2.0f * epsilon * Z2 + s * omega0 * (dt + 2.0f * T2))) / B);
@@ -201,7 +201,6 @@ void sim3dsat::state_update(State& state)
 
 				state.F.at(i, j, k) = fNew;
 				state.J.at(i, j, k) = jNew;
-				state.F.at(i, j, k) = fNew;
 				state.s.at(i, j, k) = sNew;
 				state.E.at(i, j, k) = eNew;
 				state.EPeak.at(i, j, k) = ePeakNew;

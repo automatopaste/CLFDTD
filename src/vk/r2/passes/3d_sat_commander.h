@@ -8,7 +8,7 @@
 
 class VulkanEngine;
 
-namespace L3D {
+namespace L3Dsat {
 
 	struct GlobalDataBuffer {
 		glm::mat4 view;
@@ -38,10 +38,11 @@ namespace L3D {
 		R2::Pipeline eUpdatePipeline;
 		R2::Pipeline hUpdatePipeline;
 
-		R2::PingPongImage gaImage;
 		R2::PingPongImage eImage;
-		R2::PingPongImage dImage;
+		R2::PingPongImage fImage;
+		R2::PingPongImage jImage;
 		R2::PingPongImage hImage;
+		R2::PingPongImage ePeakImage;
 
 		/*R2::BufferState pmlBuffers;
 		R2::BufferState gi2Buffer;
@@ -58,9 +59,12 @@ namespace L3D {
 		R2::BufferState sampleBuffer;
 
 		// program variables
-		float ddx;
+		float dx;
 		float dt;
 		float t;
+		float c;
+		float timeUnit;
+		float lengthUnit;
 		uint32_t step;
 		uint32_t maxStep;
 		int32_t npml;
@@ -69,6 +73,8 @@ namespace L3D {
 		uint32_t z;
 		bool initialise;
 		bool fileWrite;
+		int zRead;
+		float sourceOmega0;
 	};
 
 	struct OutputData {
@@ -109,6 +115,7 @@ namespace L3D {
 	struct UpdatePushConstants {
 		glm::uvec4 dimensions;
 		glm::vec4 simData;
+		glm::vec4 simData2;
 		glm::ivec4 simDataInt;
 		// VkDeviceAddress pmlBuffers;
 		VkDeviceAddress sampleBuffer;

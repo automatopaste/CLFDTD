@@ -219,14 +219,34 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_basic_commander.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.cpp" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\2d_dispersion_commander.h" />
-    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_output.cpp" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_output.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_linear/3d_output.cpp.obj</ObjectFileName>
+    </ClCompile>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_output.h" />
-    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_reset.cpp" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_reset.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_linear/3d_reset.cpp.obj</ObjectFileName>
+    </ClCompile>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_reset.h" />
-    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_update.cpp" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_update.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_linear/3d_update.cpp.obj</ObjectFileName>
+    </ClCompile>
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear\3d_update.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.cpp" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_linear_commander.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_output.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_sat/3d_output.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_output.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_reset.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_sat/3d_reset.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_reset.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_update.cpp">
+      <ObjectFileName>$(IntDir)/src/vk/r2/passes/3d_sat/3d_update.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat\3d_update.h" />
+    <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat_commander.cpp" />
+    <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\3d_sat_commander.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.cpp" />
     <ClInclude Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_output.h" />
     <ClCompile Include="C:\dev\FDTD\CLFDTD\src\vk\r2\passes\d2disp\d2disp_reset.cpp" />

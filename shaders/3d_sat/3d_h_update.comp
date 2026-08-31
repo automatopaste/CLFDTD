@@ -1,0 +1,165 @@
+#version 460
+
+#include "include/default_header.glsl"
+#include "include/global_descriptor.glsl"
+
+layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
+
+// layout (set = 1, binding = 0, r32f) uniform image2D ezSrc;
+// layout (set = 1, binding = 1, r32f) uniform image2D hxSrc;
+// layout (set = 1, binding = 2, r32f) uniform image2D hxDst;
+// layout (set = 1, binding = 3, r32f) uniform image2D hySrc;
+// layout (set = 1, binding = 4, r32f) uniform image2D hyDst;
+
+layout (set = 1, binding = 0, rgba32f) uniform image3D eSrc;
+layout (set = 1, binding = 1, rgba32f) uniform image3D hSrc;
+layout (set = 1, binding = 2, rgba32f) uniform image3D hDst;
+
+// layout (buffer_reference, scalar) readonly buffer GI2Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer GI3Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer GJ2Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer GJ3Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FI1Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FI2Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FI3Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FJ1Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FJ2Buffer { float values[]; };
+// layout (buffer_reference, scalar) readonly buffer FJ3Buffer { float values[]; };
+
+// layout (buffer_reference, scalar) buffer PMLBuffers {
+// 	GI2Buffer gi2;
+// 	GI3Buffer gi3;
+// 	GJ2Buffer gj2;
+// 	GJ3Buffer gj3;
+// 	FI1Buffer fi1;
+// 	FI2Buffer fi2;
+// 	FI3Buffer fi3;
+// 	FJ1Buffer fj1;
+// 	FJ2Buffer fj2;
+// 	FJ3Buffer fj3;
+// };
+
+layout (push_constant) uniform PushConstants {
+	uvec4 dimensions;
+	vec4 simData;
+	vec4 simData2;			// timeUnit, lengthUnit
+	ivec4 simDataInt;
+	// PMLBuffers pmlBuffers;
+} pushConstants;
+
+void main() {
+	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
+	uint x = pushConstants.dimensions.x;
+	uint y = pushConstants.dimensions.y;
+	uint z = pushConstants.dimensions.z;
+	ivec3 dim = ivec3(x, y, z);
+	ivec3 centre = ivec3(dim / 2);
+
+	if (any(lessThan(ijk, ivec3(1))) || any(greaterThanEqual(ijk, dim))) {
+        return;
+    }
+
+	const float dx = pushConstants.simData.x;
+	const float dt = pushConstants.simData.y;
+	const float t = pushConstants.simData.z;
+	const float c = pushConstants.simData.w;
+	const float timeUnit = pushConstants.simData2.x;
+	const float lengthUnit = pushConstants.simData2.y;
+
+	//const float eps0 = 8.8541878128e-12;
+	//const float mu0 = 1.25663706212e-6;
+	const float eps0 = 1.0;
+	const float mu0 = 1.0;
+
+	float cdt_dx = dt / (dx * mu0);
+
+	vec3 h = imageLoad(hSrc, ijk).xyz;
+    vec3 e = imageLoad(eSrc, ijk).xyz;
+
+	bool interior = ijk.x < dim.x - 1 && ijk.y < dim.y - 1 && ijk.z < dim.z - 1;
+
+	if (interior) {
+        vec3 ex1 = imageLoad(eSrc, ijk + ivec3(1, 0, 0)).xyz;
+        vec3 ey1 = imageLoad(eSrc, ijk + ivec3(0, 1, 0)).xyz;
+        vec3 ez1 = imageLoad(eSrc, ijk + ivec3(0, 0, 1)).xyz;
+
+		float cex = ez1.y - e.y - ey1.z + e.z;
+		float cey = ex1.z - e.z - ez1.x + e.x;
+		float cez = ey1.x - e.x - ex1.y + e.y;
+		vec3 curlE = vec3(cex, cey, cez);
+
+        h.xyz += cdt_dx * curlE;
+    } 
+    else {
+        // x face
+        if (ijk.x == dim.x - 1 && ijk.y < dim.y - 1 && ijk.z < dim.z - 1) {
+            vec3 ey1 = imageLoad(eSrc, ijk + ivec3(0, 1, 0)).xyz;
+            vec3 ez1 = imageLoad(eSrc, ijk + ivec3(0, 0, 1)).xyz;
+            float curlE_x = ez1.y - e.y - ey1.z + e.z;
+            h.x += cdt_dx * curlE_x;
+        }
+
+        // y face
+        if (ijk.y == dim.y - 1 && ijk.x < dim.x - 1 && ijk.z < dim.z - 1) {
+            vec3 ex1 = imageLoad(eSrc, ijk + ivec3(1, 0, 0)).xyz;
+            vec3 ez1 = imageLoad(eSrc, ijk + ivec3(0, 0, 1)).xyz;
+            float curlE_y = ex1.z - e.z - ez1.x + e.x;
+            h.y += cdt_dx * curlE_y;
+        }
+
+        // z face
+        if (ijk.z == dim.z - 1 && ijk.x < dim.x - 1 && ijk.y < dim.y - 1) {
+            vec3 ex1 = imageLoad(eSrc, ijk + ivec3(1, 0, 0)).xyz;
+            vec3 ey1 = imageLoad(eSrc, ijk + ivec3(0, 1, 0)).xyz;
+            float curlE_z = ey1.x - e.x - ex1.y + e.y;
+            h.z += cdt_dx * curlE_z;
+        }
+    }
+
+    imageStore(hDst, ijk, vec4(h, 0.0));
+
+	//float e = imageLoad(eSrc, ijk).r;
+
+
+	// if (
+	// 	i >= 0 && i < x &&
+	// 	j >= 0 && j < y - 1
+	// ) {
+	// 	float ez_x0 = imageLoad(ezSrc, ivec2(i, j + 1)).r;
+	// 	float hx = imageLoad(hxSrc, ij).r;
+	// 	float ihx = imageLoad(ihxSrc, ij).r;
+
+	// 	float fi1 = pushConstants.pmlBuffers.fi1.values[i];
+	// 	float fj2 = pushConstants.pmlBuffers.fj2.values[j];
+	// 	float fj3 = pushConstants.pmlBuffers.fj3.values[j];
+
+	// 	float curl_e = ez - ez_x0;
+
+	// 	float ihxNew = ihx + fi1 * curl_e;
+	// 	float hxNew = fj3 * hx + fj2 * 0.5 * (curl_e + ihxNew);
+		
+	// 	imageStore(ihxDst, ij, vec4(ihxNew, 0.0, 0.0, 0.0));
+	// 	imageStore(hxDst, ij, vec4(hxNew, 0.0, 0.0, 0.0));
+	// }
+
+	// if (
+	// 	i >= 0 && i < x - 1 &&
+	// 	j >= 0 && j < y - 1
+	// ) {
+	// 	float ez_y0 = imageLoad(ezSrc, ivec2(i + 1, j)).r;
+	// 	float hy = imageLoad(hySrc, ij).r;
+	// 	float ihy = imageLoad(ihySrc, ij).r;
+
+	// 	float fj1 = pushConstants.pmlBuffers.fj1.values[j];
+	// 	float fi2 = pushConstants.pmlBuffers.fi2.values[i];
+	// 	float fi3 = pushConstants.pmlBuffers.fi3.values[i];
+
+	// 	float curl_e = ez_y0 - ez;
+
+	// 	float ihyNew = ihy + fj1 * curl_e;
+	// 	float hyNew = fi3 * hy + fi2 * 0.5 * (curl_e + ihyNew);
+		
+	// 	imageStore(ihyDst, ij, vec4(ihyNew, 0.0, 0.0, 0.0));
+	// 	imageStore(hyDst, ij, vec4(hyNew, 0.0, 0.0, 0.0));
+	// }
+}

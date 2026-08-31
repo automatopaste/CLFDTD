@@ -1,4 +1,4 @@
-#include "3d_linear_commander.h"
+#include "3d_sat_commander.h"
 
 #include <thread>
 #include <shared_mutex>
@@ -8,13 +8,13 @@
 
 #include "../r2_config.h"
 
-#include "3d_linear/3d_reset.h"
-#include "3d_linear/3d_update.h"
-#include "3d_linear/3d_output.h"
+#include "3d_sat/3d_reset.h"
+#include "3d_sat/3d_update.h"
+#include "3d_sat/3d_output.h"
 
 #include "imgui.h"
 
-void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3D::UpdateData updateData, std::atomic_bool& exitFlag, std::atomic_bool& readFlag)
+void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3Dsat::UpdateData updateData, std::atomic_bool& exitFlag, std::atomic_bool& readFlag)
 {
     fmt::print("Simulation thread launching...\n");
 
@@ -67,7 +67,7 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3D::Upda
         VK_CHECK(vkBeginCommandBuffer(computeCmd, &computeCmdBeginInfo));
 
         // update pass
-        L3DUpdate::render(computeCmd, updateData, engine, frameIndex);
+        L3DsatUpdate::render(computeCmd, updateData, engine, frameIndex);
 
         VK_CHECK(vkEndCommandBuffer(computeCmd));
         VkCommandBufferSubmitInfo cmdinfo = vkinit::command_buffer_submit_info(computeCmd);
@@ -102,11 +102,11 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3D::Upda
     exitFlag = true;
 }
 
-void L3D::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapchainExtent, VkExtent2D drawExtent)
+void L3Dsat::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swapchainExtent, VkExtent2D drawExtent)
 {
-    L3D::Data* pData = new L3D::Data();
+    L3Dsat::Data* pData = new L3Dsat::Data();
     renderData.userData = pData;
-    L3D::Data& data = renderData.get_user_data<L3D::Data>();
+    L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
 
     renderData.swapchainExtent = swapchainExtent;
     renderData.drawExtent = drawExtent;
@@ -131,9 +131,9 @@ void L3D::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swap
 
     // init renderpasses
 
-    L3DReset::init(renderData, engine);
-    L3DUpdate::init(renderData, engine);
-    L3DOutput::init(renderData, engine);
+    L3DsatReset::init(renderData, engine);
+    L3DsatUpdate::init(renderData, engine);
+    L3DsatOutput::init(renderData, engine);
 
     // renderpass graph dependencies
 
@@ -179,15 +179,15 @@ void L3D::init(R2::RenderData& renderData, VulkanEngine* engine, VkExtent2D swap
     );
 }
 
-void L3D::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
+void L3Dsat::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 {
     delete renderData.userData;
 
     R2::destroy_image(engine, renderData.drawImage);
 
-    L3DReset::cleanup(renderData, engine);
-    L3DUpdate::cleanup(renderData, engine);
-    L3DOutput::cleanup(renderData, engine);
+    L3DsatReset::cleanup(renderData, engine);
+    L3DsatUpdate::cleanup(renderData, engine);
+    L3DsatOutput::cleanup(renderData, engine);
 
     std::vector<uint32_t> undeallocatedImages;
     for (uint32_t i : engine->r2ImageAllocations) {
@@ -242,9 +242,9 @@ void L3D::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
     }
 }
 
-void L3D::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex, VkImage swapchainImage, VkImageView swapchainImageView)
+void L3Dsat::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex, VkImage swapchainImage, VkImageView swapchainImageView)
 {
-    L3D::Data& data = renderData.get_user_data<L3D::Data>();
+    L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
 
     R2::debug_name_begin(cmd, "Init");
 
@@ -262,7 +262,7 @@ void L3D::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* 
 
     // attachment reset pass
     R2::debug_name_begin(cmd, "Reset");
-    L3DReset::render(cmd, renderData, engine, frameIndex);
+    L3DsatReset::render(cmd, renderData, engine, frameIndex);
     R2::pass_cmd_barrier(&data.resetPass, cmd);
     R2::debug_name_end(cmd);
 
@@ -275,7 +275,7 @@ void L3D::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* 
     if (restart) {
         data.simExitFlag = false;
 
-        L3D::UpdateData updateData = data.updateData;
+        L3Dsat::UpdateData updateData = data.updateData;
 
         if (data.simThread.joinable()) {
             data.simThread.join();
@@ -286,7 +286,7 @@ void L3D::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* 
 
     // output pass
     R2::debug_name_begin(cmd, "Output");
-    L3DOutput::render(cmd, renderData, engine, frameIndex);
+    L3DsatOutput::render(cmd, renderData, engine, frameIndex);
     R2::pass_cmd_barrier(&data.outputPass, cmd);
     R2::debug_name_end(cmd);
 }

@@ -8,11 +8,11 @@
 #include "vk/vk_synchronisation.h"
 #include "vk/vk_images.h"
 
-#include "../3d_linear_commander.h"
+#include "../3d_sat_commander.h"
 
-void L3DOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
+void L3DsatOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 {
-	L3D::Data& data = renderData.get_user_data<L3D::Data>();
+	L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
 
 	// post processing
 
@@ -20,7 +20,6 @@ void L3DOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 	builder.add_binding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	builder.add_binding(1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	builder.add_binding(2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
-	builder.add_binding(3, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	renderData.postProcessingDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
 
 	VkDescriptorSetLayout layouts[] = { data.globalDescriptor.layout, renderData.postProcessingDescriptor.layout };
@@ -28,7 +27,7 @@ void L3DOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	VkPushConstantRange postProcessingPushConstantRange{};
 	postProcessingPushConstantRange.offset = 0;
-	postProcessingPushConstantRange.size = sizeof(L3D::PostProcessingPushConstants);
+	postProcessingPushConstantRange.size = sizeof(L3Dsat::PostProcessingPushConstants);
 	postProcessingPushConstantRange.stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
 
 	VkPipelineLayoutCreateInfo postProcessingPipelineLayoutCreateInfo{ VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO };
@@ -40,7 +39,7 @@ void L3DOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 	VK_CHECK(vkCreatePipelineLayout(engine->_device, &postProcessingPipelineLayoutCreateInfo, nullptr, &data.outputData.postProcessingPipeline.layout));
 
 	VkShaderModule postProcessingShader;
-	vkutil::check_compile_load("3d_linear/3d_post_processing.comp", engine, &postProcessingShader, engine->_compileShaders);
+	vkutil::check_compile_load("3d_sat/3d_post_processing.comp", engine, &postProcessingShader, engine->_compileShaders);
 
 	ComputePipelineBuilder computePipelineBuilder{};
 	computePipelineBuilder.set_shader(postProcessingShader);
@@ -50,29 +49,29 @@ void L3DOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 	vkDestroyShaderModule(engine->_device, postProcessingShader, nullptr);
 }
 
-void L3DOutput::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
+void L3DsatOutput::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 {
-	L3D::Data& data = renderData.get_user_data<L3D::Data>();
+	L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
 
 	R2::destroy_pipeline(engine, data.outputData.postProcessingPipeline);
 
 	R2::destroy_descriptor(engine, renderData.postProcessingDescriptor);
 }
 
-void L3DOutput::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex)
+void L3DsatOutput::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEngine* engine, uint32_t frameIndex)
 {
-	L3D::Data& data = renderData.get_user_data<L3D::Data>();
-	L3D::UpdateData& updateData = data.updateData;
+	L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
+	L3Dsat::UpdateData& updateData = data.updateData;
 
 	static bool showGa{ false };
 	static float fieldScaleMult{ 500.0f };
 	static float fieldScaleLimit{ 5.0f };
-	static int zRead{ 0 };
 	if (ImGui::Begin("Simulation L3DOutput")) {
 		ImGui::Checkbox("Show Dielectric", &showGa);
 		ImGui::SliderFloat("Scaling Multiplier", &fieldScaleMult, 1.0f, 4000.0f);
 		ImGui::SliderFloat("Scaling Limit", &fieldScaleLimit, 1.0f, 5.0f);
-		ImGui::SliderInt("3D Z coordinate read", &zRead, 0, updateData.z);
+		ImGui::SliderInt("3D Z coordinate read", &updateData.zRead, 0, updateData.z);
+		ImGui::SliderFloat("Source omega0 x10^15", &updateData.sourceOmega0, 1.8f, 2.4f);
 		ImGui::Text(std::format("Time: {}", updateData.t).c_str());
 		ImGui::Text(std::format("Step: {}", updateData.step).c_str());
 	}
@@ -99,18 +98,17 @@ void L3DOutput::render(VkCommandBuffer cmd, R2::RenderData& renderData, VulkanEn
 	descriptorWriter.write_image(0, renderData.drawImage.image.imageView, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	descriptorWriter.write_image(1, renderData.frameData[frameIndex].swapchainImageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	descriptorWriter.write_image(2, updateData.eImage.src().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
-	descriptorWriter.write_image(3, updateData.gaImage.src().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	descriptorWriter.update_set(engine->_device, postProcessingSet);
 
 	vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, data.outputData.postProcessingPipeline.layout, 1, 1, &postProcessingSet, 0, nullptr);
 
 	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, data.outputData.postProcessingPipeline.pipeline);
 
-	L3D::PostProcessingPushConstants pushConstants{
-		.data = glm::uvec4{ showGa ? 1 : 0, showGa ? 0 : 1, zRead, 0 },
+	L3Dsat::PostProcessingPushConstants pushConstants{
+		.data = glm::uvec4{ showGa ? 1 : 0, showGa ? 0 : 1, updateData.zRead, 0 },
 		.scaling = glm::vec4{ fieldScaleMult, fieldScaleLimit, 0.0f, 0.0f }
 	};
-	vkCmdPushConstants(cmd, data.outputData.postProcessingPipeline.layout, VK_SHADER_STAGE_COMPUTE_BIT, 0, sizeof(L3D::PostProcessingPushConstants), &pushConstants);
+	vkCmdPushConstants(cmd, data.outputData.postProcessingPipeline.layout, VK_SHADER_STAGE_COMPUTE_BIT, 0, sizeof(L3Dsat::PostProcessingPushConstants), &pushConstants);
 
 	uint32_t dispatchX = static_cast<uint32_t>(std::ceil(renderData.swapchainExtent.width / 8.0f));
 	uint32_t dispatchY = static_cast<uint32_t>(std::ceil(renderData.swapchainExtent.height / 8.0f));
