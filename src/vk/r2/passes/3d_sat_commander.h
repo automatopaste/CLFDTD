@@ -44,17 +44,15 @@ namespace L3Dsat {
 		R2::PingPongImage hImage;
 		R2::PingPongImage ePeakImage;
 
-		/*R2::BufferState pmlBuffers;
-		R2::BufferState gi2Buffer;
-		R2::BufferState gi3Buffer;
-		R2::BufferState gj2Buffer;
-		R2::BufferState gj3Buffer;
-		R2::BufferState fi1Buffer;
-		R2::BufferState fi2Buffer;
-		R2::BufferState fi3Buffer;
-		R2::BufferState fj1Buffer;
-		R2::BufferState fj2Buffer;
-		R2::BufferState fj3Buffer;*/
+		// pml buffers
+		R2::BufferState ABuffer;
+		R2::BufferState BBuffer;
+		R2::PingPongImage psiEXImage;
+		R2::PingPongImage psiEYImage;
+		R2::PingPongImage psiEZImage;
+		R2::PingPongImage psiHXImage;
+		R2::PingPongImage psiHYImage;
+		R2::PingPongImage psiHZImage;
 
 		R2::BufferState sampleBuffer;
 
@@ -117,7 +115,8 @@ namespace L3Dsat {
 		glm::vec4 simData;
 		glm::vec4 simData2;
 		glm::ivec4 simDataInt;
-		// VkDeviceAddress pmlBuffers;
+		VkDeviceAddress ABuffer;
+		VkDeviceAddress BBuffer;
 		VkDeviceAddress sampleBuffer;
 	};
 

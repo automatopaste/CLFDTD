@@ -15,36 +15,23 @@ layout (set = 1, binding = 0, rgba32f) uniform image3D eSrc;
 layout (set = 1, binding = 1, rgba32f) uniform image3D hSrc;
 layout (set = 1, binding = 2, rgba32f) uniform image3D hDst;
 
-// layout (buffer_reference, scalar) readonly buffer GI2Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer GI3Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer GJ2Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer GJ3Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FI1Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FI2Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FI3Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FJ1Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FJ2Buffer { float values[]; };
-// layout (buffer_reference, scalar) readonly buffer FJ3Buffer { float values[]; };
+layout (set = 1, binding = 3, rg32f) uniform image3D psiXSrc;
+layout (set = 1, binding = 4, rg32f) uniform image3D psiXDst;
+layout (set = 1, binding = 5, rg32f) uniform image3D psiYSrc;
+layout (set = 1, binding = 6, rg32f) uniform image3D psiYDst;
+layout (set = 1, binding = 7, rg32f) uniform image3D psiZSrc;
+layout (set = 1, binding = 8, rg32f) uniform image3D psiZDst;
 
-// layout (buffer_reference, scalar) buffer PMLBuffers {
-// 	GI2Buffer gi2;
-// 	GI3Buffer gi3;
-// 	GJ2Buffer gj2;
-// 	GJ3Buffer gj3;
-// 	FI1Buffer fi1;
-// 	FI2Buffer fi2;
-// 	FI3Buffer fi3;
-// 	FJ1Buffer fj1;
-// 	FJ2Buffer fj2;
-// 	FJ3Buffer fj3;
-// };
+layout (buffer_reference, scalar) readonly buffer ABuffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer BBuffer { float values[]; };
 
 layout (push_constant) uniform PushConstants {
 	uvec4 dimensions;
 	vec4 simData;
 	vec4 simData2;			// timeUnit, lengthUnit
 	ivec4 simDataInt;
-	// PMLBuffers pmlBuffers;
+	ABuffer aBuffer;
+	BBuffer bBuffer;
 } pushConstants;
 
 void main() {
@@ -54,6 +41,7 @@ void main() {
 	uint z = pushConstants.dimensions.z;
 	ivec3 dim = ivec3(x, y, z);
 	ivec3 centre = ivec3(dim / 2);
+	const int npml = pushConstants.simDataInt.y;
 
 	if (any(lessThan(ijk, ivec3(1))) || any(greaterThanEqual(ijk, dim))) {
         return;
@@ -83,10 +71,70 @@ void main() {
         vec3 ey1 = imageLoad(eSrc, ijk + ivec3(0, 1, 0)).xyz;
         vec3 ez1 = imageLoad(eSrc, ijk + ivec3(0, 0, 1)).xyz;
 
-		float cex = ez1.y - e.y - ey1.z + e.z;
-		float cey = ex1.z - e.z - ez1.x + e.x;
-		float cez = ey1.x - e.x - ex1.y + e.y;
-		vec3 curlE = vec3(cex, cey, cez);
+		// float cex = ez1.y - e.y - ey1.z + e.z;
+		// float cey = ex1.z - e.z - ez1.x + e.x;
+		// float cez = ey1.x - e.x - ex1.y + e.y;
+		// vec3 curlE = vec3(cex, cey, cez);
+
+		float dEz_dx = ex1.z - e.z;
+		float dEy_dx = ex1.y - e.y;
+		float dEz_dy = ey1.z - e.z;
+		float dEx_dy = ey1.x - e.x;
+		float dEy_dz = ez1.y - e.y;
+		float dEx_dz = ez1.x - e.x;
+
+		int ni = min(ijk.x, int(x) - 1 - ijk.x);
+		int nj = min(ijk.y, int(y) - 1 - ijk.y);
+		int nk = min(ijk.z, int(z) - 1 - ijk.z);
+
+		float psi_dEz_dx_new = 0.0;
+		float psi_dEy_dx_new = 0.0;
+		float psi_dEz_dy_new = 0.0;
+		float psi_dEx_dy_new = 0.0;
+		float psi_dEy_dz_new = 0.0;
+		float psi_dEx_dz_new = 0.0;
+		
+		if (ni < npml) {
+			const float a = pushConstants.aBuffer.values[ni];
+			const float b = pushConstants.bBuffer.values[ni];
+			int xLoc = ijk.x < centre.x ? ni : (npml * 2) - 1 - ni;
+			ivec3 loc = ivec3(xLoc, ijk.y, ijk.z);
+			vec2 psiX = imageLoad(psiXSrc, loc).xy;
+			psi_dEz_dx_new = b * psiX.x + a * dEz_dx;
+			psi_dEy_dx_new = b * psiX.y + a * dEy_dx;
+			imageStore(psiXDst, loc, vec4(psi_dEz_dx_new, psi_dEy_dx_new, 0.0, 0.0));
+		}
+		if (nj < npml) {
+			const float a = pushConstants.aBuffer.values[nj];
+			const float b = pushConstants.bBuffer.values[nj];
+			int yLoc = ijk.y < centre.y ? nj : (npml * 2) - 1 - nj;
+			ivec3 loc = ivec3(ijk.x, yLoc, ijk.z);
+			vec2 psiY = imageLoad(psiYSrc, loc).xy;
+			psi_dEz_dy_new = b * psiY.x + a * dEz_dy;
+			psi_dEx_dy_new = b * psiY.y + a * dEx_dy;
+			imageStore(psiYDst, loc, vec4(psi_dEz_dy_new, psi_dEx_dy_new, 0.0, 0.0));
+		}
+		if (nk < npml) {
+			const float a = pushConstants.aBuffer.values[nk];
+			const float b = pushConstants.bBuffer.values[nk];
+			int zLoc = ijk.z < centre.z ? nk : (npml * 2) - 1 - nk;
+			ivec3 loc = ivec3(ijk.x, ijk.y, zLoc);
+			vec2 psiZ = imageLoad(psiZSrc, loc).xy;
+			psi_dEy_dz_new = b * psiZ.x + a * dEy_dz;
+			psi_dEx_dz_new = b * psiZ.y + a * dEx_dz;
+			imageStore(psiZDst, loc, vec4(psi_dEy_dz_new, psi_dEx_dz_new, 0.0, 0.0));
+		}
+
+		vec3 curlE = vec3(
+			(dEy_dz + psi_dEy_dz_new) -
+			(dEz_dy + psi_dEz_dy_new),
+
+			(dEz_dx + psi_dEz_dx_new) -
+			(dEx_dz + psi_dEx_dz_new),
+
+			(dEx_dy + psi_dEx_dy_new) -
+			(dEy_dx + psi_dEy_dx_new)
+		);
 
         h.xyz += cdt_dx * curlE;
     } 

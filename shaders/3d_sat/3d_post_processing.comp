@@ -6,6 +6,7 @@
 layout (set = 1, binding = 0) uniform sampler2D drawImage;
 layout (rgba8, set = 1, binding = 1) uniform restrict writeonly image2D swapchainImage;
 layout (rgba32f, set = 1, binding = 2) uniform restrict readonly image3D eImage;
+layout (r32f, set = 1, binding = 3) uniform restrict readonly image3D ePeakImage;
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
 
@@ -45,7 +46,11 @@ void main() {
 		vec3 e;
 		if (showE) {
 			e = imageLoad(eImage, readCoord).rgb;
-		} else {
+		}
+		else if (showGa) {
+			e = vec3(log(imageLoad(ePeakImage, readCoord).r) * 0.1);
+		}
+		else {
 			e = vec3(bayer[(coord.y % 4) * 4 + (coord.x % 4)] / 15.0);
 		}
 

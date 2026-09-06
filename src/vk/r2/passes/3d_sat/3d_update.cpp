@@ -17,8 +17,9 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	L3Dsat::UpdateData& updateData = data.updateData;
 
 	constexpr float c0 = 299792458.0f;
-	constexpr float esp0 = 8.8541878128e-12f;
-	constexpr float dx0 = 13.3333e-9f; // 10 nm
+	constexpr float eps0 = 8.8541878128e-12f;
+	//constexpr float dx0 = 3.3333e-9f; // 600x150x150 simulation of 2.0x0.5x0.5um GaAs crystal
+	constexpr float dx0 = 6.2e-8f; // 600x150x150 simulation of 12.4umx3.1x3.1um GaAs crystal
 
 	constexpr float lengthUnit = dx0; // Normalised simulation length unit
 	constexpr float timeUnit = lengthUnit / c0; // Derived simulation time unit (L / c)
@@ -31,55 +32,24 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	updateData.lengthUnit = lengthUnit;
 	updateData.t = 0.0f;
 	updateData.step = 0;
-	updateData.npml = 8;
-	updateData.x = 700;
-	updateData.y = 300;
-	updateData.z = 300;
+	updateData.npml = 15;
+	updateData.x = 650;
+	updateData.y = 190;
+	updateData.z = 190;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 2000;
+	updateData.maxStep = 40000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);
 	size_t sizeY = updateData.y * sizeof(float);
 	size_t sizeZ = updateData.z * sizeof(float);
 
-	/*
-	R2::create_buffer(engine, &updateData.pmlBuffers, sizeof(L3D::PMLBuffers), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, true);
-
-	R2::create_buffer(engine, &updateData.gi2Buffer, sizeX, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.gi3Buffer, sizeX, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-
-	R2::create_buffer(engine, &updateData.gj2Buffer, sizeY, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.gj3Buffer, sizeY, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-
-	R2::create_buffer(engine, &updateData.fi1Buffer, sizeX, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.fi2Buffer, sizeX, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.fi3Buffer, sizeX, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-
-	R2::create_buffer(engine, &updateData.fj1Buffer, sizeY, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.fj2Buffer, sizeY, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	R2::create_buffer(engine, &updateData.fj3Buffer, sizeY, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, false);
-	*/
+	R2::create_buffer(engine, &updateData.ABuffer, sizeof(float) * updateData.npml, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, false);
+	R2::create_buffer(engine, &updateData.BBuffer, sizeof(float) * updateData.npml, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, false);
 
 	size_t sampleBufferSize = updateData.maxStep * sizeof(glm::vec3);
 	R2::create_buffer(engine, &updateData.sampleBuffer, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
-
-	/*
-	D2Disp::PMLBuffers pmlBuffers{
-		.gi2Buffer = updateData.gi2Buffer.address,
-		.gi3Buffer = updateData.gi3Buffer.address,
-		.gj2Buffer = updateData.gj2Buffer.address,
-		.gj3Buffer = updateData.gj3Buffer.address,
-		.fi1Buffer = updateData.fi1Buffer.address,
-		.fi2Buffer = updateData.fi2Buffer.address,
-		.fi3Buffer = updateData.fi3Buffer.address,
-		.fj1Buffer = updateData.fj1Buffer.address,
-		.fj2Buffer = updateData.fj2Buffer.address,
-		.fj3Buffer = updateData.fj3Buffer.address
-	};
-	memcpy(updateData.pmlBuffers.info.pMappedData, &pmlBuffers, sizeof(D2Disp::PMLBuffers));
-	*/
 
 	VkExtent3D size = { updateData.x, updateData.y, updateData.z };
 	VkImageUsageFlags usage = VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
@@ -89,6 +59,18 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	R2::create_image(engine, &updateData.jImage, size, VK_FORMAT_R32G32B32A32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
 	R2::create_image(engine, &updateData.hImage, size, VK_FORMAT_R32G32B32A32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
 	R2::create_image(engine, &updateData.ePeakImage, size, VK_FORMAT_R32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+
+	VkExtent3D psiXSize = { updateData.npml * 2, updateData.y, updateData.z };
+	R2::create_image(engine, &updateData.psiEXImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+	R2::create_image(engine, &updateData.psiHXImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+
+	VkExtent3D psiYSize = { updateData.x, updateData.npml * 2, updateData.z };
+	R2::create_image(engine, &updateData.psiEYImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+	R2::create_image(engine, &updateData.psiHYImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+
+	VkExtent3D psiZSize = { updateData.x, updateData.y, updateData.npml * 2 };
+	R2::create_image(engine, &updateData.psiEZImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
+	R2::create_image(engine, &updateData.psiHZImage, size, VK_FORMAT_R32G32_SFLOAT, usage, false, 0, VK_IMAGE_ASPECT_COLOR_BIT);
 
 	engine->immediate_submit([&](VkCommandBuffer cmd) {
 		VkImage initImageTransitions[]{
@@ -101,7 +83,19 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 			updateData.hImage.src().image,
 			updateData.hImage.dst().image,
 			updateData.ePeakImage.src().image,
-			updateData.ePeakImage.dst().image
+			updateData.ePeakImage.dst().image,
+			updateData.psiEXImage.src().image,
+			updateData.psiEXImage.dst().image,
+			updateData.psiEYImage.src().image,
+			updateData.psiEYImage.dst().image,
+			updateData.psiEZImage.src().image,
+			updateData.psiEZImage.dst().image,
+			updateData.psiHXImage.src().image,
+			updateData.psiHXImage.dst().image,
+			updateData.psiHYImage.src().image,
+			updateData.psiHYImage.dst().image,
+			updateData.psiHZImage.src().image,
+			updateData.psiHZImage.dst().image
 		};
 		for (uint32_t i = 0; i < sizeof(initImageTransitions) / sizeof(VkImage); i++) {
 			vkutil::image_barrier(cmd,
@@ -120,19 +114,19 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	DescriptorLayoutBuilder builder;
 
 	builder = DescriptorLayoutBuilder{};
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 11; i++) {
 		builder.add_binding(i, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	}
 	updateData.initDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
 
 	builder = DescriptorLayoutBuilder{};
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 15; i++) {
 		builder.add_binding(i, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	}
 	updateData.eDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
 
 	builder = DescriptorLayoutBuilder{};
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 9; i++) {
 		builder.add_binding(i, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	}
 	updateData.hDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
@@ -201,17 +195,8 @@ void L3DsatUpdate::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 	L3Dsat::Data& data = renderData.get_user_data<L3Dsat::Data>();
 	L3Dsat::UpdateData& updateData = data.updateData;
 
-	/*R2::destroy_buffer(engine, updateData.pmlBuffers);
-	R2::destroy_buffer(engine, updateData.gi2Buffer);
-	R2::destroy_buffer(engine, updateData.gi3Buffer);
-	R2::destroy_buffer(engine, updateData.gj2Buffer);
-	R2::destroy_buffer(engine, updateData.gj3Buffer);
-	R2::destroy_buffer(engine, updateData.fi1Buffer);
-	R2::destroy_buffer(engine, updateData.fi2Buffer);
-	R2::destroy_buffer(engine, updateData.fi3Buffer);
-	R2::destroy_buffer(engine, updateData.fj1Buffer);
-	R2::destroy_buffer(engine, updateData.fj2Buffer);
-	R2::destroy_buffer(engine, updateData.fj3Buffer);*/
+	R2::destroy_buffer(engine, updateData.ABuffer);
+	R2::destroy_buffer(engine, updateData.BBuffer);
 
 	R2::destroy_buffer(engine, updateData.sampleBuffer);
 
@@ -220,6 +205,13 @@ void L3DsatUpdate::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 	R2::destroy_image(engine, updateData.jImage);
 	R2::destroy_image(engine, updateData.hImage);
 	R2::destroy_image(engine, updateData.ePeakImage);
+
+	R2::destroy_image(engine, updateData.psiEXImage);
+	R2::destroy_image(engine, updateData.psiEYImage);
+	R2::destroy_image(engine, updateData.psiEZImage);
+	R2::destroy_image(engine, updateData.psiHXImage);
+	R2::destroy_image(engine, updateData.psiHYImage);
+	R2::destroy_image(engine, updateData.psiHZImage);
 
 	R2::destroy_descriptor(engine, updateData.initDescriptor);
 	R2::destroy_descriptor(engine, updateData.eDescriptor);
@@ -239,6 +231,13 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 	auto& h = updateData.hImage;
 	auto& ePeak = updateData.ePeakImage;
 
+	auto& psiEXImage = updateData.psiEXImage;
+	auto& psiEYImage = updateData.psiEYImage;
+	auto& psiEZImage = updateData.psiEZImage;
+	auto& psiHXImage = updateData.psiHXImage;
+	auto& psiHYImage = updateData.psiHYImage;
+	auto& psiHZImage = updateData.psiHZImage;
+
 	VkDescriptorSet& initDescriptor = updateData.initDescriptor.set(frameIndex);
 	VkDescriptorSet& eDescriptor = updateData.eDescriptor.set(frameIndex);
 	VkDescriptorSet& hDescriptor = updateData.hDescriptor.set(frameIndex);
@@ -256,7 +255,8 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		.simData = glm::vec4{ updateData.dx, updateData.dt, updateData.t, updateData.c },
 		.simData2 = glm::vec4{ updateData.timeUnit, updateData.lengthUnit, updateData.sourceOmega0, 0.0f },
 		.simDataInt = glm::ivec4 { updateData.step, updateData.npml, updateData.maxStep, 0 },
-		//.pmlBuffers = updateData.pmlBuffers.address,
+		.ABuffer = updateData.ABuffer.address,
+		.BBuffer = updateData.BBuffer.address,
 		.sampleBuffer = updateData.sampleBuffer.address
 	};
 
@@ -281,7 +281,19 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 			h.src().image,
 			h.dst().image,
 			ePeak.src().image,
-			ePeak.dst().image
+			ePeak.dst().image,
+			psiEXImage.src().image,
+			psiEXImage.dst().image,
+			psiEYImage.src().image,
+			psiEYImage.dst().image,
+			psiEZImage.src().image,
+			psiEZImage.dst().image,
+			psiHXImage.src().image,
+			psiHXImage.dst().image,
+			psiHYImage.src().image,
+			psiHYImage.dst().image,
+			psiHZImage.src().image,
+			psiHZImage.dst().image
 		};
 		for (uint32_t i = 0; i < sizeof(initImageTransitions) / sizeof(VkImage); i++) {
 			vkutil::image_barrier(cmd,
@@ -302,6 +314,14 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		descriptorWriter.write_image(2, j.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(3, h.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(4, ePeak.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+
+		descriptorWriter.write_image(5, psiEXImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(6, psiEYImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(7, psiEZImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(8, psiHXImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(9, psiHYImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(10, psiHZImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+
 		descriptorWriter.update_set(engine->_device, initDescriptor);
 
 		vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, updateData.initPipeline.layout, 1, 1, &initDescriptor, 0, nullptr);
@@ -333,6 +353,12 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		descriptorWriter.write_image(6, h.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(7, ePeak.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(8, ePeak.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(9, psiEXImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(10, psiEXImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(11, psiEYImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(12, psiEYImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(13, psiEZImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(14, psiEZImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.update_set(engine->_device, eDescriptor);
 
 		vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, updateData.eUpdatePipeline.layout, 1, 1, &eDescriptor, 0, nullptr);
@@ -353,6 +379,9 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		f.swap();
 		j.swap();
 		ePeak.swap();
+		psiEXImage.swap();
+		psiEYImage.swap();
+		psiEZImage.swap();
 
 		// h update
 		// read: e, hx, hy, ihx, ihy
@@ -362,6 +391,12 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		descriptorWriter.write_image(0, e.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(1, h.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.write_image(2, h.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(3, psiHXImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(4, psiHXImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(5, psiHYImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(6, psiHYImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(7, psiHZImage.src().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+		descriptorWriter.write_image(8, psiHZImage.dst().imageView, engine->_defaultSamplerNearest, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 		descriptorWriter.update_set(engine->_device, hDescriptor);
 
 		vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, updateData.hUpdatePipeline.layout, 1, 1, &hDescriptor, 0, nullptr);
@@ -379,6 +414,9 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 
 		// swap buffers written to
 		h.swap();
+		psiHXImage.swap();
+		psiHYImage.swap();
+		psiHZImage.swap();
 
 		// increment step
 		updateData.step++;

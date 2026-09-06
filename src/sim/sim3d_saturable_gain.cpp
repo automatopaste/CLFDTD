@@ -88,7 +88,7 @@ void sim3dsat::state_init(State& state)
 
 		float sigma_eff = sigma / (1.0f + (kappa - 1.0f));
 		float b = expf(-sigma_eff * 0.5f);
-		float a = sigma_eff * (state.b[i] - 1.0f);
+		float a = sigma_eff * (b - 1.0f);
 
 		state.b[i] = b;
 		state.a[i] = a;

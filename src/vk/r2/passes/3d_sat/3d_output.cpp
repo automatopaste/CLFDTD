@@ -20,6 +20,7 @@ void L3DsatOutput::init(R2::RenderData& renderData, VulkanEngine* engine)
 	builder.add_binding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	builder.add_binding(1, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	builder.add_binding(2, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	builder.add_binding(3, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	renderData.postProcessingDescriptor.layout = builder.build(engine->_device, VK_SHADER_STAGE_COMPUTE_BIT);
 
 	VkDescriptorSetLayout layouts[] = { data.globalDescriptor.layout, renderData.postProcessingDescriptor.layout };
@@ -98,6 +99,7 @@ void L3DsatOutput::render(VkCommandBuffer cmd, R2::RenderData& renderData, Vulka
 	descriptorWriter.write_image(0, renderData.drawImage.image.imageView, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
 	descriptorWriter.write_image(1, renderData.frameData[frameIndex].swapchainImageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	descriptorWriter.write_image(2, updateData.eImage.src().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
+	descriptorWriter.write_image(3, updateData.ePeakImage.src().imageView, nullptr, VK_IMAGE_LAYOUT_GENERAL, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE);
 	descriptorWriter.update_set(engine->_device, postProcessingSet);
 
 	vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_COMPUTE, data.outputData.postProcessingPipeline.layout, 1, 1, &postProcessingSet, 0, nullptr);
