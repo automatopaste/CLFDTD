@@ -152,7 +152,7 @@ void main() {
 	float n = 3.59;
 
 	const ivec3 cellDim = ivec3(600, 150, 150);
-	const ivec3 sourcePosition = ivec3(10, centre.y, centre.z);
+	const ivec3 sourcePosition = ivec3(25, centre.y, centre.z);
 
 	if (
 		abs(ijk.x - centre.x) > cellDim.x / 2 ||
@@ -168,7 +168,7 @@ void main() {
 	const float epsR = n * n;
 	const float epsilon = eps0 * epsR;
 
-	const float amplitude = 1e8;
+	const float amplitude = 1e3;
 	const float tau = dt * 1000.0;
 	const float t0 = 4.0 * tau;
 	//const float source_wavelength = 840e-9 / lengthUnit;
@@ -179,10 +179,13 @@ void main() {
 	//float source = amplitude * sin(source_omega0 * t) * envelope;
 
 	float d = distance(vec3(centre), vec3(ijk));
-	const float radius = 5.0;
-	if (length(vec3(ijk) - vec3(sourcePosition)) <= radius) {
-		float spatial = 0.5 * (1.0 + cos(3.14159265 * d / radius));
-		e.x -= spatial * source;
+	const float radius = 2.0;
+	// if (length(vec3(ijk) - vec3(sourcePosition)) <= radius) {
+	// 	float spatial = 0.5 * (1.0 + cos(3.14159265 * d / radius));
+	// 	e.x -= spatial * source;
+	// }
+	if (abs(ijk.x - sourcePosition.x) <= radius) {
+		e.z += source;
 	}
 
 	float Z2 = (1.0 + omega0 * omega0 * T2 * T2);
