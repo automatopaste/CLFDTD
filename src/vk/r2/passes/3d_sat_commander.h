@@ -54,7 +54,8 @@ namespace L3Dsat {
 		R2::PingPongImage psiHYImage;
 		R2::PingPongImage psiHZImage;
 
-		R2::BufferState sampleBuffer;
+		R2::BufferState sampleBuffer0;
+		R2::BufferState sampleBuffer1;
 
 		// program variables
 		float dx;
@@ -117,7 +118,8 @@ namespace L3Dsat {
 		glm::ivec4 simDataInt;
 		VkDeviceAddress ABuffer;
 		VkDeviceAddress BBuffer;
-		VkDeviceAddress sampleBuffer;
+		VkDeviceAddress sampleBuffer0;
+		VkDeviceAddress sampleBuffer1;
 	};
 
 	struct PostProcessingPushConstants {

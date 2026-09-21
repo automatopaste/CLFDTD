@@ -55,7 +55,7 @@ void VulkanEngine::init() {
     // We initialize SDL and create a window with it.
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_BORDERLESS);
+    SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 
 #if _DEBUG
     constexpr auto LM_WINDOW_NAME = "FDTD 2D GPU Debug";
@@ -82,7 +82,8 @@ void VulkanEngine::init() {
     //_fpsCap = (uint32_t)displayMode->refresh_rate == 0 ? 60u : displayMode->refresh_rate;
     _fpsCap = 60;
 
-    _windowExtent = VkExtent2D{ (uint32_t)displayMode->w, (uint32_t)displayMode->h };
+    //_windowExtent = VkExtent2D{ (uint32_t)displayMode->w, (uint32_t)displayMode->h };
+    _windowExtent = VkExtent2D{ (uint32_t)1600, (uint32_t)900 };
     vsync = false;
 
     _window = SDL_CreateWindow(

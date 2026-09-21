@@ -18,8 +18,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	constexpr float c0 = 299792458.0f;
 	constexpr float eps0 = 8.8541878128e-12f;
-	//constexpr float dx0 = 3.3333e-9f; // 600x150x150 simulation of 2.0x0.5x0.5um GaAs crystal
-	constexpr float dx0 = 6.2e-8f; // 600x150x150 simulation of 12.4umx3.1x3.1um GaAs crystal
+	constexpr float dx0 = 6.2e-8f; // 600x75x75 simulation of 12.4umx1.55x1.55um GaAs crystal
 
 	constexpr float lengthUnit = dx0; // Normalised simulation length unit
 	constexpr float timeUnit = lengthUnit / c0; // Derived simulation time unit (L / c)
@@ -32,13 +31,13 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	updateData.lengthUnit = lengthUnit;
 	updateData.t = 0.0f;
 	updateData.step = 0;
-	updateData.npml = 15;
-	updateData.x = 650;
-	updateData.y = 190;
-	updateData.z = 190;
+	updateData.npml = 30;
+	updateData.x = 670;
+	updateData.y = 90;
+	updateData.z = 90;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 40000;
+	updateData.maxStep = 100000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);
@@ -49,7 +48,8 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	R2::create_buffer(engine, &updateData.BBuffer, sizeof(float) * updateData.npml, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, false);
 
 	size_t sampleBufferSize = updateData.maxStep * sizeof(glm::vec3);
-	R2::create_buffer(engine, &updateData.sampleBuffer, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
+	R2::create_buffer(engine, &updateData.sampleBuffer0, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
+	R2::create_buffer(engine, &updateData.sampleBuffer1, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
 
 	VkExtent3D size = { updateData.x, updateData.y, updateData.z };
 	VkImageUsageFlags usage = VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
@@ -198,7 +198,8 @@ void L3DsatUpdate::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 	R2::destroy_buffer(engine, updateData.ABuffer);
 	R2::destroy_buffer(engine, updateData.BBuffer);
 
-	R2::destroy_buffer(engine, updateData.sampleBuffer);
+	R2::destroy_buffer(engine, updateData.sampleBuffer0);
+	R2::destroy_buffer(engine, updateData.sampleBuffer1);
 
 	R2::destroy_image(engine, updateData.eImage);
 	R2::destroy_image(engine, updateData.fImage);
@@ -257,7 +258,8 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		.simDataInt = glm::ivec4 { updateData.step, updateData.npml, updateData.maxStep, 0 },
 		.ABuffer = updateData.ABuffer.address,
 		.BBuffer = updateData.BBuffer.address,
-		.sampleBuffer = updateData.sampleBuffer.address
+		.sampleBuffer0 = updateData.sampleBuffer0.address,
+		.sampleBuffer1 = updateData.sampleBuffer1.address
 	};
 
 	uint32_t dispatchX = static_cast<uint32_t>(std::ceilf(updateData.x / 8.0f));
@@ -426,16 +428,24 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 	if (updateData.step >= updateData.maxStep && updateData.fileWrite) {
 		updateData.fileWrite = false;
 
-		std::vector<glm::vec3> sampleData;
-		sampleData.resize(updateData.sampleBuffer.size / sizeof(glm::vec3));
-		memcpy(sampleData.data(), updateData.sampleBuffer.info.pMappedData, updateData.sampleBuffer.size);
+		std::vector<glm::vec3> sampleData0;
+		std::vector<glm::vec3> sampleData1;
+		sampleData0.resize(updateData.sampleBuffer0.size / sizeof(glm::vec3));
+		sampleData1.resize(updateData.sampleBuffer1.size / sizeof(glm::vec3));
 
-		FILE* f = fopen("data_gpu_sim.bin", "wb");
-		if (!f) {
+		memcpy(sampleData0.data(), updateData.sampleBuffer0.info.pMappedData, updateData.sampleBuffer0.size);
+		memcpy(sampleData1.data(), updateData.sampleBuffer1.info.pMappedData, updateData.sampleBuffer1.size);
+
+		FILE* f0 = fopen("data_gpu_sim0.bin", "wb");
+		FILE* f1 = fopen("data_gpu_sim1.bin", "wb");
+		if (!f0 || !f1) {
 			return;
 		}
 
-		fwrite(sampleData.data(), sizeof(glm::vec3), updateData.maxStep, f);
-		fclose(f);
+		fwrite(sampleData0.data(), sizeof(glm::vec3), updateData.maxStep, f0);
+		fwrite(sampleData1.data(), sizeof(glm::vec3), updateData.maxStep, f1);
+
+		fclose(f0);
+		fclose(f1);
 	}
 }
