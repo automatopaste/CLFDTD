@@ -18,7 +18,8 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	constexpr float c0 = 299792458.0f;
 	constexpr float eps0 = 8.8541878128e-12f;
-	constexpr float dx0 = 6.2e-8f; // 600x75x75 simulation of 12.4umx1.55x1.55um GaAs crystal
+	//constexpr float dx0 = 6.2e-8f; // 600x75x75 simulation of 12.4umx1.55x1.55um GaAs crystal
+	constexpr float dx0 = 6.2e-10f; // 600x75x75 simulation of 12.4umx1.55x1.55um GaAs crystal
 
 	constexpr float lengthUnit = dx0; // Normalised simulation length unit
 	constexpr float timeUnit = lengthUnit / c0; // Derived simulation time unit (L / c)
@@ -31,13 +32,13 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	updateData.lengthUnit = lengthUnit;
 	updateData.t = 0.0f;
 	updateData.step = 0;
-	updateData.npml = 30;
-	updateData.x = 670;
-	updateData.y = 90;
-	updateData.z = 90;
+	updateData.npml = 12;
+	updateData.x = 448;
+	updateData.y = 36;
+	updateData.z = 36;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 100000;
+	updateData.maxStep = 5000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);

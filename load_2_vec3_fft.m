@@ -18,7 +18,7 @@ centerFrequency = 3.37e14;  % Hz
 % Frequency range displayed around center
 frequencyWidth = 1.0e14;    % Hz
 
-% Apply Hann window before FFT
+Apply Hann window before FFT
 useWindow = true;
 
 %% ============================================================

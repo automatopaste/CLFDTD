@@ -142,7 +142,7 @@ void main() {
 	// SI material properties for GaAs
 	const float lambdaSI = 0.89e-6; // m
 	const float T2SI = 0.07e-12; // s
-	const float sigmaSI = -7000.0; // S/m
+	const float sigmaSI = -5000.0; // S/m
 	const float IsSI = 65.2; // kW per cm2
 
 	const float lambda0 = lambdaSI / lengthUnit;
@@ -152,8 +152,8 @@ void main() {
 
 	float n = 3.59;
 
-	const ivec3 cellDim = ivec3(600, 30, 30);
-	const ivec3 sourcePosition = ivec3(31, centre.y, centre.z);
+	const ivec3 cellDim = ivec3(424, 12, 12);
+	const ivec3 sourcePosition = ivec3(18, centre.y, centre.z);
 
 	if (
 		abs(ijk.x - centre.x) > cellDim.x / 2 ||
@@ -169,26 +169,27 @@ void main() {
 	const float epsR = n * n;
 	const float epsilon = eps0 * epsR;
 
-	const float amplitude = 0.01;
-	const float tau = dt * 2000.0;
+	const float amplitude = 1.0;
+	const float tau = dt * 10.0;
 	const float t0 = 4.0 * tau;
 	//const float source_wavelength = 840e-9 / lengthUnit;
-	const float source_omega0 = pushConstants.simData2.z * 1e15 * timeUnit;
+	// const float source_omega0 = pushConstants.simData2.z * 1e15 * timeUnit;
 	//const float source_omega0 = c / source_wavelength;
 	
 	// sin source with ramp turn-on
 	float wavelength = 890e-9;
 	float source_omega_sin = 2.0 * 3.14159265359 / (wavelength / lengthUnit);
-	float envelope = clamp(t / (dt * 200.0), 0.0, 1.0);
-	float source = amplitude * sin(source_omega_sin * t) * envelope;
+	// float envelope = clamp(t / (dt * 200.0), 0.0, 1.0);
+	// float source = amplitude * sin(source_omega_sin * t) * envelope;
 
 	// gaussian carrier pulse
-	// float envelope = exp(-0.5 * pow((t - t0) / tau, 2.0));
-	// float source = amplitude * envelope * cos(source_omega0 * (t - t0));
+	float source_omega0 = 2.0 * 3.14159265359 * timeUnit * 1e16; 
+	float envelope = exp(-0.5 * pow((t - t0) / tau, 2.0));
+	float source = amplitude * envelope * cos(source_omega0 * (t - t0));
 
 	// sinc pulse centered around source_omega0
 	float width = 10.0;
-	float peak = dt * 500.0;
+	float peak = dt * 24.0;
 	float px = (t - peak) / width;
 	// float envelope = (abs(px) > 1e-6) ? sin(px) / px : 1.0;
 	// float source = amplitude * envelope * cos(source_omega0 * (t - peak));
@@ -227,10 +228,10 @@ void main() {
 	imageStore(jDst, ijk, vec4(jNew, 0.0));
 	imageStore(ePeakDst, ijk, vec4(ePeakNew, 0.0, 0.0, 0.0));
 
-	if (ijk.x == (x / 2) - 25 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) - 200 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer0.values[simStep] = eNew;
 	}
-	if (ijk.x == (x / 2) + 25 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) + 200 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer1.values[simStep] = eNew;
 	}
 
