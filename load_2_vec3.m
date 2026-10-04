@@ -3,6 +3,21 @@ clc;
 close all;
 
 %% ============================================================
+% Time scaling for each file
+% ============================================================
+%
+% Time between consecutive vec3 samples.
+%
+% Example:
+%   dt1 = 0.5;     % File 1: 0.5 simulation time units/sample
+%   dt2 = 0.25;    % File 2: 0.25 simulation time units/sample
+%
+% These can be different.
+
+dt1 = 1.0;
+dt2 = 1.0;
+
+%% ============================================================
 % Select first file
 % ============================================================
 
@@ -52,78 +67,47 @@ end
 B = reshape(B, 3, [])';
 
 %% ============================================================
-% Verify identical lengths
+% File lengths
 % ============================================================
 
 N1 = size(A, 1);
 N2 = size(B, 1);
 
-if N1 ~= N2
-    error(['Files must have identical lengths.\n' ...
-           'File 1: %d vec3s\n' ...
-           'File 2: %d vec3s'], N1, N2);
-end
-
-N = N1;
-
 fprintf('File 1: %s\n', file1);
 fprintf('File 2: %s\n', file2);
-fprintf('Number of vec3 samples: %d\n', N);
+
+fprintf('File 1 samples: %d\n', N1);
+fprintf('File 2 samples: %d\n', N2);
+
+fprintf('File 1 dt: %.12g\n', dt1);
+fprintf('File 2 dt: %.12g\n', dt2);
+
+fprintf('File 1 duration: %.12g\n', (N1-1)*dt1);
+fprintf('File 2 duration: %.12g\n', (N2-1)*dt2);
 
 %% ============================================================
 % Time shift
 % ============================================================
-
-% Number of vec3 samples to shift File 2.
+%
+% Physical time shift applied to File 2.
 %
 % Positive:
-%   File 2 appears later in time (shift right)
+%   File 2 appears later in time
 %
 % Negative:
-%   File 2 appears earlier in time (shift left)
+%   File 2 appears earlier in time
 %
-sampleOffset = -8;
+% This is now expressed in simulation time units rather than
+% number of samples.
+%
+timeOffset = 0.0;
 
 %% ============================================================
-% Create shifted version of File 2
+% Create time axes
 % ============================================================
 
-B_shifted = NaN(size(B));
-
-if sampleOffset > 0
-
-    % File 2 shifted RIGHT
-    %
-    % Original:
-    % B(1) B(2) B(3) ...
-    %
-    % Shifted:
-    % NaN ... NaN B(1) B(2) B(3) ...
-
-    B_shifted(sampleOffset+1:end, :) = ...
-        B(1:end-sampleOffset, :);
-
-elseif sampleOffset < 0
-
-    % File 2 shifted LEFT
-
-    shift = -sampleOffset;
-
-    B_shifted(1:end-shift, :) = ...
-        B(shift+1:end, :);
-
-else
-
-    % No shift
-    B_shifted = B;
-
-end
-
-%% ============================================================
-% Sample axis
-% ============================================================
-
-t = 0:N-1;
+tA = (0:N1-1)' * dt1;
+tB = (0:N2-1)' * dt2 + timeOffset;
 
 %% ============================================================
 % Vector magnitudes
@@ -135,9 +119,9 @@ magnitudeA = sqrt( ...
     A(:,3).^2);
 
 magnitudeB = sqrt( ...
-    B_shifted(:,1).^2 + ...
-    B_shifted(:,2).^2 + ...
-    B_shifted(:,3).^2);
+    B(:,1).^2 + ...
+    B(:,2).^2 + ...
+    B(:,3).^2);
 
 %% ============================================================
 % Plot individual components and vector magnitude
@@ -153,17 +137,17 @@ for c = 1:4
 
     if c <= 3
 
-        plot(t, A(:,c), 'LineWidth', 1.0);
+        plot(tA, A(:,c), 'LineWidth', 1.0);
         hold on;
 
-        plot(t, B_shifted(:,c), 'LineWidth', 1.0);
+        plot(tB, B(:,c), 'LineWidth', 1.0);
 
     else
 
-        plot(t, magnitudeA, 'LineWidth', 1.0);
+        plot(tA, magnitudeA, 'LineWidth', 1.0);
         hold on;
 
-        plot(t, magnitudeB, 'LineWidth', 1.0);
+        plot(tB, magnitudeB, 'LineWidth', 1.0);
 
     end
 
@@ -172,7 +156,7 @@ for c = 1:4
     ylabel(labels{c});
 
     if c == 4
-        xlabel('Vec3 sample');
+        xlabel('Simulation time');
     end
 
     title(sprintf('%s Comparison', labels{c}));
@@ -181,49 +165,105 @@ end
 
 legend( ...
     file1, ...
-    sprintf('%s (shift = %+d)', file2, sampleOffset), ...
+    sprintf('%s (\\Delta t = %+g)', file2, timeOffset), ...
     'Interpreter', 'none', ...
     'Location', 'best');
 
 sgtitle(sprintf( ...
-    'Raw Vec3 Comparison — File 2 shifted by %+d vec3 samples', ...
-    sampleOffset));
+    'Raw Vec3 Comparison — File 2 time shifted by %+g', ...
+    timeOffset));
 
 %% ============================================================
-% Plot difference
+% Common time interval
+% ============================================================
+%
+% Only compare where BOTH files contain data.
+%
+tStart = max(min(tA), min(tB));
+tEnd   = min(max(tA), max(tB));
+
+if tStart >= tEnd
+    error('Files have no overlapping time interval.');
+end
+
+%% ============================================================
+% Interpolate File 2 onto File 1 time samples
+% ============================================================
+%
+% This allows the files to:
+%
+%   - have different lengths
+%   - have different dt
+%   - have a physical time offset
+%
+% File 1 remains on its native time axis.
+
+validA = (tA >= tStart) & (tA <= tEnd);
+
+tCommon = tA(validA);
+
+B_interp = zeros(numel(tCommon), 3);
+
+for c = 1:3
+    B_interp(:,c) = interp1( ...
+        tB, ...
+        B(:,c), ...
+        tCommon, ...
+        'linear');
+end
+
+A_common = A(validA, :);
+
+%% ============================================================
+% Difference
 % ============================================================
 
-difference = B_shifted - A;
-
-figure('Position', [150 150 1600 900]);
-
-subplot(4,1,1);
-plot(t, difference(:,1), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta X');
-title('File 2 - File 1');
-
-subplot(4,1,2);
-plot(t, difference(:,2), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta Y');
-
-subplot(4,1,3);
-plot(t, difference(:,3), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta Z');
+difference = B_interp - A_common;
 
 differenceMagnitude = sqrt( ...
     difference(:,1).^2 + ...
     difference(:,2).^2 + ...
     difference(:,3).^2);
 
+%% ============================================================
+% Plot difference
+% ============================================================
+
+figure('Position', [150 150 1600 900]);
+
+subplot(4,1,1);
+plot(tCommon, difference(:,1), 'LineWidth', 1.0);
+grid on;
+ylabel('\Delta X');
+title('File 2 - File 1');
+
+subplot(4,1,2);
+plot(tCommon, difference(:,2), 'LineWidth', 1.0);
+grid on;
+ylabel('\Delta Y');
+
+subplot(4,1,3);
+plot(tCommon, difference(:,3), 'LineWidth', 1.0);
+grid on;
+ylabel('\Delta Z');
+
 subplot(4,1,4);
-plot(t, differenceMagnitude, 'LineWidth', 1.0);
+plot(tCommon, differenceMagnitude, 'LineWidth', 1.0);
 grid on;
 ylabel('|\Delta|');
-xlabel('Vec3 sample');
+xlabel('Simulation time');
 
 sgtitle(sprintf( ...
-    'Difference — File 2 shifted by %+d vec3 samples', ...
-    sampleOffset));
+    'Difference — File 2 shifted by %+g time units', ...
+    timeOffset));
+
+%% ============================================================
+% Print comparison information
+% ============================================================
+
+fprintf('\n');
+fprintf('Common time interval:\n');
+fprintf('  Start: %.12g\n', tStart);
+fprintf('  End:   %.12g\n', tEnd);
+fprintf('  Duration: %.12g\n', tEnd - tStart);
+fprintf('  Comparison samples: %d\n', numel(tCommon));

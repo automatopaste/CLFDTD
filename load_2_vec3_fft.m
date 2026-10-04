@@ -6,19 +6,21 @@ close all;
 % Configuration
 % ============================================================
 
-% FDTD temporal sampling interval
-dt = 0.5 * 2.068e-16;       % seconds
-
 % Speed of light
 c0 = 299792458;             % m/s
+
+% FDTD temporal sampling interval
+dx0 = 6.2e-10 * 4.0;
+courant = 0.5;
+dt = courant * dx0 / c0;       % seconds
 
 % Frequency to center the plot around
 centerFrequency = 3.37e14;  % Hz
 
 % Frequency range displayed around center
-frequencyWidth = 1.0e14;    % Hz
+frequencyWidth = 2.0e14;    % Hz
 
-Apply Hann window before FFT
+% Apply Hann window before FFT
 useWindow = true;
 
 %% ============================================================
@@ -103,34 +105,153 @@ if useWindow
 end
 
 %% ============================================================
+% FFT zero padding
+% ============================================================
+
+% Zero-padding factor
+fftPadFactor = 8;
+
+Nfft = 2^nextpow2(N * fftPadFactor);
+
+%% ============================================================
 % FFT each Cartesian component
 % ============================================================
 
-Fx1 = fft(E1(:,1));
-Fy1 = fft(E1(:,2));
-Fz1 = fft(E1(:,3));
+Fx1 = fft(E1(:,1), Nfft);
+Fy1 = fft(E1(:,2), Nfft);
+Fz1 = fft(E1(:,3), Nfft);
 
-Fx2 = fft(E2(:,1));
-Fy2 = fft(E2(:,2));
-Fz2 = fft(E2(:,3));
+Fx2 = fft(E2(:,1), Nfft);
+Fy2 = fft(E2(:,2), Nfft);
+Fz2 = fft(E2(:,3), Nfft);
+
+%% ============================================================
+% Preserve full FFTs for comparison plots
+% ============================================================
+
+Fx1_full = Fx1;
+Fy1_full = Fy1;
+Fz1_full = Fz1;
+
+Fx2_full = Fx2;
+Fy2_full = Fy2;
+Fz2_full = Fz2;
 
 %% ============================================================
 % Single-sided spectrum
 % ============================================================
 
-nHalf = floor(N/2) + 1;
+nHalf = floor(Nfft/2) + 1;
 
-Fx1 = Fx1(1:nHalf);
-Fy1 = Fy1(1:nHalf);
-Fz1 = Fz1(1:nHalf);
+Fx1 = Fx1_full(1:nHalf);
+Fy1 = Fy1_full(1:nHalf);
+Fz1 = Fz1_full(1:nHalf);
 
-Fx2 = Fx2(1:nHalf);
-Fy2 = Fy2(1:nHalf);
-Fz2 = Fz2(1:nHalf);
+Fx2 = Fx2_full(1:nHalf);
+Fy2 = Fy2_full(1:nHalf);
+Fz2 = Fz2_full(1:nHalf);
 
 Fs = 1 / dt;
 
-frequency = (0:nHalf-1).' * Fs / N;
+frequency = (0:nHalf-1).' * Fs / Nfft;
+
+%% ============================================================
+% Plot individual FFTs for visual comparison
+% ============================================================
+
+fMin = centerFrequency - frequencyWidth / 2;
+fMax = centerFrequency + frequencyWidth / 2;
+
+maskFFT = frequency >= fMin & frequency <= fMax;
+fFFT = frequency(maskFFT);
+
+% Individual component magnitudes
+components1 = {
+    abs(Fx1(maskFFT)), ...
+    abs(Fy1(maskFFT)), ...
+    abs(Fz1(maskFFT))
+};
+
+components2 = {
+    abs(Fx2(maskFFT)), ...
+    abs(Fy2(maskFFT)), ...
+    abs(Fz2(maskFFT))
+};
+
+componentNames = {'E_x', 'E_y', 'E_z'};
+
+% Combined vector magnitude spectrum
+magnitude1 = sqrt( ...
+    abs(Fx1(maskFFT)).^2 + ...
+    abs(Fy1(maskFFT)).^2 + ...
+    abs(Fz1(maskFFT)).^2);
+
+magnitude2 = sqrt( ...
+    abs(Fx2(maskFFT)).^2 + ...
+    abs(Fy2(maskFFT)).^2 + ...
+    abs(Fz2(maskFFT)).^2);
+
+% Plot each Cartesian component separately
+figure('Name', 'Individual FFT Comparison', ...
+       'Color', 'w');
+
+tiledlayout(2, 2, 'TileSpacing', 'compact');
+
+for k = 1:3
+    nexttile;
+
+    plot(fFFT, components1{k}, 'LineWidth', 1.2);
+    hold on;
+    plot(fFFT, components2{k}, 'LineWidth', 1.2);
+    hold off;
+
+    xlabel('Frequency (Hz)');
+    ylabel('|FFT|');
+    title(componentNames{k});
+
+    legend('X1', 'X2', 'Location', 'best');
+    grid on;
+    xlim([fMin fMax]);
+    xline(centerFrequency, '--');
+end
+
+% Combined vector magnitude
+nexttile;
+
+plot(fFFT, magnitude1, 'LineWidth', 1.2);
+hold on;
+plot(fFFT, magnitude2, 'LineWidth', 1.2);
+hold off;
+
+xlabel('Frequency (Hz)');
+ylabel('Vector FFT magnitude');
+title('Combined E-field');
+
+legend('X2', 'X2', 'Location', 'best');
+grid on;
+xlim([fMin fMax]);
+xline(centerFrequency, '--');
+
+%% ============================================================
+% Plot individual FFTs on logarithmic magnitude scale
+% ============================================================
+
+figure('Name', 'FFT Comparison - Log Scale', ...
+       'Color', 'w');
+
+semilogy(fFFT, max(magnitude1, eps), 'LineWidth', 1.2);
+hold on;
+semilogy(fFFT, max(magnitude2, eps), 'LineWidth', 1.2);
+hold off;
+
+xlabel('Frequency (Hz)');
+ylabel('Vector FFT magnitude (log scale)');
+title('X1 vs X2 E-field FFT');
+
+legend('X1', 'X2', 'Location', 'best');
+grid on;
+xlim([fMin fMax]);
+xline(centerFrequency, '--');
 
 %% ============================================================
 % Calculate spectral power
@@ -145,12 +266,20 @@ P2 = abs(Fx2).^2 + ...
      abs(Fz2).^2;
 
 %% ============================================================
-% Gain spectrum
+% Suppress frequencies where reference signal is too weak
 % ============================================================
 
-gain = P2 ./ P1;
+% Fraction of the maximum reference power required to consider
+% a frequency reliable.
+relativeThreshold = 1e-4;
 
-% Gain in dB
+threshold = max(P1) * relativeThreshold;
+
+validSpectrum = P1 > threshold;
+
+gain = nan(size(P1));
+gain(validSpectrum) = P2(validSpectrum) ./ P1(validSpectrum);
+
 gain_dB = 10 * log10(gain);
 
 %% ============================================================

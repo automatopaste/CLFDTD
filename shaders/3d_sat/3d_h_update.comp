@@ -2,6 +2,7 @@
 
 #include "include/default_header.glsl"
 #include "include/global_descriptor.glsl"
+#include "3d_sat/config.glsl"
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
 
@@ -43,9 +44,23 @@ void main() {
 	ivec3 centre = ivec3(dim / 2);
 	const int npml = pushConstants.simDataInt.y;
 
-	if (any(lessThan(ijk, ivec3(1))) || any(greaterThanEqual(ijk, dim))) {
-        return;
-    }
+#if PERIODIC_X
+    if (ijk.x < 0 || ijk.x >= dim.x) return;
+#else
+    if (ijk.x < 1 || ijk.x >= dim.x) return;
+#endif
+
+#if PERIODIC_Y
+    if (ijk.y < 0 || ijk.y >= dim.y) return;
+#else
+    if (ijk.y < 1 || ijk.y >= dim.y) return;
+#endif
+
+#if PERIODIC_Z
+    if (ijk.z < 0 || ijk.z >= dim.z) return;
+#else
+    if (ijk.z < 1 || ijk.z >= dim.z) return;
+#endif
 
 	const float dx = pushConstants.simData.x;
 	const float dt = pushConstants.simData.y;
@@ -56,7 +71,7 @@ void main() {
 
 	//const float eps0 = 8.8541878128e-12;
 	//const float mu0 = 1.25663706212e-6;
-	const float eps0 = 1.0;
+	//const float eps0 = 1.0;
 	const float mu0 = 1.0;
 
 	float cdt_dx = dt / (dx * mu0);
@@ -64,17 +79,148 @@ void main() {
 	vec3 h = imageLoad(hSrc, ijk).xyz;
     vec3 e = imageLoad(eSrc, ijk).xyz;
 
+	ivec3 ijk_ip1 = ijk + ivec3(1, 0, 0);
+	ivec3 ijk_jp1 = ijk + ivec3(0, 1, 0);
+	ivec3 ijk_kp1 = ijk + ivec3(0, 0, 1);
+
+#if PERIODIC_X
+	if (ijk_ip1.x >= dim.x) {
+		ijk_ip1.x = 0;
+	}
+#endif
+#if PERIODIC_Y
+	if (ijk_jp1.y >= dim.y) {
+		ijk_jp1.y = 0;
+	}
+#endif
+#if PERIODIC_Z
+	if (ijk_kp1.z >= dim.z) {
+		ijk_kp1.z = 0;
+	}
+#endif
+
+	float dEz_dx = 0.0;
+	float dEy_dx = 0.0;
+	float dEz_dy = 0.0;
+	float dEx_dy = 0.0;
+	float dEy_dz = 0.0;
+	float dEx_dz = 0.0;
+
+#if PERIODIC_X
+	vec3 ex1 = imageLoad(eSrc, ijk_ip1).xyz;
+	dEz_dx = ex1.z - e.z;
+	dEy_dx = ex1.y - e.y;
+#else
+	if (ijk.x < dim.x - 1) {
+		vec3 ex1 = imageLoad(eSrc, ijk_ip1).xyz;
+		dEz_dx = ex1.z - e.z;
+		dEy_dx = ex1.y - e.y;
+	}	
+#endif
+#if PERIODIC_Y
+	vec3 ey1 = imageLoad(eSrc, ijk_jp1).xyz;
+	dEz_dy = ey1.z - e.z;
+	dEx_dy = ey1.x - e.x;
+#else
+	if (ijk.y < dim.y - 1) {
+		vec3 ey1 = imageLoad(eSrc, ijk_jp1).xyz;
+
+		dEz_dy = ey1.z - e.z;
+		dEx_dy = ey1.x - e.x;
+	}
+#endif
+#if PERIODIC_Z
+	vec3 ez1 = imageLoad(eSrc, ijk_kp1).xyz;
+	dEy_dz = ez1.y - e.y;
+	dEx_dz = ez1.x - e.x;
+#else
+	if (ijk.z < dim.z - 1) {
+		vec3 ez1 = imageLoad(eSrc, ijk_kp1).xyz;
+
+		dEy_dz = ez1.y - e.y;
+		dEx_dz = ez1.x - e.x;
+	}
+#endif
+
+	int ni = 0;
+	int nj = 0;
+	int nk = 0;
+
+#if !PERIODIC_X
+	ni = min(ijk.x, int(x) - 1 - ijk.x);
+#endif
+#if !PERIODIC_Y
+	nj = min(ijk.y, int(y) - 1 - ijk.y);
+#endif
+#if !PERIODIC_Z
+	nk = min(ijk.z, int(z) - 1 - ijk.z);
+#endif
+
+	float psi_dEz_dx_new = 0.0;
+	float psi_dEy_dx_new = 0.0;
+	float psi_dEz_dy_new = 0.0;
+	float psi_dEx_dy_new = 0.0;
+	float psi_dEy_dz_new = 0.0;
+	float psi_dEx_dz_new = 0.0;
+
+#if !PERIODIC_X
+	if (ni < npml) {
+		const float a = pushConstants.aBuffer.values[ni];
+		const float b = pushConstants.bBuffer.values[ni];
+		int xLoc = ijk.x < centre.x ? ni : (npml * 2) - 1 - ni;
+		ivec3 loc = ivec3(xLoc, ijk.y, ijk.z);
+		vec2 psiX = imageLoad(psiXSrc, loc).xy;
+		psi_dEz_dx_new = b * psiX.x + a * dEz_dx;
+		psi_dEy_dx_new = b * psiX.y + a * dEy_dx;
+		imageStore(psiXDst, loc, vec4(psi_dEz_dx_new, psi_dEy_dx_new, 0.0, 0.0));
+	}
+#endif
+#if !PERIODIC_Y
+	if (nj < npml) {
+		const float a = pushConstants.aBuffer.values[nj];
+		const float b = pushConstants.bBuffer.values[nj];
+		int yLoc = ijk.y < centre.y ? nj : (npml * 2) - 1 - nj;
+		ivec3 loc = ivec3(ijk.x, yLoc, ijk.z);
+		vec2 psiY = imageLoad(psiYSrc, loc).xy;
+		psi_dEz_dy_new = b * psiY.x + a * dEz_dy;
+		psi_dEx_dy_new = b * psiY.y + a * dEx_dy;
+		imageStore(psiYDst, loc, vec4(psi_dEz_dy_new, psi_dEx_dy_new, 0.0, 0.0));
+	}
+#endif
+#if !PERIODIC_Z
+	if (nk < npml) {
+		const float a = pushConstants.aBuffer.values[nk];
+		const float b = pushConstants.bBuffer.values[nk];
+		int zLoc = ijk.z < centre.z ? nk : (npml * 2) - 1 - nk;
+		ivec3 loc = ivec3(ijk.x, ijk.y, zLoc);
+		vec2 psiZ = imageLoad(psiZSrc, loc).xy;
+		psi_dEy_dz_new = b * psiZ.x + a * dEy_dz;
+		psi_dEx_dz_new = b * psiZ.y + a * dEx_dz;
+		imageStore(psiZDst, loc, vec4(psi_dEy_dz_new, psi_dEx_dz_new, 0.0, 0.0));
+	}
+#endif
+
+	vec3 curlE = vec3(
+		(dEy_dz + psi_dEy_dz_new) -
+		(dEz_dy + psi_dEz_dy_new),
+
+		(dEz_dx + psi_dEz_dx_new) -
+		(dEx_dz + psi_dEx_dz_new),
+
+		(dEx_dy + psi_dEx_dy_new) -
+		(dEy_dx + psi_dEy_dx_new)
+	);
+
+	h.xyz += cdt_dx * curlE;
+	imageStore(hDst, ijk, vec4(h, 0.0));
+
+	/*
 	bool interior = ijk.x < dim.x - 1 && ijk.y < dim.y - 1 && ijk.z < dim.z - 1;
 
 	if (interior) {
         vec3 ex1 = imageLoad(eSrc, ijk + ivec3(1, 0, 0)).xyz;
         vec3 ey1 = imageLoad(eSrc, ijk + ivec3(0, 1, 0)).xyz;
         vec3 ez1 = imageLoad(eSrc, ijk + ivec3(0, 0, 1)).xyz;
-
-		// float cex = ez1.y - e.y - ey1.z + e.z;
-		// float cey = ex1.z - e.z - ez1.x + e.x;
-		// float cez = ey1.x - e.x - ex1.y + e.y;
-		// vec3 curlE = vec3(cex, cey, cez);
 
 		float dEz_dx = ex1.z - e.z;
 		float dEy_dx = ex1.y - e.y;
@@ -165,49 +311,5 @@ void main() {
     }
 
     imageStore(hDst, ijk, vec4(h, 0.0));
-
-	//float e = imageLoad(eSrc, ijk).r;
-
-
-	// if (
-	// 	i >= 0 && i < x &&
-	// 	j >= 0 && j < y - 1
-	// ) {
-	// 	float ez_x0 = imageLoad(ezSrc, ivec2(i, j + 1)).r;
-	// 	float hx = imageLoad(hxSrc, ij).r;
-	// 	float ihx = imageLoad(ihxSrc, ij).r;
-
-	// 	float fi1 = pushConstants.pmlBuffers.fi1.values[i];
-	// 	float fj2 = pushConstants.pmlBuffers.fj2.values[j];
-	// 	float fj3 = pushConstants.pmlBuffers.fj3.values[j];
-
-	// 	float curl_e = ez - ez_x0;
-
-	// 	float ihxNew = ihx + fi1 * curl_e;
-	// 	float hxNew = fj3 * hx + fj2 * 0.5 * (curl_e + ihxNew);
-		
-	// 	imageStore(ihxDst, ij, vec4(ihxNew, 0.0, 0.0, 0.0));
-	// 	imageStore(hxDst, ij, vec4(hxNew, 0.0, 0.0, 0.0));
-	// }
-
-	// if (
-	// 	i >= 0 && i < x - 1 &&
-	// 	j >= 0 && j < y - 1
-	// ) {
-	// 	float ez_y0 = imageLoad(ezSrc, ivec2(i + 1, j)).r;
-	// 	float hy = imageLoad(hySrc, ij).r;
-	// 	float ihy = imageLoad(ihySrc, ij).r;
-
-	// 	float fj1 = pushConstants.pmlBuffers.fj1.values[j];
-	// 	float fi2 = pushConstants.pmlBuffers.fi2.values[i];
-	// 	float fi3 = pushConstants.pmlBuffers.fi3.values[i];
-
-	// 	float curl_e = ez_y0 - ez;
-
-	// 	float ihyNew = ihy + fj1 * curl_e;
-	// 	float hyNew = fi3 * hy + fi2 * 0.5 * (curl_e + ihyNew);
-		
-	// 	imageStore(ihyDst, ij, vec4(ihyNew, 0.0, 0.0, 0.0));
-	// 	imageStore(hyDst, ij, vec4(hyNew, 0.0, 0.0, 0.0));
-	// }
+	*/
 }

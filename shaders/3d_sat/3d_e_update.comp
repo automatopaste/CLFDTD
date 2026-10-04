@@ -2,6 +2,7 @@
 
 #include "include/default_header.glsl"
 #include "include/global_descriptor.glsl"
+#include "3d_sat/config.glsl"
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
 
@@ -49,14 +50,62 @@ void main() {
 	ivec3 centre = ivec3(dim / 2);
 	const int npml = pushConstants.simDataInt.y;
 	
-	if (any(lessThan(ijk, ivec3(1))) || any(greaterThanEqual(ijk, dim))) {
+#if PERIODIC_X
+    if (ijk.x < 0 || ijk.x >= dim.x) {
         return;
     }
+#else
+    if (ijk.x < 1 || ijk.x >= dim.x) {
+        return;
+    }
+#endif
+
+#if PERIODIC_Y
+    if (ijk.y < 0 || ijk.y >= dim.y) {
+        return;
+    }
+#else
+    if (ijk.y < 1 || ijk.y >= dim.y) {
+        return;
+    }
+#endif
+
+#if PERIODIC_Z
+    if (ijk.z < 0 || ijk.z >= dim.z) {
+        return;
+    }
+#else
+    if (ijk.z < 1 || ijk.z >= dim.z) {
+        return;
+    }
+#endif
+
+	ivec3 ijk_im1 = ijk + ivec3(-1,  0,  0);
+	ivec3 ijk_jm1 = ijk + ivec3( 0, -1,  0);
+	ivec3 ijk_km1 = ijk + ivec3( 0,  0, -1);
+
+#if PERIODIC_X
+    if (ijk_im1.x < 0) {
+        ijk_im1.x = dim.x - 1;
+    }
+#endif
+
+#if PERIODIC_Y
+    if (ijk_jm1.y < 0) {
+        ijk_jm1.y = dim.y - 1;
+    }
+#endif
+
+#if PERIODIC_Z
+    if (ijk_km1.z < 0) {
+        ijk_km1.z = dim.z - 1;
+    }
+#endif
 
 	vec3 h      = imageLoad(hSrc, ijk).xyz;
-	vec3 h_im1  = imageLoad(hSrc, ijk + ivec3(-1, 0, 0)).xyz;
-    vec3 h_jm1  = imageLoad(hSrc, ijk + ivec3(0, -1, 0)).xyz;
-    vec3 h_km1  = imageLoad(hSrc, ijk + ivec3(0, 0, -1)).xyz;
+	vec3 h_im1  = imageLoad(hSrc, ijk_im1).xyz;
+	vec3 h_jm1  = imageLoad(hSrc, ijk_jm1).xyz;
+	vec3 h_km1  = imageLoad(hSrc, ijk_km1).xyz;
 
 	vec3 e = imageLoad(eSrc, ijk).xyz;
 	vec3 j = imageLoad(jSrc, ijk).xyz;
@@ -82,6 +131,7 @@ void main() {
 	float psi_dHy_dz_new = 0.0;
 	float psi_dHx_dz_new = 0.0;
 	
+#if !PERIODIC_X
 	if (ni < npml) {
 		const float a = pushConstants.aBuffer.values[ni];
 		const float b = pushConstants.bBuffer.values[ni];
@@ -92,6 +142,8 @@ void main() {
 		psi_dHy_dx_new = b * psiX.y + a * dHy_dx;
 		imageStore(psiXDst, loc, vec4(psi_dHz_dx_new, psi_dHy_dx_new, 0.0, 0.0));
 	}
+#endif
+#if !PERIODIC_Y
 	if (nj < npml) {
 		const float a = pushConstants.aBuffer.values[nj];
 		const float b = pushConstants.bBuffer.values[nj];
@@ -102,6 +154,8 @@ void main() {
 		psi_dHx_dy_new = b * psiY.y + a * dHx_dy;
 		imageStore(psiYDst, loc, vec4(psi_dHz_dy_new, psi_dHx_dy_new, 0.0, 0.0));
 	}
+#endif
+#if !PERIODIC_Z
 	if (nk < npml) {
 		const float a = pushConstants.aBuffer.values[nk];
 		const float b = pushConstants.bBuffer.values[nk];
@@ -112,6 +166,7 @@ void main() {
 		psi_dHx_dz_new = b * psiZ.y + a * dHx_dz;
 		imageStore(psiZDst, loc, vec4(psi_dHy_dz_new, psi_dHx_dz_new, 0.0, 0.0));
 	}
+#endif
 
 	vec3 curlH = vec3(
 		(dHz_dy + psi_dHz_dy_new) -
@@ -137,23 +192,24 @@ void main() {
 	const float epsSI = 8.8541878128e-12;
 	const float cSI = 299792458.0;
 	const float eps0 = 1.0;
-	const float mu0 = 1.0;
 
 	// SI material properties for GaAs
 	const float lambdaSI = 0.89e-6; // m
 	const float T2SI = 0.07e-12; // s
 	const float sigmaSI = -5000.0; // S/m
-	const float IsSI = 65.2; // kW per cm2
+	const float IsSI = 65.2 * 1e7; // 65.2 kW per cm2
 
 	const float lambda0 = lambdaSI / lengthUnit;
 	float T2 = T2SI / timeUnit;
 	float sigma0 = sigmaSI * (timeUnit / epsSI);
-	const float Is0 = IsSI * (10e6 / 7.957747e5);
+	const float Is0 = IsSI / (epsSI * cSI);
 
 	float n = 3.59;
+	// sigma0 = 0.0;
+	// T2 = 0.0;
 
-	const ivec3 cellDim = ivec3(424, 12, 12);
-	const ivec3 sourcePosition = ivec3(18, centre.y, centre.z);
+	const ivec3 cellDim = ivec3(450, 8, 8);
+	const ivec3 sourcePosition = ivec3(105, centre.y, centre.z);
 
 	if (
 		abs(ijk.x - centre.x) > cellDim.x / 2 ||
@@ -169,45 +225,48 @@ void main() {
 	const float epsR = n * n;
 	const float epsilon = eps0 * epsR;
 
-	const float amplitude = 1.0;
-	const float tau = dt * 10.0;
-	const float t0 = 4.0 * tau;
 	//const float source_wavelength = 840e-9 / lengthUnit;
 	// const float source_omega0 = pushConstants.simData2.z * 1e15 * timeUnit;
 	//const float source_omega0 = c / source_wavelength;
 	
 	// sin source with ramp turn-on
-	float wavelength = 890e-9;
-	float source_omega_sin = 2.0 * 3.14159265359 / (wavelength / lengthUnit);
-	// float envelope = clamp(t / (dt * 200.0), 0.0, 1.0);
-	// float source = amplitude * sin(source_omega_sin * t) * envelope;
+	float wavelength = 890e-9 / lengthUnit;
+	float source_omega_sin = 2.0 * 3.14159265359 * (c / wavelength);
+	//float envelope = clamp(t / (dt * 200.0), 0.0, 1.0);
+	//float source = amplitude * sin(source_omega_sin * t) * envelope;
 
 	// gaussian carrier pulse
-	float source_omega0 = 2.0 * 3.14159265359 * timeUnit * 1e16; 
+	const float amplitude = 1.0;
+	const float bandwidth = 5e12 * 0.5; // 5 THz
+	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
+	const float t0 = tau * 4.0;
+	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
 	float envelope = exp(-0.5 * pow((t - t0) / tau, 2.0));
 	float source = amplitude * envelope * cos(source_omega0 * (t - t0));
 
 	// sinc pulse centered around source_omega0
-	float width = 10.0;
-	float peak = dt * 24.0;
+	float width = 1.0 / (3.14159265359 * bandwidth);
+	float peak = dt * 5000.0;
 	float px = (t - peak) / width;
 	// float envelope = (abs(px) > 1e-6) ? sin(px) / px : 1.0;
 	// float source = amplitude * envelope * cos(source_omega0 * (t - peak));
 
-	float d = distance(vec3(centre), vec3(ijk));
-	const float radius = 2.0;
-	if (length(vec3(ijk) - vec3(sourcePosition)) <= radius) {
-		float spatial = 0.5 * (1.0 + cos(3.14159265 * d / radius));
-		e.z -= spatial * source;
+	const float sourceRadiusSI = 1e-9;
+	float sourceRadius = sourceRadiusSI / lengthUnit;
+	float d = distance(vec3(sourcePosition), vec3(ijk));
+	if (d <= sourceRadius) {
+		float spatial = 0.5 * (1.0 + cos(3.14159265 * d / sourceRadius));
+		//e.z -= spatial * source;
 	}
-	// if (abs(ijk.x - sourcePosition.x) <= radius && ijk.y > npml && ijk.y < y - npml && ijk.z > npml && ijk.z < z - npml) {
-	// 	e.z -= source;
-	// }
+	if (abs(ijk.x - sourcePosition.x) < sourceRadius) {
+		e.z -= source;
+	}
 
 	float Z2 = (1.0 + omega0 * omega0 * T2 * T2);
 
 	float I = 0.5 * c * n * eps0 * ePeak * ePeak;
 	float s = 1.0 / (1.0 + I / Is0);
+	s = 1.0; // linear medium
 
 	float B = 8.0 * epsilon * T2 * (dt + T2) + dt * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2));
 
