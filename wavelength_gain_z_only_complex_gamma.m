@@ -6,291 +6,415 @@ close all;
 % Configuration
 % ============================================================
 
-% Speed of light
-c0 = 299792458;             % m/s
+c0 = 299792458;          % m/s
 
-% FDTD temporal sampling interval
-dx0 = 6.2e-10;
+% FDTD sampling
+dx0 = 6.2e-10;           % m
 courant = 0.5;
-dt = courant * dx0 / c0;    % seconds
+dt = courant * dx0 / c0;
 
-% Angular frequency to center the plot around
-centerFrequency = 3.37e14;                  % Hz
-centerOmega = 2*pi*centerFrequency;         % rad/s
+% Medium
+n = 3.59;
 
-% Angular-frequency range displayed around center
-omegaWidth = 0.6e15;                        % rad/s
+% Reference wavelength
+lambda0 = 890e-9;        % m
 
-% Apply Hann window before FFT
-useWindow = true;
+% Probe separation
+l = lambda0 / n;
+
+% E-field component
+% 1 = Ex
+% 2 = Ey
+% 3 = Ez
+component = 3;
+
+% FFT zero padding
+fftMultiplier = 1;
+
+% Ignore frequencies where reference spectrum is negligible
+thresholdFraction = 1e-1;
 
 %% ============================================================
 % Select files
+%
+% Gain simulation:
+%   gain_x1
+%   gain_x2
+%
+% Reference/passive simulation:
+%   ref_x1
+%   ref_x2
 % ============================================================
 
-[file1, path1] = uigetfile('*.*', ...
-    'Select reference E-field file');
+[fileGain1, pathGain1] = uigetfile( ...
+    '*.*', ...
+    'Select GAIN E-field recording at x1');
 
-if isequal(file1, 0)
+if isequal(fileGain1, 0)
     return;
 end
 
-[file2, path2] = uigetfile('*.*', ...
-    'Select amplified E-field file');
+[fileGain2, pathGain2] = uigetfile( ...
+    '*.*', ...
+    'Select GAIN E-field recording at x2');
 
-if isequal(file2, 0)
+if isequal(fileGain2, 0)
+    return;
+end
+
+[fileRef1, pathRef1] = uigetfile( ...
+    '*.*', ...
+    'Select REFERENCE/PASSIVE E-field recording at x1');
+
+if isequal(fileRef1, 0)
+    return;
+end
+
+[fileRef2, pathRef2] = uigetfile( ...
+    '*.*', ...
+    'Select REFERENCE/PASSIVE E-field recording at x2');
+
+if isequal(fileRef2, 0)
     return;
 end
 
 %% ============================================================
-% Load Vec3 float32 files
+% Load files
 % ============================================================
 
-fid = fopen(fullfile(path1, file1), 'rb');
-data1 = fread(fid, inf, 'float32=>single');
+fid = fopen(fullfile(pathGain1, fileGain1), 'rb');
+
+if fid == -1
+    error('Could not open gain x1 file.');
+end
+
+dataGain1 = fread(fid, inf, 'float32=>double');
 fclose(fid);
 
-fid = fopen(fullfile(path2, file2), 'rb');
-data2 = fread(fid, inf, 'float32=>single');
+
+fid = fopen(fullfile(pathGain2, fileGain2), 'rb');
+
+if fid == -1
+    error('Could not open gain x2 file.');
+end
+
+dataGain2 = fread(fid, inf, 'float32=>double');
 fclose(fid);
 
+
+fid = fopen(fullfile(pathRef1, fileRef1), 'rb');
+
+if fid == -1
+    error('Could not open reference x1 file.');
+end
+
+dataRef1 = fread(fid, inf, 'float32=>double');
+fclose(fid);
+
+
+fid = fopen(fullfile(pathRef2, fileRef2), 'rb');
+
+if fid == -1
+    error('Could not open reference x2 file.');
+end
+
+dataRef2 = fread(fid, inf, 'float32=>double');
+fclose(fid);
+
+%% ============================================================
 % Number of Vec3 samples
-N1 = floor(length(data1) / 3);
-N2 = floor(length(data2) / 3);
-
-% Discard incomplete final Vec3 if necessary
-data1 = data1(1 : 3*N1);
-data2 = data2(1 : 3*N2);
-
-% Convert:
-%
-% [x0 y0 z0 x1 y1 z1 ...]
-%
-% into:
-%
-% [x0 y0 z0
-%  x1 y1 z1
-%  ...]
-
-E1 = reshape(data1, 3, N1).';
-E2 = reshape(data2, 3, N2).';
-
-fprintf('File 1: %d Vec3 samples\n', N1);
-fprintf('File 2: %d Vec3 samples\n', N2);
-
-%% ============================================================
-% Use common length
 % ============================================================
 
-N = min(N1, N2);
+NGain1 = floor(numel(dataGain1) / 3);
+NGain2 = floor(numel(dataGain2) / 3);
 
-E1 = double(E1(1:N, :));
-E2 = double(E2(1:N, :));
+NRef1 = floor(numel(dataRef1) / 3);
+NRef2 = floor(numel(dataRef2) / 3);
+
+N = min([NGain1, NGain2, NRef1, NRef2]);
+
+fprintf('Gain x1 samples = %d\n', NGain1);
+fprintf('Gain x2 samples = %d\n', NGain2);
+fprintf('Ref  x1 samples = %d\n', NRef1);
+fprintf('Ref  x2 samples = %d\n', NRef2);
+fprintf('Using            = %d\n', N);
 
 %% ============================================================
-% Remove DC from each component
+% Extract selected component
 % ============================================================
 
-E1 = E1 - mean(E1, 1);
-E2 = E2 - mean(E2, 1);
+idx = component:3:(3*N);
+
+EGain1 = dataGain1(idx);
+EGain2 = dataGain2(idx);
+
+ERef1 = dataRef1(idx);
+ERef2 = dataRef2(idx);
+
+EGain1 = EGain1(:);
+EGain2 = EGain2(:);
+
+ERef1 = ERef1(:);
+ERef2 = ERef2(:);
+
+clear dataGain1 dataGain2 dataRef1 dataRef2;
 
 %% ============================================================
-% Window
+% Remove DC
 % ============================================================
 
-if useWindow
-    window = hann(N);
+EGain1 = EGain1 - mean(EGain1);
+EGain2 = EGain2 - mean(EGain2);
 
-    E1 = E1 .* window;
-    E2 = E2 .* window;
+ERef1 = ERef1 - mean(ERef1);
+ERef2 = ERef2 - mean(ERef2);
+
+%% ============================================================
+% Apply identical window
+% ============================================================
+
+% Currently disabled, matching your original script.
+%
+% If enabled, the SAME window must be applied to all four signals.
+
+window = hann(N);
+
+%EGain1 = EGain1 .* window;
+%EGain2 = EGain2 .* window;
+%ERef1  = ERef1  .* window;
+%ERef2  = ERef2  .* window;
+
+%% ============================================================
+% FFT
+% ============================================================
+
+fftPoints = 2^nextpow2(fftMultiplier * N);
+
+EGain1_fft = fft(EGain1, fftPoints);
+EGain2_fft = fft(EGain2, fftPoints);
+
+ERef1_fft = fft(ERef1, fftPoints);
+ERef2_fft = fft(ERef2, fftPoints);
+
+%% ============================================================
+% Frequency axis
+% ============================================================
+
+freq = (0:fftPoints-1).' / (fftPoints * dt);
+
+omega = 2*pi*freq;
+
+%% Positive frequencies
+
+positive = ...
+    freq > 0 & ...
+    freq < 1/(2*dt);
+
+freq = freq(positive);
+omega = omega(positive);
+
+EGain1_fft = EGain1_fft(positive);
+EGain2_fft = EGain2_fft(positive);
+
+ERef1_fft = ERef1_fft(positive);
+ERef2_fft = ERef2_fft(positive);
+
+%% ============================================================
+% Find spectral peak
+% ============================================================
+
+[~, peakIndex] = max(abs(EGain1_fft));
+
+fprintf('\nSpectral peak:\n');
+fprintf('Frequency  = %.6f THz\n', ...
+    freq(peakIndex) * 1e-12);
+
+fprintf('Omega      = %.6e rad/s\n', ...
+    omega(peakIndex));
+
+fprintf('Expected   = %.6e rad/s\n', ...
+    2*pi*c0/lambda0);
+
+%% ============================================================
+% Calculate propagation transfer functions
+%
+% Gain:
+%
+% H_gain = E_gain(x2) / E_gain(x1)
+%
+% Reference:
+%
+% H_ref  = E_ref(x2) / E_ref(x1)
+% ============================================================
+
+gainMagnitude = abs(EGain1_fft);
+refMagnitude  = abs(ERef1_fft);
+
+thresholdGain = thresholdFraction * max(gainMagnitude);
+thresholdRef  = thresholdFraction * max(refMagnitude);
+
+valid = ...
+    gainMagnitude > thresholdGain & ...
+    refMagnitude  > thresholdRef;
+
+H_gain = nan(size(EGain1_fft));
+H_ref  = nan(size(ERef1_fft));
+
+H_gain(valid) = ...
+    EGain2_fft(valid) ./ EGain1_fft(valid);
+
+H_ref(valid) = ...
+    ERef2_fft(valid) ./ ERef1_fft(valid);
+
+%% ============================================================
+% Normalised gain
+%
+% G_norm =
+%
+% |H_gain / H_ref|
+%
+% This removes the passive propagation response.
+% ============================================================
+
+normalisedGain = nan(size(H_gain));
+
+normalisedGain(valid) = ...
+    abs(H_gain(valid) ./ H_ref(valid));
+
+%% ============================================================
+% Gain in dB
+% ============================================================
+
+gainDB = nan(size(normalisedGain));
+
+gainDB(valid) = ...
+    20 * log10(normalisedGain(valid));
+
+%% ============================================================
+% Propagation constants
+%
+% H = exp(-gamma*l)
+%
+% gamma = alpha + j*beta
+% ============================================================
+
+gammaGain = nan(size(H_gain));
+gammaRef  = nan(size(H_ref));
+
+gammaGain(valid) = ...
+    -log(H_gain(valid)) / l;
+
+gammaRef(valid) = ...
+    -log(H_ref(valid)) / l;
+
+alphaGain = real(gammaGain);
+betaGain  = imag(gammaGain);
+
+alphaRef = real(gammaRef);
+betaRef  = imag(gammaRef);
+
+%% ============================================================
+% Unwrap propagation phase
+%
+% beta*l = -unwrap(angle(H))
+% ============================================================
+
+betaLGain = nan(size(betaGain));
+betaLRef  = nan(size(betaRef));
+
+validIndices = find(valid);
+
+if ~isempty(validIndices)
+
+    breaks = [ ...
+        1; ...
+        find(diff(validIndices) > 1) + 1 ...
+    ];
+
+    ends = [ ...
+        breaks(2:end)-1; ...
+        numel(validIndices) ...
+    ];
+
+    for k = 1:numel(breaks)
+
+        ii = validIndices(breaks(k):ends(k));
+
+        betaLGain(ii) = ...
+            -unwrap(angle(H_gain(ii)));
+
+        betaLRef(ii) = ...
+            -unwrap(angle(H_ref(ii)));
+
+    end
 end
 
 %% ============================================================
-% FFT zero padding
+% Normalised propagation phase
+%
+% Difference between gain and reference propagation phase.
 % ============================================================
 
-% Desired number of plotted FFT samples across the displayed
-% angular-frequency window.
-desiredBinsAcrossWidth = 1000;
+normalisedPhase = nan(size(betaLGain));
 
-% Required angular-frequency sample spacing.
-desiredDeltaOmega = omegaWidth / desiredBinsAcrossWidth;
-
-% Required FFT size.
-requiredNfft = ceil(2*pi / (dt * desiredDeltaOmega));
-
-% Round up to a power of two.
-Nfft = 2^nextpow2(max(N, requiredNfft));
-
-fprintf('\nFFT information:\n');
-fprintf('  Original samples       : %d\n', N);
-fprintf('  FFT samples             : %d\n', Nfft);
-fprintf('  Time duration           : %.6e s\n', N * dt);
-
-trueDeltaOmega = 2*pi / (N * dt);
-fftDeltaOmega = 2*pi / (Nfft * dt);
-
-fprintf('  True angular resolution: %.6e rad/s\n', trueDeltaOmega);
-fprintf('  FFT bin spacing         : %.6e rad/s\n', fftDeltaOmega);
-fprintf('  Plot angular width      : %.6e rad/s\n', omegaWidth);
-fprintf('  FFT bins across width   : %.1f\n', ...
-    omegaWidth / fftDeltaOmega);
+normalisedPhase(valid) = ...
+    betaLGain(valid) - betaLRef(valid);
 
 %% ============================================================
-% FFT each Cartesian component
+% Background propagation phase
 % ============================================================
 
-Fx1 = fft(E1(:,1), Nfft);
-Fy1 = fft(E1(:,2), Nfft);
-Fz1 = fft(E1(:,3), Nfft);
-
-Fx2 = fft(E2(:,1), Nfft);
-Fy2 = fft(E2(:,2), Nfft);
-Fz2 = fft(E2(:,3), Nfft);
+backgroundPhase = ...
+    n .* omega .* l / c0;
 
 %% ============================================================
-% Preserve full FFTs for comparison plots
+% Print parameters
 % ============================================================
 
-Fx1_full = Fx1;
-Fy1_full = Fy1;
-Fz1_full = Fz1;
+fprintf('\n============================================\n');
+fprintf('Normalised propagation analysis\n');
+fprintf('============================================\n');
 
-Fx2_full = Fx2;
-Fy2_full = Fy2;
-Fz2_full = Fz2;
+fprintf('lambda0      = %.6f nm\n', ...
+    lambda0*1e9);
 
-%% ============================================================
-% Single-sided spectrum
-% ============================================================
+fprintf('n            = %.6f\n', n);
 
-nHalf = floor(Nfft/2) + 1;
+fprintf('l            = %.6e m\n', l);
 
-Fx1 = Fx1_full(1:nHalf);
-Fy1 = Fy1_full(1:nHalf);
-Fz1 = Fz1_full(1:nHalf);
+fprintf('l            = %.6f nm\n', l*1e9);
 
-Fx2 = Fx2_full(1:nHalf);
-Fy2 = Fy2_full(1:nHalf);
-Fz2 = Fz2_full(1:nHalf);
+fprintf('l/lambda0    = %.6f\n', l/lambda0);
 
-Fs = 1 / dt;
+fprintf('dt           = %.6e s\n', dt);
 
-% FFT frequency in Hz
-frequency = (0:nHalf-1).' * Fs / Nfft;
+fprintf('FFT points   = %d\n', fftPoints);
 
-% Convert to angular frequency
-omega = 2*pi*frequency;
+fprintf('True FFT resolution = %.6f THz\n', ...
+    1/(N*dt)*1e-12);
+
+fprintf('FFT bin spacing     = %.6f THz\n', ...
+    1/(fftPoints*dt)*1e-12);
 
 %% ============================================================
-% Select angular-frequency range
-% ============================================================
-
-omegaMin = centerOmega - omegaWidth / 2;
-omegaMax = centerOmega + omegaWidth / 2;
-
-maskFFT = omega >= omegaMin & omega <= omegaMax;
-
-omegaFFT = omega(maskFFT);
-
-% Z-component magnitude spectrum only
-magnitude1 = abs(Fz1(maskFFT));
-magnitude2 = abs(Fz2(maskFFT));
-
-%% ============================================================
-% Plot individual FFTs for visual comparison
-% ============================================================
-
-figure('Name', 'Z-Component FFT Comparison', ...
-       'Color', 'w');
-
-plot(omegaFFT, magnitude1, 'LineWidth', 1.2);
-hold on;
-plot(omegaFFT, magnitude2, 'LineWidth', 1.2);
-hold off;
-
-xlabel('\omega (rad/s)');
-ylabel('|FFT(E_z)|');
-title('E_z FFT');
-
-legend('Reference', 'Amplified', 'Location', 'best');
-grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
-
-%% ============================================================
-% Plot individual FFTs on logarithmic magnitude scale
-% ============================================================
-
-figure('Name', 'FFT Comparison - Log Scale', ...
-       'Color', 'w');
-
-semilogy(omegaFFT, max(magnitude1, eps), 'LineWidth', 1.2);
-hold on;
-semilogy(omegaFFT, max(magnitude2, eps), 'LineWidth', 1.2);
-hold off;
-
-xlabel('\omega (rad/s)');
-ylabel('Vector FFT magnitude (log scale)');
-title('Reference vs Amplified E_z FFT');
-
-legend('Reference', 'Amplified', 'Location', 'best');
-grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
-
-%% ============================================================
-% Calculate spectral power
-% ============================================================
-
-% Use only the Z component for spectral power and gain
-P1 = abs(Fz1).^2;
-P2 = abs(Fz2).^2;
-
-%% ============================================================
-% Suppress frequencies where reference signal is too weak
-% ============================================================
-
-% Fraction of the maximum reference power required to consider
-% a frequency reliable.
-relativeThreshold = 1e-4;
-
-threshold = max(P1) * relativeThreshold;
-
-validSpectrum = P1 > threshold;
-
-gain = nan(size(P1));
-gain(validSpectrum) = P2(validSpectrum) ./ P1(validSpectrum);
-
-gain_dB = 10 * log10(gain);
-
-%% ============================================================
-% Select angular-frequency range
-% ============================================================
-
-mask = omega >= omegaMin & omega <= omegaMax;
-
-omegaPlot = omega(mask);
-gainPlot = gain(mask);
-gain_dB_plot = gain_dB(mask);
-
-%% ============================================================
-% Plot linear gain
+% Plot normalised gain
 % ============================================================
 
 figure;
 
-plot(omegaPlot, gainPlot, 'LineWidth', 1.5);
-
-xlabel('\omega (rad/s)');
-ylabel('Power Gain');
-
-title('E-field Spectral Gain');
+plot( ...
+    omega(valid), ...
+    normalisedGain(valid), ...
+    'LineWidth', 1.5);
 
 grid on;
 
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
+xlabel('\omega (rad/s)');
+ylabel('|H_{gain}/H_{ref}|');
+
+title('Normalised Gain');
+
+yline(1.0, ':');
 
 %% ============================================================
 % Plot gain in dB
@@ -298,174 +422,66 @@ xline(centerOmega, '--');
 
 figure;
 
-plot(omegaPlot, gain_dB_plot, 'LineWidth', 1.5);
+plot( ...
+    omega(valid), ...
+    gainDB(valid), ...
+    'LineWidth', 1.5);
+
+grid on;
 
 xlabel('\omega (rad/s)');
 ylabel('Gain (dB)');
 
-title('E-field Spectral Gain');
+title('Normalised Gain');
 
-grid on;
-
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
+yline(0.0, ':');
 
 %% ============================================================
-% Print useful information
-% ============================================================
-
-fprintf('\n');
-fprintf('Sampling frequency : %.6e Hz\n', Fs);
-fprintf('Sampling angular frequency : %.6e rad/s\n', 2*pi*Fs);
-fprintf('Center frequency   : %.6e Hz\n', centerFrequency);
-fprintf('Center angular frequency : %.6e rad/s\n', centerOmega);
-fprintf('Angular frequency range : %.6e - %.6e rad/s\n', ...
-    omegaMin, omegaMax);
-fprintf('Angular frequency width : %.6e rad/s\n', omegaWidth);
-
-%% ============================================================
-% Report maximum gain
-% ============================================================
-
-[maxGain_dB, maxIndex] = max(gain_dB_plot);
-
-fprintf('\nMaximum gain:\n');
-fprintf('  Omega      = %.6e rad/s\n', omegaPlot(maxIndex));
-fprintf('  Frequency  = %.6e Hz\n', omegaPlot(maxIndex) / (2*pi));
-fprintf('  Gain       = %.3f dB\n', maxGain_dB);
-fprintf('  Linear     = %.6e\n', gainPlot(maxIndex));
-
-%% ============================================================
-% Complex propagation factor
-% ============================================================
-
-% Separation between probes in FDTD length units
-L = 200;
-
-% Complex field propagation ratio using the Z component:
-%
-%     E2 / E1 = exp(-gamma * L)
-%
-% with
-%
-%     gamma = alpha + i*beta
-%
-% Hence:
-%
-%     alpha = -log(|E2/E1|) / L
-%     beta  = -angle(E2/E1) / L
-
-propagationRatio = Fz2 ./ Fz1;
-
-% Only use frequencies where the reference field is sufficiently strong.
-validGamma = validSpectrum & ...
-             isfinite(propagationRatio) & ...
-             (abs(propagationRatio) > 0);
-
-alpha = nan(size(propagationRatio));
-beta  = nan(size(propagationRatio));
-
-alpha(validGamma) = -log(abs(propagationRatio(validGamma))) / L;
-beta(validGamma)  = -angle(propagationRatio(validGamma)) / L;
-
-% Complex propagation constant
-gamma = alpha + 1i * beta;
-
-% Propagation factor over the probe separation
-propagationFactor = exp(-gamma * L);
-
-%% ============================================================
-% Select angular-frequency range
-% ============================================================
-
-maskGamma = mask & validGamma;
-
-omegaGamma = omega(maskGamma);
-
-gammaMagnitude = abs(propagationFactor(maskGamma));
-gammaPhase = angle(propagationFactor(maskGamma));
-alphaPlot = alpha(maskGamma);
-betaPlot = beta(maskGamma);
-
-%% ============================================================
-% Plot propagation-factor magnitude
+% Plot normalised propagation phase
 % ============================================================
 
 figure;
 
-plot(omegaGamma, gammaMagnitude, 'LineWidth', 1.5);
-
-xlabel('\omega (rad/s)');
-ylabel('|exp(-\gamma L)|');
-title('Angular-Frequency-Dependent Propagation Factor Magnitude');
+plot( ...
+    omega(valid), ...
+    normalisedPhase(valid), ...
+    'LineWidth', 1.5);
 
 grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
+
+xlabel('\omega (rad/s)');
+ylabel('\Delta(\beta l) (rad)');
+
+title('Normalised Propagation Phase');
+
+yline(0.0, ':');
 
 %% ============================================================
-% Plot propagation-factor phase
+% Plot gain and phase together
 % ============================================================
 
 figure;
 
-plot(omegaGamma, gammaPhase, 'LineWidth', 1.5);
+yyaxis left;
 
-xlabel('\omega (rad/s)');
-ylabel('Phase (rad)');
-title('Angular-Frequency-Dependent Propagation Factor Phase');
+plot( ...
+    omega(valid), ...
+    normalisedGain(valid), ...
+    'LineWidth', 1.5);
 
-grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
+ylabel('|H_{gain}/H_{ref}|');
 
-%% ============================================================
-% Plot alpha
-% ============================================================
+yyaxis right;
 
-figure;
+plot( ...
+    omega(valid), ...
+    normalisedPhase(valid), ...
+    'LineWidth', 1.5);
 
-plot(omegaGamma, alphaPlot, 'LineWidth', 1.5);
-
-xlabel('\omega (rad/s)');
-ylabel('\alpha (1 / length unit)');
-title('Angular-Frequency-Dependent Attenuation / Gain Coefficient');
+ylabel('\Delta(\beta l) (rad)');
 
 grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
-
-%% ============================================================
-% Plot beta
-% ============================================================
-
-figure;
-
-plot(omegaGamma, betaPlot, 'LineWidth', 1.5);
 
 xlabel('\omega (rad/s)');
-ylabel('\beta (rad / length unit)');
-title('Angular-Frequency-Dependent Propagation Coefficient');
 
-grid on;
-xlim([omegaMin omegaMax]);
-xline(centerOmega, '--');
-
-%% ============================================================
-% Report center-frequency propagation parameters
-% ============================================================
-
-centerIndices = find(validGamma);
-
-if ~isempty(centerIndices)
-    [~, nearest] = min(abs(omega(centerIndices) - centerOmega));
-    centerIndex = centerIndices(nearest);
-
-    fprintf('\nPropagation parameters at center frequency:\n');
-    fprintf('  Omega      = %.6e rad/s\n', centerOmega);
-    fprintf('  Frequency  = %.6e Hz\n', centerOmega / (2*pi));
-    fprintf('  alpha      = %.6e 1 / length unit\n', alpha(centerIndex));
-    fprintf('  beta       = %.6e rad / length unit\n', beta(centerIndex));
-    fprintf('  |factor|   = %.6e\n', abs(propagationFactor(centerIndex)));
-    fprintf('  phase      = %.6e rad\n', angle(propagationFactor(centerIndex)));
-end
+title('Normalised Propagation Factor');

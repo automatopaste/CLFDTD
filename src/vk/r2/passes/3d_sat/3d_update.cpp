@@ -34,12 +34,12 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	updateData.t = 0.0f;
 	updateData.step = 0;
 	updateData.npml = 100;
-	updateData.x = 700;
+	updateData.x = 1500;
 	updateData.y = 8;
 	updateData.z = 8;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 1000000;
+	updateData.maxStep = 500000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);

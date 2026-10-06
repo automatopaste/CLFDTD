@@ -209,7 +209,7 @@ void main() {
 	// T2 = 0.0;
 
 	const ivec3 cellDim = ivec3(450, 8, 8);
-	const ivec3 sourcePosition = ivec3(105, centre.y, centre.z);
+	const ivec3 sourcePosition = ivec3(500, centre.y, centre.z);
 
 	if (
 		abs(ijk.x - centre.x) > cellDim.x / 2 ||
@@ -237,7 +237,7 @@ void main() {
 
 	// gaussian carrier pulse
 	const float amplitude = 1.0;
-	const float bandwidth = 5e12 * 0.5; // 5 THz
+	const float bandwidth = 5e12 * 1.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
 	const float t0 = tau * 4.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
