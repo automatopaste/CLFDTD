@@ -28,6 +28,11 @@ namespace L3Dsat {
 		std::array<R2::BufferState, FRAME_OVERLAP> globalBuffers;
 	};
 
+	enum EFieldUpdateShader {
+		GAIN,
+		CAVITY
+	};
+
 	struct UpdateData {
 		std::array<DescriptorAllocatorGrowable, FRAME_OVERLAP> descriptorAllocators;
 		R2::Descriptor initDescriptor;
@@ -74,6 +79,7 @@ namespace L3Dsat {
 		bool fileWrite;
 		int zRead;
 		float sourceOmega0;
+		EFieldUpdateShader updateShader;
 	};
 
 	struct OutputData {

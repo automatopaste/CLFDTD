@@ -196,7 +196,7 @@ void main() {
 	// SI material properties for GaAs
 	const float lambdaSI = 0.89e-6; // m
 	const float T2SI = 0.07e-12; // s
-	const float sigmaSI = -5000.0; // S/m
+	const float sigmaSI = -7000.0; // S/m
 	const float IsSI = 65.2 * 1e7; // 65.2 kW per cm2
 
 	const float lambda0 = lambdaSI / lengthUnit;
@@ -216,7 +216,7 @@ void main() {
 		abs(ijk.y - centre.y) > cellDim.y / 2 ||
 		abs(ijk.z - centre.z) > cellDim.z / 2
 	) {
-		//n = 1.0;
+		n = 1.0;
 		sigma0 = 0.0;
 		T2 = 0.0;
 	}
@@ -237,7 +237,7 @@ void main() {
 
 	// gaussian carrier pulse
 	const float amplitude = 1.0;
-	const float bandwidth = 5e12 * 1.0;
+	const float bandwidth = 5e12 * 2.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
 	const float t0 = tau * 4.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
@@ -245,11 +245,20 @@ void main() {
 	float source = amplitude * envelope * cos(source_omega0 * (t - t0));
 
 	// sinc pulse centered around source_omega0
-	float width = 1.0 / (3.14159265359 * bandwidth);
-	float peak = dt * 5000.0;
-	float px = (t - peak) / width;
-	// float envelope = (abs(px) > 1e-6) ? sin(px) / px : 1.0;
-	// float source = amplitude * envelope * cos(source_omega0 * (t - peak));
+	// const float amplitude = 1.0;
+	// const float pi = 3.14159265359;
+	// const float omega0SI = 2.0 * pi * cSI / lambdaSI;
+	// const float source_omega0 = omega0SI * timeUnit;
+	// const float omegaBandwidthSI = 5e12 * 60;
+	// const float omegaBandwidth = omegaBandwidthSI * timeUnit;
+	// const float width = 2.0 * pi / omegaBandwidth;
+	// const float t0 = 10.0 * width;
+	// const float px = (t - t0) / width;
+	// const float envelope = (abs(px) > 1e-6) ? sin(px) / px : 1.0;
+	// float source = amplitude * envelope * cos(source_omega0 * (t - t0));
+	// if (isnan(source)) {
+	// 	source = 0.0;
+	// }
 
 	const float sourceRadiusSI = 1e-9;
 	float sourceRadius = sourceRadiusSI / lengthUnit;

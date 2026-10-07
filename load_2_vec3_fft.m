@@ -10,7 +10,7 @@ close all;
 c0 = 299792458;             % m/s
 
 % FDTD temporal sampling interval
-dx0 = 6.2e-10 * 4.0;
+dx0 = 6.2e-10;
 courant = 0.5;
 dt = courant * dx0 / c0;       % seconds
 
@@ -21,7 +21,7 @@ centerFrequency = 3.37e14;  % Hz
 frequencyWidth = 2.0e14;    % Hz
 
 % Apply Hann window before FFT
-useWindow = true;
+useWindow = false;
 
 %% ============================================================
 % Select files
@@ -109,7 +109,7 @@ end
 % ============================================================
 
 % Zero-padding factor
-fftPadFactor = 8;
+fftPadFactor = 1;
 
 Nfft = 2^nextpow2(N * fftPadFactor);
 

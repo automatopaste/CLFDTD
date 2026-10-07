@@ -10,7 +10,7 @@ c0 = 299792458;          % m/s
 
 % FDTD sampling
 dx0 = 6.2e-10;           % m
-courant = 0.5;
+courant = 0.1;
 dt = courant * dx0 / c0;
 
 % Medium
@@ -28,11 +28,42 @@ l = lambda0 / n;
 % 3 = Ez
 component = 3;
 
-% FFT zero padding
+% ============================================================
+% FFT configuration
+% ============================================================
+
+% Zero-padding multiplier.
+%
+% This increases the density of the frequency grid, but does
+% NOT increase the true physical frequency resolution.
 fftMultiplier = 1;
 
-% Ignore frequencies where reference spectrum is negligible
-thresholdFraction = 1e-1;
+% ============================================================
+% Frequency region of interest
+% ============================================================
+
+% Desired centre frequency
+omega0 = 2.12e15;        % rad/s
+
+% Desired total width
+omegaWidth = 0.60e15;    % rad/s
+
+omegaMin = omega0 - omegaWidth/2;
+omegaMax = omega0 + omegaWidth/2;
+
+% ============================================================
+% Reference spectrum threshold
+% ============================================================
+
+% Ignore frequencies where the reference spectrum at x1 is
+% too small to produce a reliable transfer-function ratio.
+%
+% 1e-3 = 0.1% of the reference spectral peak.
+%
+% The previous value of 1e-1 (10%) was very aggressive and
+% could remove most of the desired frequency window.
+thresholdFraction = 1e-3;
+
 
 %% ============================================================
 % Select files
@@ -78,6 +109,7 @@ if isequal(fileRef2, 0)
     return;
 end
 
+
 %% ============================================================
 % Load files
 % ============================================================
@@ -121,6 +153,7 @@ end
 dataRef2 = fread(fid, inf, 'float32=>double');
 fclose(fid);
 
+
 %% ============================================================
 % Number of Vec3 samples
 % ============================================================
@@ -138,6 +171,7 @@ fprintf('Gain x2 samples = %d\n', NGain2);
 fprintf('Ref  x1 samples = %d\n', NRef1);
 fprintf('Ref  x2 samples = %d\n', NRef2);
 fprintf('Using            = %d\n', N);
+
 
 %% ============================================================
 % Extract selected component
@@ -159,30 +193,37 @@ ERef2 = ERef2(:);
 
 clear dataGain1 dataGain2 dataRef1 dataRef2;
 
+
 %% ============================================================
 % Remove DC
 % ============================================================
 
-EGain1 = EGain1 - mean(EGain1);
-EGain2 = EGain2 - mean(EGain2);
+%EGain1 = EGain1 - mean(EGain1);
+%EGain2 = EGain2 - mean(EGain2);
 
-ERef1 = ERef1 - mean(ERef1);
-ERef2 = ERef2 - mean(ERef2);
+%ERef1 = ERef1 - mean(ERef1);
+%ERef2 = ERef2 - mean(ERef2);
+
 
 %% ============================================================
 % Apply identical window
 % ============================================================
 
-% Currently disabled, matching your original script.
+% A window reduces spectral leakage but also changes the
+% effective spectral response.
 %
-% If enabled, the SAME window must be applied to all four signals.
+% Currently disabled to preserve the original behaviour.
+%
+% If enabled, the SAME window must be applied to all four
+% signals.
 
 window = hann(N);
 
-%EGain1 = EGain1 .* window;
-%EGain2 = EGain2 .* window;
-%ERef1  = ERef1  .* window;
-%ERef2  = ERef2  .* window;
+% EGain1 = EGain1 .* window;
+% EGain2 = EGain2 .* window;
+% ERef1  = ERef1  .* window;
+% ERef2  = ERef2  .* window;
+
 
 %% ============================================================
 % FFT
@@ -196,6 +237,7 @@ EGain2_fft = fft(EGain2, fftPoints);
 ERef1_fft = fft(ERef1, fftPoints);
 ERef2_fft = fft(ERef2, fftPoints);
 
+
 %% ============================================================
 % Frequency axis
 % ============================================================
@@ -204,7 +246,10 @@ freq = (0:fftPoints-1).' / (fftPoints * dt);
 
 omega = 2*pi*freq;
 
-%% Positive frequencies
+
+%% ============================================================
+% Positive frequencies
+% ============================================================
 
 positive = ...
     freq > 0 & ...
@@ -219,6 +264,38 @@ EGain2_fft = EGain2_fft(positive);
 ERef1_fft = ERef1_fft(positive);
 ERef2_fft = ERef2_fft(positive);
 
+
+%% ============================================================
+% Frequency resolution information
+% ============================================================
+
+trueDeltaOmega = 2*pi / (N * dt);
+
+fftDeltaOmega = 2*pi / (fftPoints * dt);
+
+fprintf('\n============================================\n');
+fprintf('Frequency resolution\n');
+fprintf('============================================\n');
+
+fprintf('Samples             = %d\n', N);
+fprintf('Total time          = %.6e s\n', N*dt);
+
+fprintf('True resolution     = %.6e rad/s\n', ...
+    trueDeltaOmega);
+
+fprintf('Zero-padded spacing = %.6e rad/s\n', ...
+    fftDeltaOmega);
+
+fprintf('True resolution     = %.6f THz\n', ...
+    trueDeltaOmega / (2*pi) * 1e-12);
+
+fprintf('Grid spacing        = %.6f THz\n', ...
+    fftDeltaOmega / (2*pi) * 1e-12);
+
+fprintf('Window              = %.6e to %.6e rad/s\n', ...
+    omegaMin, omegaMax);
+
+
 %% ============================================================
 % Find spectral peak
 % ============================================================
@@ -226,6 +303,7 @@ ERef2_fft = ERef2_fft(positive);
 [~, peakIndex] = max(abs(EGain1_fft));
 
 fprintf('\nSpectral peak:\n');
+
 fprintf('Frequency  = %.6f THz\n', ...
     freq(peakIndex) * 1e-12);
 
@@ -234,6 +312,7 @@ fprintf('Omega      = %.6e rad/s\n', ...
 
 fprintf('Expected   = %.6e rad/s\n', ...
     2*pi*c0/lambda0);
+
 
 %% ============================================================
 % Calculate propagation transfer functions
@@ -250,12 +329,38 @@ fprintf('Expected   = %.6e rad/s\n', ...
 gainMagnitude = abs(EGain1_fft);
 refMagnitude  = abs(ERef1_fft);
 
-thresholdGain = thresholdFraction * max(gainMagnitude);
-thresholdRef  = thresholdFraction * max(refMagnitude);
+% Reference-based threshold.
+%
+% Only the reference spectrum is used to determine whether
+% the frequency has enough signal for a reliable ratio.
+
+thresholdRef = thresholdFraction * max(refMagnitude);
+
+validReference = ...
+    refMagnitude > thresholdRef;
+
+
+%% ============================================================
+% Restrict analysis to desired frequency window
+% ============================================================
+
+frequencyWindow = ...
+    omega >= omegaMin & ...
+    omega <= omegaMax;
+
+
+%% ============================================================
+% Final validity mask
+% ============================================================
 
 valid = ...
-    gainMagnitude > thresholdGain & ...
-    refMagnitude  > thresholdRef;
+    validReference & ...
+    frequencyWindow;
+
+
+%% ============================================================
+% Calculate transfer functions
+% ============================================================
 
 H_gain = nan(size(EGain1_fft));
 H_ref  = nan(size(ERef1_fft));
@@ -265,6 +370,7 @@ H_gain(valid) = ...
 
 H_ref(valid) = ...
     ERef2_fft(valid) ./ ERef1_fft(valid);
+
 
 %% ============================================================
 % Normalised gain
@@ -281,6 +387,7 @@ normalisedGain = nan(size(H_gain));
 normalisedGain(valid) = ...
     abs(H_gain(valid) ./ H_ref(valid));
 
+
 %% ============================================================
 % Gain in dB
 % ============================================================
@@ -289,6 +396,7 @@ gainDB = nan(size(normalisedGain));
 
 gainDB(valid) = ...
     20 * log10(normalisedGain(valid));
+
 
 %% ============================================================
 % Propagation constants
@@ -312,6 +420,7 @@ betaGain  = imag(gammaGain);
 
 alphaRef = real(gammaRef);
 betaRef  = imag(gammaRef);
+
 
 %% ============================================================
 % Unwrap propagation phase
@@ -349,6 +458,7 @@ if ~isempty(validIndices)
     end
 end
 
+
 %% ============================================================
 % Normalised propagation phase
 %
@@ -360,6 +470,7 @@ normalisedPhase = nan(size(betaLGain));
 normalisedPhase(valid) = ...
     betaLGain(valid) - betaLRef(valid);
 
+
 %% ============================================================
 % Background propagation phase
 % ============================================================
@@ -367,34 +478,62 @@ normalisedPhase(valid) = ...
 backgroundPhase = ...
     n .* omega .* l / c0;
 
+
 %% ============================================================
-% Print parameters
+% Print analysis information
 % ============================================================
+
+numWindowBins = sum(frequencyWindow);
+numValidBins = sum(valid);
 
 fprintf('\n============================================\n');
 fprintf('Normalised propagation analysis\n');
 fprintf('============================================\n');
 
-fprintf('lambda0      = %.6f nm\n', ...
+fprintf('lambda0             = %.6f nm\n', ...
     lambda0*1e9);
 
-fprintf('n            = %.6f\n', n);
+fprintf('n                   = %.6f\n', n);
 
-fprintf('l            = %.6e m\n', l);
+fprintf('l                   = %.6e m\n', l);
 
-fprintf('l            = %.6f nm\n', l*1e9);
+fprintf('l                   = %.6f nm\n', l*1e9);
 
-fprintf('l/lambda0    = %.6f\n', l/lambda0);
+fprintf('l/lambda0           = %.6f\n', l/lambda0);
 
-fprintf('dt           = %.6e s\n', dt);
+fprintf('dt                  = %.6e s\n', dt);
 
-fprintf('FFT points   = %d\n', fftPoints);
+fprintf('FFT points          = %d\n', fftPoints);
 
-fprintf('True FFT resolution = %.6f THz\n', ...
-    1/(N*dt)*1e-12);
+fprintf('True FFT resolution = %.6e rad/s\n', ...
+    trueDeltaOmega);
 
-fprintf('FFT bin spacing     = %.6f THz\n', ...
-    1/(fftPoints*dt)*1e-12);
+fprintf('FFT grid spacing    = %.6e rad/s\n', ...
+    fftDeltaOmega);
+
+fprintf('\n');
+
+fprintf('Requested centre    = %.6e rad/s\n', ...
+    omega0);
+
+fprintf('Requested width     = %.6e rad/s\n', ...
+    omegaWidth);
+
+fprintf('Window minimum      = %.6e rad/s\n', ...
+    omegaMin);
+
+fprintf('Window maximum      = %.6e rad/s\n', ...
+    omegaMax);
+
+fprintf('Window bins         = %d\n', ...
+    numWindowBins);
+
+fprintf('Valid bins          = %d\n', ...
+    numValidBins);
+
+fprintf('Reference threshold = %.3g %% of peak\n', ...
+    thresholdFraction * 100);
+
 
 %% ============================================================
 % Plot normalised gain
@@ -416,6 +555,9 @@ title('Normalised Gain');
 
 yline(1.0, ':');
 
+xlim([omegaMin omegaMax]);
+
+
 %% ============================================================
 % Plot gain in dB
 % ============================================================
@@ -436,6 +578,9 @@ title('Normalised Gain');
 
 yline(0.0, ':');
 
+xlim([omegaMin omegaMax]);
+
+
 %% ============================================================
 % Plot normalised propagation phase
 % ============================================================
@@ -455,6 +600,9 @@ ylabel('\Delta(\beta l) (rad)');
 title('Normalised Propagation Phase');
 
 yline(0.0, ':');
+
+xlim([omegaMin omegaMax]);
+
 
 %% ============================================================
 % Plot gain and phase together
@@ -485,3 +633,5 @@ grid on;
 xlabel('\omega (rad/s)');
 
 title('Normalised Propagation Factor');
+
+xlim([omegaMin omegaMax]);
