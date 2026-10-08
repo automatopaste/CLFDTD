@@ -1,5 +1,7 @@
 #include "3d_update.h"
 
+#include <format>
+
 #include "vk/vk_engine.h"
 #include "vk/vk_synchronisation.h"
 #include "vk/vk_images.h"
@@ -16,7 +18,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	L3Dsat::UpdateData& updateData = data.updateData;
 
-	updateData.updateShader = L3Dsat::GAIN;
+	updateData.updateShader = L3Dsat::CAVITY;
 
 	switch (updateData.updateShader) {
 		case L3Dsat::GAIN:
@@ -36,7 +38,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 		{
 			constexpr float c0 = 299792458.0f;
 			constexpr float eps0 = 8.8541878128e-12f;
-			constexpr float dx0 = 6.2e-8f; // 600x75x75 simulation of 12.4umx1.55x1.55um GaAs crystal
+			constexpr float dx0 = 12.4e-6 / 600.0f; // 600 cell simulation of 12.4um GaAs crystal
 			updateData.lengthUnit = dx0; // Normalised simulation length unit
 			updateData.timeUnit = updateData.lengthUnit / c0; // Derived simulation time unit (L / c)
 			constexpr float courant = 0.5f;
@@ -49,13 +51,13 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	updateData.t = 0.0f;
 	updateData.step = 0;
-	updateData.npml = 100;
-	updateData.x = 1500;
+	updateData.npml = 300;
+	updateData.x = 1300;
 	updateData.y = 8;
 	updateData.z = 8;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 800000;
+	updateData.maxStep = 5000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);
@@ -475,8 +477,8 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 			break;
 		}
 
-		FILE* f0 = fopen("data_gpu_sim0.bin", "wb");
-		FILE* f1 = fopen("data_gpu_sim1.bin", "wb");
+		FILE* f0 = fopen(std::format("data_gpu_sim0{}.bin", suffix).c_str(), "wb");
+		FILE* f1 = fopen(std::format("data_gpu_sim1{}.bin", suffix).c_str(), "wb");
 		if (!f0 || !f1) {
 			return;
 		}

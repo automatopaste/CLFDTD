@@ -10,7 +10,7 @@ close all;
 c0 = 299792458;             % m/s
 
 % FDTD temporal sampling interval
-dx0 = 6.2e-10;
+dx0 = 12.4e-6 / 600.0;
 courant = 0.5;
 dt = courant * dx0 / c0;       % seconds
 

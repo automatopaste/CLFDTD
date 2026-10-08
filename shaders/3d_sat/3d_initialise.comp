@@ -59,9 +59,9 @@ void main() {
 
 	int npml = pushConstants.simDataInt.y;
 
-	const float sigma_max = 3.0;
-	const float kappa_max = 3.0;
-	const float m = 2.0;
+	const float sigma_max = 6.0;
+	const float kappa_max = 6.0;
+	const float m = 3.0;
 
 	if (ijk.x < npml && ijk.y == 0 && ijk.z == 0) {
 		int i = ijk.x;

@@ -208,15 +208,15 @@ void main() {
 	// sigma0 = 0.0;
 	// T2 = 0.0;
 
-	const ivec3 cellDim = ivec3(450, 8, 8);
-	const ivec3 sourcePosition = ivec3(400, centre.y, centre.z);
+	const ivec3 cellDim = ivec3(600, 8, 8);
+	const ivec3 sourcePosition = ivec3(350, centre.y, centre.z);
 
 	if (
 		abs(ijk.x - centre.x) > cellDim.x / 2 ||
 		abs(ijk.y - centre.y) > cellDim.y / 2 ||
 		abs(ijk.z - centre.z) > cellDim.z / 2
 	) {
-		//n = 1.0;
+		// n = 1.0;
 		sigma0 = 0.0;
 		T2 = 0.0;
 	}
@@ -237,9 +237,9 @@ void main() {
 
 	// gaussian carrier pulse
 	const float amplitude = 1.0;
-	const float bandwidth = 5e12 * 1.0;
+	const float bandwidth = 5e12 * 60.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
-	const float t0 = tau * 4.0;
+	const float t0 = tau * 10.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
 	float envelope = exp(-0.5 * pow((t - t0) / tau, 2.0));
 	float source = amplitude * envelope * cos(source_omega0 * (t - t0));
@@ -275,7 +275,6 @@ void main() {
 
 	float I = 0.5 * c * n * eps0 * ePeak * ePeak;
 	float s = 1.0 / (1.0 + I / Is0);
-	s = 1.0; // linear medium
 
 	float B = 8.0 * epsilon * T2 * (dt + T2) + dt * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2));
 

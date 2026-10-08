@@ -9,7 +9,7 @@ close all;
 c0 = 299792458;          % m/s
 
 % FDTD sampling
-dx0 = 6.2e-10;           % m
+dx0 = 6.2e-11;           % m
 courant = 0.1;
 dt = courant * dx0 / c0;
 
