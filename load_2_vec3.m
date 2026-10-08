@@ -129,7 +129,7 @@ magnitudeB = sqrt( ...
 
 figure('Position', [100 100 1600 1000]);
 
-labels = {'X', 'Y', 'Z', 'Vector Magnitude'};
+labels = {'X', 'Y', 'Z', 'Electric Field (kV/m)'};
 
 for c = 1:4
 
@@ -137,10 +137,10 @@ for c = 1:4
 
     if c <= 3
 
-        plot(tA, A(:,c), 'LineWidth', 1.0);
+        plot(tA, A(:,c) / 1000, 'LineWidth', 1.0);
         hold on;
 
-        plot(tB, B(:,c), 'LineWidth', 1.0);
+        plot(tB, B(:,c) / 1000, 'LineWidth', 1.0);
 
     else
 
@@ -172,98 +172,3 @@ legend( ...
 sgtitle(sprintf( ...
     'Raw Vec3 Comparison — File 2 time shifted by %+g', ...
     timeOffset));
-
-%% ============================================================
-% Common time interval
-% ============================================================
-%
-% Only compare where BOTH files contain data.
-%
-tStart = max(min(tA), min(tB));
-tEnd   = min(max(tA), max(tB));
-
-if tStart >= tEnd
-    error('Files have no overlapping time interval.');
-end
-
-%% ============================================================
-% Interpolate File 2 onto File 1 time samples
-% ============================================================
-%
-% This allows the files to:
-%
-%   - have different lengths
-%   - have different dt
-%   - have a physical time offset
-%
-% File 1 remains on its native time axis.
-
-validA = (tA >= tStart) & (tA <= tEnd);
-
-tCommon = tA(validA);
-
-B_interp = zeros(numel(tCommon), 3);
-
-for c = 1:3
-    B_interp(:,c) = interp1( ...
-        tB, ...
-        B(:,c), ...
-        tCommon, ...
-        'linear');
-end
-
-A_common = A(validA, :);
-
-%% ============================================================
-% Difference
-% ============================================================
-
-difference = B_interp - A_common;
-
-differenceMagnitude = sqrt( ...
-    difference(:,1).^2 + ...
-    difference(:,2).^2 + ...
-    difference(:,3).^2);
-
-%% ============================================================
-% Plot difference
-% ============================================================
-
-figure('Position', [150 150 1600 900]);
-
-subplot(4,1,1);
-plot(tCommon, difference(:,1), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta X');
-title('File 2 - File 1');
-
-subplot(4,1,2);
-plot(tCommon, difference(:,2), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta Y');
-
-subplot(4,1,3);
-plot(tCommon, difference(:,3), 'LineWidth', 1.0);
-grid on;
-ylabel('\Delta Z');
-
-subplot(4,1,4);
-plot(tCommon, differenceMagnitude, 'LineWidth', 1.0);
-grid on;
-ylabel('|\Delta|');
-xlabel('Simulation time');
-
-sgtitle(sprintf( ...
-    'Difference — File 2 shifted by %+g time units', ...
-    timeOffset));
-
-%% ============================================================
-% Print comparison information
-% ============================================================
-
-fprintf('\n');
-fprintf('Common time interval:\n');
-fprintf('  Start: %.12g\n', tStart);
-fprintf('  End:   %.12g\n', tEnd);
-fprintf('  Duration: %.12g\n', tEnd - tStart);
-fprintf('  Comparison samples: %d\n', numel(tCommon));

@@ -230,14 +230,15 @@ void main() {
 	//const float source_omega0 = c / source_wavelength;
 	
 	// sin source with ramp turn-on
-	float wavelength = 890e-9 / lengthUnit;
-	float source_omega_sin = 2.0 * 3.14159265359 * (c / wavelength);
-	//float envelope = clamp(t / (dt * 200.0), 0.0, 1.0);
-	//float source = amplitude * sin(source_omega_sin * t) * envelope;
+	// const float amplitude = 1.0;
+	// float wavelength = 890e-9 / lengthUnit;
+	// float source_omega_sin = 2.0 * 3.14159265359 * (c / wavelength);
+	// float envelope = clamp(t / (dt * 2000.0), 0.0, 1.0);
+	// float source = amplitude * sin(source_omega_sin * t) * envelope;
 
 	// gaussian carrier pulse
-	const float amplitude = 1.0;
-	const float bandwidth = 5e12 * 60.0;
+	const float amplitude = 100.0;
+	const float bandwidth = 5e12 * 20.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
 	const float t0 = tau * 4.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
@@ -275,7 +276,7 @@ void main() {
 
 	float I = 0.5 * c * n * eps0 * ePeak * ePeak;
 	float s = 1.0 / (1.0 + I / Is0);
-	s = 1.0;
+	// s = 1.0;
 
 	float B = 8.0 * epsilon * T2 * (dt + T2) + dt * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2));
 
@@ -296,10 +297,10 @@ void main() {
 	imageStore(jDst, ijk, vec4(jNew, 0.0));
 	imageStore(ePeakDst, ijk, vec4(ePeakNew, 0.0, 0.0, 0.0));
 
-	if (ijk.x == (x / 2) - 200 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) - 0 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer0.values[simStep] = eNew;
 	}
-	if (ijk.x == (x / 2) + 200 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) + 400 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer1.values[simStep] = eNew;
 	}
 
