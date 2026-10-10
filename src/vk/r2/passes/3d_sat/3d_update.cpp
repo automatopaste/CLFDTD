@@ -18,7 +18,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	L3Dsat::UpdateData& updateData = data.updateData;
 
-	updateData.updateShader = L3Dsat::CAVITY;
+	updateData.updateShader = L3Dsat::CAVITY3D;
 
 	switch (updateData.updateShader) {
 		case L3Dsat::GAIN:
@@ -32,13 +32,20 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 			updateData.dx = 1.0f;
 			updateData.c = 1.0f;
 			updateData.dt = courant * updateData.dx / updateData.c;
+
+			updateData.npml = 100;
+			updateData.x = 6000; // ??
+			updateData.y = 8;
+			updateData.z = 8;
+			updateData.maxStep = 2000000; // ??
+
 			break;
 		}
 		case L3Dsat::CAVITY:
 		{
 			constexpr float c0 = 299792458.0f;
 			constexpr float eps0 = 8.8541878128e-12f;
-			constexpr float dx0 = 12.4e-6 / 600.0f; // 600 cell simulation of 12.4um GaAs crystal
+			constexpr float dx0 = 1.2395543175e-5f / 5600.0f; // 2800 cell simulation of 12.3955um GaAs crystal
 			updateData.lengthUnit = dx0; // Normalised simulation length unit
 			updateData.timeUnit = updateData.lengthUnit / c0; // Derived simulation time unit (L / c)
 			constexpr float courant = 0.5f;
@@ -46,21 +53,63 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 			updateData.c = 1.0f;
 			updateData.dt = courant * updateData.dx / updateData.c;
 			// constexpr float f = 7e-12f / (dx0 / c0);
+
+			updateData.npml = 100;
+			updateData.x = 6000;
+			updateData.y = 8;
+			updateData.z = 8;
+			updateData.maxStep = 2000000;
+
+			break;
+		}
+		case L3Dsat::CAVITY3D:
+		{
+			constexpr float c0 = 299792458.0f;
+			constexpr float eps0 = 8.8541878128e-12f;
+			constexpr float dx0 = 1.363509749e-6f / 400.0f; // 400x50x50 cell simulation of 1.36um GaAs crystal (designed for m=11 with n = 3.59)
+			updateData.lengthUnit = dx0; // Normalised simulation length unit
+			updateData.timeUnit = updateData.lengthUnit / c0; // Derived simulation time unit (L / c)
+			constexpr float courant = 0.5f;
+			updateData.dx = 1.0f;
+			updateData.c = 1.0f;
+			updateData.dt = courant * updateData.dx / updateData.c;
+			// constexpr float f = 7e-12f / (dx0 / c0);
+
+			updateData.npml = 18;
+			updateData.x = 500;
+			updateData.y = 90;
+			updateData.z = 90;
+			updateData.maxStep = 200000;
+
+			break;
+		}
+		case L3Dsat::SEL:
+		{
+			constexpr float c0 = 299792458.0f;
+			constexpr float eps0 = 8.8541878128e-12f;
+			constexpr float dx0 = 2.033e-9;
+			constexpr float dt0 = dx0 / c0;
+			updateData.lengthUnit = dx0; // Normalised simulation length unit
+			updateData.timeUnit = dt0; // Derived simulation time unit (L / c)
+			constexpr float courant = 0.5f;
+			updateData.dx = 1.0f;
+			updateData.c = 1.0f;
+			updateData.dt = courant * updateData.dx / updateData.c;
+
+			updateData.npml = 100;
+			updateData.x = 7600;
+			updateData.y = 8;
+			updateData.z = 8;
+			updateData.maxStep = 150000;
+
 			break;
 		}
 	}
-
 	
-
 	updateData.t = 0.0f;
 	updateData.step = 0;
-	updateData.npml = 300;
-	updateData.x = 1300;
-	updateData.y = 8;
-	updateData.z = 8;
 	updateData.initialise = true;
 	updateData.fileWrite = true;
-	updateData.maxStep = 300000;
 	updateData.zRead = updateData.z / 2;
 
 	size_t sizeX = updateData.x * sizeof(float);
@@ -71,8 +120,17 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	R2::create_buffer(engine, &updateData.BBuffer, sizeof(float) * updateData.npml, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, false);
 
 	size_t sampleBufferSize = updateData.maxStep * sizeof(glm::vec3);
+	if (updateData.updateShader == L3Dsat::SEL) {
+		sampleBufferSize = updateData.x * sizeof(glm::vec3);
+	}
 	R2::create_buffer(engine, &updateData.sampleBuffer0, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
 	R2::create_buffer(engine, &updateData.sampleBuffer1, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
+
+	size_t sampleBuffer2Size = updateData.x * updateData.y * updateData.z * sizeof(glm::vec3);
+	R2::create_buffer(engine, &updateData.sampleBuffer2, sampleBuffer2Size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
+
+	R2::create_buffer(engine, &updateData.sampleBuffer3, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
+	R2::create_buffer(engine, &updateData.sampleBuffer4, sampleBufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, true);
 
 	VkExtent3D size = { updateData.x, updateData.y, updateData.z };
 	VkImageUsageFlags usage = VK_IMAGE_USAGE_STORAGE_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
@@ -194,6 +252,12 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 	case L3Dsat::CAVITY:
 		eUpdateShader = "3d_sat/3d_e_update_cavity.comp";
 		break;
+	case L3Dsat::CAVITY3D:
+		eUpdateShader = "3d_sat/3d_e_update_cavity3d.comp";
+		break;
+	case L3Dsat::SEL:
+		eUpdateShader = "3d_sat/3d_e_update_sel.comp";
+		break;
 	}
 
 	VkShaderModule initShader;
@@ -233,6 +297,9 @@ void L3DsatUpdate::cleanup(R2::RenderData& renderData, VulkanEngine* engine)
 
 	R2::destroy_buffer(engine, updateData.sampleBuffer0);
 	R2::destroy_buffer(engine, updateData.sampleBuffer1);
+	R2::destroy_buffer(engine, updateData.sampleBuffer2);
+	R2::destroy_buffer(engine, updateData.sampleBuffer3);
+	R2::destroy_buffer(engine, updateData.sampleBuffer4);
 
 	R2::destroy_image(engine, updateData.eImage);
 	R2::destroy_image(engine, updateData.fImage);
@@ -293,7 +360,10 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		.ABuffer = updateData.ABuffer.address,
 		.BBuffer = updateData.BBuffer.address,
 		.sampleBuffer0 = updateData.sampleBuffer0.address,
-		.sampleBuffer1 = updateData.sampleBuffer1.address
+		.sampleBuffer1 = updateData.sampleBuffer1.address,
+		.sampleBuffer2 = updateData.sampleBuffer2.address,
+		.sampleBuffer3 = updateData.sampleBuffer3.address,
+		.sampleBuffer4 = updateData.sampleBuffer4.address
 	};
 
 	uint32_t dispatchX = static_cast<uint32_t>(std::ceilf(updateData.x / 8.0f));
@@ -458,38 +528,61 @@ void L3DsatUpdate::render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, V
 		updateData.step++;
 		updateData.t = updateData.dt * updateData.step;
 	}
+}
 
-	if (updateData.step >= updateData.maxStep && updateData.fileWrite) {
-		updateData.fileWrite = false;
+void L3DsatUpdate::write(L3Dsat::UpdateData& updateData, VulkanEngine* engine)
+{
+	std::vector<glm::vec3> sampleData0;
+	std::vector<glm::vec3> sampleData1;
+	std::vector<glm::vec3> sampleData2;
+	std::vector<glm::vec3> sampleData3;
+	std::vector<glm::vec3> sampleData4;
+	sampleData0.resize(updateData.sampleBuffer0.size / sizeof(glm::vec3));
+	sampleData1.resize(updateData.sampleBuffer1.size / sizeof(glm::vec3));
+	sampleData2.resize(updateData.sampleBuffer2.size / sizeof(glm::vec3));
+	sampleData3.resize(updateData.sampleBuffer3.size / sizeof(glm::vec3));
+	sampleData4.resize(updateData.sampleBuffer4.size / sizeof(glm::vec3));
 
-		std::vector<glm::vec3> sampleData0;
-		std::vector<glm::vec3> sampleData1;
-		sampleData0.resize(updateData.sampleBuffer0.size / sizeof(glm::vec3));
-		sampleData1.resize(updateData.sampleBuffer1.size / sizeof(glm::vec3));
+	memcpy(sampleData0.data(), updateData.sampleBuffer0.info.pMappedData, updateData.sampleBuffer0.size);
+	memcpy(sampleData1.data(), updateData.sampleBuffer1.info.pMappedData, updateData.sampleBuffer1.size);
+	memcpy(sampleData2.data(), updateData.sampleBuffer2.info.pMappedData, updateData.sampleBuffer2.size);
+	memcpy(sampleData3.data(), updateData.sampleBuffer3.info.pMappedData, updateData.sampleBuffer3.size);
+	memcpy(sampleData4.data(), updateData.sampleBuffer4.info.pMappedData, updateData.sampleBuffer4.size);
 
-		memcpy(sampleData0.data(), updateData.sampleBuffer0.info.pMappedData, updateData.sampleBuffer0.size);
-		memcpy(sampleData1.data(), updateData.sampleBuffer1.info.pMappedData, updateData.sampleBuffer1.size);
-
-		const char* suffix;
-		switch (updateData.updateShader) {
-		case L3Dsat::GAIN:
-			suffix = "_gain";
-			break;
-		case L3Dsat::CAVITY:
-			suffix = "_cavity";
-			break;
-		}
-
-		FILE* f0 = fopen(std::format("data_gpu_sim0{}.bin", suffix).c_str(), "wb");
-		FILE* f1 = fopen(std::format("data_gpu_sim1{}.bin", suffix).c_str(), "wb");
-		if (!f0 || !f1) {
-			return;
-		}
-
-		fwrite(sampleData0.data(), sizeof(glm::vec3), updateData.maxStep, f0);
-		fwrite(sampleData1.data(), sizeof(glm::vec3), updateData.maxStep, f1);
-
-		fclose(f0);
-		fclose(f1);
+	const char* suffix;
+	switch (updateData.updateShader) {
+	case L3Dsat::GAIN:
+		suffix = "_gain";
+		break;
+	case L3Dsat::CAVITY:
+		suffix = "_cavity";
+		break;
+	case L3Dsat::CAVITY3D:
+		suffix = "_cavity3d";
+		break;
+	case L3Dsat::SEL:
+		suffix = "_sel";
+		break;
 	}
+
+	FILE* f0 = fopen(std::format("data_gpu{}_sim0.bin", suffix).c_str(), "wb");
+	FILE* f1 = fopen(std::format("data_gpu{}_sim1.bin", suffix).c_str(), "wb");
+	FILE* f2 = fopen(std::format("data_gpu{}_sim2.bin", suffix).c_str(), "wb");
+	FILE* f3 = fopen(std::format("data_gpu{}_sim3.bin", suffix).c_str(), "wb");
+	FILE* f4 = fopen(std::format("data_gpu{}_sim4.bin", suffix).c_str(), "wb");
+	if (!f0 || !f1 || !f2 || !f3 || !f4) {
+		return;
+	}
+
+	fwrite(sampleData0.data(), sizeof(glm::vec3), sampleData0.size(), f0);
+	fwrite(sampleData1.data(), sizeof(glm::vec3), sampleData1.size(), f1);
+	fwrite(sampleData2.data(), sizeof(glm::vec3), sampleData2.size(), f2);
+	fwrite(sampleData3.data(), sizeof(glm::vec3), sampleData3.size(), f3);
+	fwrite(sampleData4.data(), sizeof(glm::vec3), sampleData4.size(), f4);
+
+	fclose(f0);
+	fclose(f1);
+	fclose(f2);
+	fclose(f3);
+	fclose(f4);
 }

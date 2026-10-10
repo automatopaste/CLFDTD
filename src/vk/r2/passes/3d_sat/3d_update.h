@@ -13,4 +13,6 @@ namespace L3DsatUpdate {
 
 	void render(VkCommandBuffer cmd, L3Dsat::UpdateData& updateData, VulkanEngine* engine, uint32_t frameIndex);
 
+	void write(L3Dsat::UpdateData& updateData, VulkanEngine* engine);
+
 }

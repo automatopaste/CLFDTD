@@ -18,7 +18,7 @@ dt = courant * dx0 / c0;       % seconds
 centerFrequency = 3.37e14;  % Hz
 
 % Frequency range displayed around center
-frequencyWidth = 2.0e14;    % Hz
+frequencyWidth = 1.0e15;    % Hz
 
 % Apply Hann window before FFT
 useWindow = false;

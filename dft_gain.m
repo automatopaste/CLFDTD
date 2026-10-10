@@ -442,7 +442,7 @@ plot(omegaPlot / 1e15, (betaLGainRaw) * (-180 / pi), ...
 
 xlabel('\omega (10^{15} rad/s)');
 ylabel('\beta L (deg)');
-title('Gain Medium Phase');
+title('Propagation Phase Factor');
 
 grid on;
 

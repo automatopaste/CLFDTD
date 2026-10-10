@@ -30,7 +30,9 @@ namespace L3Dsat {
 
 	enum EFieldUpdateShader {
 		GAIN,
-		CAVITY
+		CAVITY,
+		CAVITY3D,
+		SEL
 	};
 
 	struct UpdateData {
@@ -61,6 +63,9 @@ namespace L3Dsat {
 
 		R2::BufferState sampleBuffer0;
 		R2::BufferState sampleBuffer1;
+		R2::BufferState sampleBuffer2;
+		R2::BufferState sampleBuffer3;
+		R2::BufferState sampleBuffer4;
 
 		// program variables
 		float dx;
@@ -126,6 +131,9 @@ namespace L3Dsat {
 		VkDeviceAddress BBuffer;
 		VkDeviceAddress sampleBuffer0;
 		VkDeviceAddress sampleBuffer1;
+		VkDeviceAddress sampleBuffer2;
+		VkDeviceAddress sampleBuffer3;
+		VkDeviceAddress sampleBuffer4;
 	};
 
 	struct PostProcessingPushConstants {

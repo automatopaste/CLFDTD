@@ -9,18 +9,18 @@ close all;
 c0 = 299792458;          % m/s
 
 % FDTD sampling
-dx0 = 12.4e-6 / 600.0;            % m
+dx0 = 1.2395543175e-5 / 5600;  % m
 courant = 0.5;
 dt = courant * dx0 / c0;
 
 % Medium
 n = 3.59;
 
+% Cavity length
+L = 1.2395543175e-5;             % m
+
 % Reference wavelength
 lambda0 = 890e-9;        % m
-
-% Probe separation
-l = 400 * dx0;
 
 % E-field component
 % 1 = Ex
@@ -31,7 +31,7 @@ component = 3;
 % Desired centre frequency
 omega0 = 2 * pi * c0 / lambda0;        % rad/s
 
-% Desired total frequency width
+% Desired total angular-frequency width
 omegaWidth = 0.60e15;    % rad/s
 
 % Frequency limits
@@ -41,32 +41,22 @@ omegaMax = omega0 + omegaWidth/2;
 % Additional zero samples added symmetrically to files
 nZeros = 0;
 
-%% ============================================================
-% Spectral confidence configuration
-% ============================================================
+% ------------------------------------------------------------
+% Resonance plotting
+% ------------------------------------------------------------
 
-% Below this fraction of the peak FFT magnitude, the result
-% progressively loses confidence and is driven toward 1.
-%
-% Example:
-%   1e-2 = confidence starts decreasing below 1% of peak
-%   1e-3 = confidence starts decreasing below 0.1% of peak
-%
-confidenceFloor = 1e-2;
+% Central longitudinal mode
+mCentral = 100;
 
-% Controls how sharply confidence falls.
-%
-% 1 = linear
-% 2 = smoother
-% 4+ = stays near full confidence longer, then falls rapidly
-confidencePower = 2;
+% Number of modes to show on either side of mCentral
+modeRange = 12;
 
 
 %% ============================================================
-% Select first file
+% Select file
 % ============================================================
 
-[file1, path1] = uigetfile('*.*', 'Select FIRST vec3 file');
+[file1, path1] = uigetfile('*.*', 'Select vec3 file');
 
 if isequal(file1, 0)
     return;
@@ -87,416 +77,314 @@ end
 
 data1 = reshape(data1, 3, []);
 
-E1 = double(data1(component, :)).';
-E1 = [zeros(nZeros, 1); E1; zeros(nZeros, 1)];
+% Extract selected field component
+E1_original = double(data1(component, :)).';
 
-%% ============================================================
-% Select second file
-% ============================================================
-
-[file2, path2] = uigetfile('*.*', 'Select SECOND vec3 file');
-
-if isequal(file2, 0)
-    return;
-end
-
-fid = fopen(fullfile(path2, file2), 'rb');
-
-if fid == -1
-    error('Could not open second file.');
-end
-
-data2 = fread(fid, 'single');
-fclose(fid);
-
-if mod(numel(data2), 3) ~= 0
-    error('Second file does not contain a whole number of vec3 samples.');
-end
-
-data2 = reshape(data2, 3, []);
-
-E2 = double(data2(component, :)).';
-E2 = [zeros(nZeros, 1); E2; zeros(nZeros, 1)];
-
-%% ============================================================
-% Basic information
-% ============================================================
-
-N1 = numel(E1);
-N2 = numel(E2);
-
-fprintf('First file:  %d samples\n', N1);
-fprintf('Second file: %d samples\n', N2);
-fprintf('dt = %.9e s\n', dt);
-fprintf('Sampling frequency = %.9e Hz\n', 1/dt);
-fprintf('Nyquist frequency = %.9e Hz\n', 1/(2*dt));
-fprintf('Probe separation = %.9e m\n', l);
-
-if N1 ~= N2
-    error('The two files must contain the same number of samples.');
-end
-
-deltaOmega = 2*pi / (N1 * dt);
-
-fprintf('\nFFT sampling:\n');
-fprintf('  N = %d samples\n', N1);
-fprintf('  Total time = %.9e s (%.3f ps)\n', N1*dt, N1*dt*1e12);
-fprintf('  Delta omega = %.9e rad/s\n', deltaOmega);
-fprintf('  Delta omega = %.6f x 10^14 rad/s\n', deltaOmega/1e14);
-fprintf('  Bins per 10^14 rad/s = %.2f\n', 1e14/deltaOmega);
+% Time-domain signal including the symmetric zero padding
+E1_time = [zeros(nZeros, 1); E1_original; zeros(nZeros, 1)];
 
 
 %% ============================================================
-% Remove DC offset
+% Time vector
 % ============================================================
 
-E1 = E1 - mean(E1);
-E2 = E2 - mean(E2);
+N = numel(E1_time);
+
+time = (0:N-1).' * dt;
+
+fprintf('\n');
+fprintf('============================================================\n');
+fprintf('FDTD sampling information\n');
+fprintf('============================================================\n');
+fprintf('dx0                 = %.12e m\n', dx0);
+fprintf('dt                  = %.12e s\n', dt);
+fprintf('dt                  = %.6f fs\n', dt*1e15);
+fprintf('Number of samples   = %d\n', N);
+fprintf('Total time          = %.6f ps\n', time(end)*1e12);
+fprintf('Sampling frequency  = %.6f PHz\n', 1/dt/1e15);
+fprintf('Nyquist frequency   = %.6f PHz\n', 1/(2*dt)/1e15);
+fprintf('============================================================\n\n');
 
 
 %% ============================================================
 % FFT
 % ============================================================
 
-F1 = fft(E1);
-F2 = fft(E2);
+% Make a separate copy for FFT processing
+E1 = E1_time;
 
-% Only positive frequencies
-numFreq = floor(N1/2) + 1;
+% Remove DC component
+E1 = E1 - mean(E1);
 
-F1 = F1(1:numFreq);
-F2 = F2(1:numFreq);
+% FFT
+E1_fft = fft(E1);
 
-f = (0:numFreq-1).' / (N1 * dt);
+% Frequency vector
+f = (0:N-1).' / (N * dt);
 
 % Angular frequency
 omega = 2*pi*f;
 
+% Single-sided spectrum
+Nhalf = floor(N/2) + 1;
+
+omega = omega(1:Nhalf);
+f = f(1:Nhalf);
+
+% FFT magnitude
+mag = abs(E1_fft(1:Nhalf));
+
+% Normalise only for plotting
+magNorm = mag / max(mag);
+
 
 %% ============================================================
-% FFT resolution
+% Select desired angular-frequency range
 % ============================================================
 
-deltaOmega = 2*pi / (N1 * dt);
+idxOmega = ...
+    omega >= omegaMin & ...
+    omega <= omegaMax;
+
+omegaPlot = omega(idxOmega);
+magPlot = magNorm(idxOmega);
+
+% Corresponding wavelength
+lambdaPlot = 2*pi*c0 ./ omegaPlot;
+
+
+%% ============================================================
+% Fabry-Perot resonant modes
+%
+% lambda_m = 2*n*L/m
+%
+% mCentral = 100
+% ============================================================
+
+mValues = ...
+    (mCentral - modeRange): ...
+    (mCentral + modeRange);
+
+lambdaModes = 2*n*L ./ mValues;
+
+omegaModes = 2*pi*c0 ./ lambdaModes;
+
+% Only retain resonances inside requested spectral range
+validModes = ...
+    omegaModes >= omegaMin & ...
+    omegaModes <= omegaMax;
+
+mValues = mValues(validModes);
+lambdaModes = lambdaModes(validModes);
+omegaModes = omegaModes(validModes);
+
+
+%% ============================================================
+% Actual mode number corresponding to lambda0
+% ============================================================
+
+mAtLambda0 = 2*n*L / lambda0;
+
+lambdaAtM100 = 2*n*L / mCentral;
+
+omegaAtM100 = 2*pi*c0 / lambdaAtM100;
 
 fprintf('\n');
-fprintf('FFT sampling:\n');
-fprintf('  N = %d samples\n', N1);
-fprintf('  Total time = %.9e s (%.6f ps)\n', ...
-    N1 * dt, N1 * dt * 1e12);
+fprintf('============================================================\n');
+fprintf('Fabry-Perot cavity information\n');
+fprintf('============================================================\n');
+fprintf('Cavity length              = %.6f um\n', L*1e6);
+fprintf('Refractive index           = %.6f\n', n);
+fprintf('Reference wavelength       = %.3f nm\n', lambda0*1e9);
+fprintf('m corresponding to lambda0 = %.6f\n', mAtLambda0);
+fprintf('\n');
 
-fprintf('  Delta omega = %.9e rad/s\n', deltaOmega);
-fprintf('  Delta omega = %.6f x 10^14 rad/s\n', ...
-    deltaOmega / 1e14);
+fprintf('m = %d wavelength           = %.6f nm\n', ...
+    mCentral, lambdaAtM100*1e9);
 
-fprintf('  Bins per 10^14 rad/s = %.2f\n', ...
-    1e14 / deltaOmega);
+fprintf('m = %d angular frequency    = %.6e rad/s\n', ...
+    mCentral, omegaAtM100);
 
+fprintf('\n');
 
-%% ============================================================
-% Select desired frequency range FIRST
-%
-% This is deliberately done before phase unwrapping.
-% Weak/noisy frequencies outside the region of interest therefore
-% cannot introduce 2*pi unwrap jumps into the desired range.
-% ============================================================
+fprintf('Resonant modes:\n');
+fprintf('------------------------------------------------------------\n');
+fprintf(' m        lambda (nm)          omega (rad/s)\n');
+fprintf('------------------------------------------------------------\n');
 
-mask = omega >= omegaMin & omega <= omegaMax;
+for k = 1:numel(mValues)
 
-omegaPlot = omega(mask);
+    fprintf('%3d      %12.6f       %15.6e\n', ...
+        mValues(k), ...
+        lambdaModes(k)*1e9, ...
+        omegaModes(k));
 
-F1Plot = F1(mask);
-F2Plot = F2(mask);
-
-
-%% ============================================================
-% FFT magnitude / spectral confidence
-% ============================================================
-
-magF1 = abs(F1Plot);
-magF2 = abs(F2Plot);
-
-% Use geometric mean so BOTH measurements must contain
-% sufficient spectral energy for high confidence.
-spectralMagnitude = sqrt(magF1 .* magF2);
-
-% Peak spectral magnitude within the requested frequency range
-maxSpectralMagnitude = max(spectralMagnitude);
-
-% Normalize to 0...1
-normalizedMagnitude = ...
-    spectralMagnitude / maxSpectralMagnitude;
-
-
-% ------------------------------------------------------------
-% Convert normalized magnitude into confidence
-%
-% confidence = 1 above confidenceFloor
-% confidence -> 0 as magnitude -> 0
-% ------------------------------------------------------------
-
-confidence = zeros(size(normalizedMagnitude));
-
-strong = normalizedMagnitude >= confidenceFloor;
-
-confidence(strong) = 1;
-
-weak = ~strong;
-
-confidence(weak) = ...
-    (normalizedMagnitude(weak) / confidenceFloor) ...
-    .^ confidencePower;
-
-% Clamp against numerical roundoff
-confidence = max(0, min(1, confidence));
-
-
-%% ============================================================
-% Complex propagation factor
-%
-% H = E2 / E1
-%
-% H = exp(-alpha*L) * exp(-i*beta*L)
-%
-% Therefore:
-%
-% exp(-alpha*L) = abs(H)
-% beta*L        = -angle(H)
-%
-% IMPORTANT:
-% The ratio and phase are now calculated ONLY inside the
-% requested frequency range.
-% ============================================================
-
-H = F2Plot ./ F1Plot;
-
-expMinusAlphaLRaw = abs(H);
-
-
-%% ============================================================
-% Phase reliability mask
-%
-% Do not unwrap frequencies where either probe has essentially
-% no spectral energy.
-%
-% The confidence threshold is based on the geometric mean of
-% both probe spectra.
-% ============================================================
-
-phaseReliable = normalizedMagnitude >= confidenceFloor;
-
-
-%% ============================================================
-% Unwrap phase ONLY over the requested frequency range
-% ============================================================
-
-rawPhase = angle(H);
-
-betaLRaw = NaN(size(rawPhase));
-
-if any(phaseReliable)
-
-    % Find contiguous reliable regions.
-    %
-    % This prevents an unreliable gap in the spectrum from
-    % connecting two otherwise unrelated phase regions.
-
-    reliableIndices = find(phaseReliable);
-
-    breaks = [1; find(diff(reliableIndices) > 1) + 1];
-    ends   = [breaks(2:end) - 1; numel(reliableIndices)];
-
-    for k = 1:numel(breaks)
-
-        idx = reliableIndices(breaks(k):ends(k));
-
-        betaLRaw(idx) = -unwrap(rawPhase(idx));
-
-    end
 end
 
-
-%% ============================================================
-% Normalize weak spectral regions toward 1.0
-% ============================================================
-
-% Amplitude:
-%
-% Strong spectral regions:
-%     confidence = 1
-%     result = raw result
-%
-% Weak spectral regions:
-%     confidence -> 0
-%     result -> 1
-
-expMinusAlphaL = ...
-    confidence .* expMinusAlphaLRaw + ...
-    (1 - confidence) .* 1.0;
-
-%% ============================================================
-% Convert angular frequency to wavelength
-% ============================================================
-
-lambdaPlot = 2*pi*c0 ./ omegaPlot;
-lambdaPlot_nm = lambdaPlot * 1e9;
+fprintf('============================================================\n\n');
 
 
 %% ============================================================
-% Background propagation phase
-%
-% beta_background = n * omega / c0
-%
-% Therefore:
-%
-% beta_background * L = n * omega * L / c0
-%
-% The paper removes this contribution to obtain the phase
-% caused solely by the gain medium.
+% Plot TIME-DOMAIN field — first portion / pulse detail
 % ============================================================
+%
+% This is useful for inspecting the actual optical waveform.
+% The displayed interval can be changed below.
 
-[~, centerIndex] = min(abs(omegaPlot - omega0));
+timeWindow_ps = 7.0;
 
-backgroundBetaL = n .* omegaPlot .* l / c0;
+figure('Color', 'w');
 
-% Gain/dispersive contribution only
-betaLGainRaw = betaLRaw - backgroundBetaL;
-betaLGainRaw = betaLGainRaw - betaLGainRaw(centerIndex);
+idxTimeZoom = time*1e12 <= timeWindow_ps;
 
-fprintf('\nNormalized center phase:\n');
-fprintf('  omega = %.9e rad/s\n', omegaPlot(centerIndex));
-fprintf('  betaLGainRaw = %.12e rad\n', betaLGainRaw(centerIndex));
-fprintf('  betaLGainRaw = %.12e deg\n', ...
-    betaLGainRaw(centerIndex) * 180/pi);
+plot(time(idxTimeZoom)*1e12, ...
+     E1_time(idxTimeZoom) / 1000, ...
+     'LineWidth', 1.0);
 
-%% ============================================================
-% Plot spectral confidence
-% ============================================================
+xlabel('Time (ps)');
+ylabel(sprintf('E_z (kV/m)'));
 
-figure;
+title(sprintf( ...
+    'Time-Domain Field — First %.2f ps', ...
+    timeWindow_ps));
 
-plot(omegaPlot / 1e15, confidence, ...
-    'LineWidth', 1.2);
-
-xlabel('\omega (10^{15} rad/s)');
-ylabel('Spectral confidence');
-title('FFT Spectral Confidence');
+ylim([-1200, 1200]);
 
 grid on;
 
-xlim([omegaMin omegaMax] / 1e15);
-ylim([0 1.05]);
-
 
 %% ============================================================
-% Plot exp(-alpha*L) versus angular frequency
+% Plot FFT versus angular frequency
 % ============================================================
 
-figure;
+figure('Color', 'w');
 
-plot(omegaPlot / 1e15, expMinusAlphaL, ...
-    'LineWidth', 1.2);
+plot(omegaPlot, magPlot, 'LineWidth', 1.2);
+hold on;
 
-xlabel('\omega (10^{15} rad/s)');
-ylabel('exp(-\alpha L)');
-title('Propagation Amplitude Factor');
+% Vertical resonance lines
+for k = 1:numel(mValues)
+
+    xline(omegaModes(k), '--', ...
+        sprintf('m=%d', mValues(k)), ...
+        'LabelVerticalAlignment', 'middle', ...
+        'LabelOrientation', 'horizontal', ...
+        'HandleVisibility', 'off');
+
+end
+
+% Central reference frequency
+xline(omega0, 'k-', ...
+    '\lambda_0 = 890 nm', ...
+    'LineWidth', 1.2, ...
+    'LabelVerticalAlignment', 'bottom', ...
+    'HandleVisibility', 'off');
+
+hold off;
+
+xlabel('\omega (rad/s)');
+ylabel('Normalised |FFT|');
+
+title('Vec3 FFT Spectrum — Angular Frequency');
 
 grid on;
-
-xlim([omegaMin omegaMax] / 1e15);
+xlim([omegaMin omegaMax]);
 
 
 %% ============================================================
-% Plot exp(-alpha*L) versus wavelength
+% Plot FFT versus wavelength
+%
+% Wavelength axis is reversed so that wavelength increases
+% from right to left, matching the conventional spectrum view.
 % ============================================================
 
-figure;
+figure('Color', 'w');
 
-plot(lambdaPlot_nm, expMinusAlphaL, ...
-    'LineWidth', 1.2);
+plot(lambdaPlot*1e9, magPlot, 'LineWidth', 1.2);
+hold on;
+
+for k = 1:numel(mValues)
+
+    xline(lambdaModes(k)*1e9, '--', ...
+        sprintf('m=%d', mValues(k)), ...
+        'LabelVerticalAlignment', 'middle', ...
+        'LabelOrientation', 'horizontal', ...
+        'HandleVisibility', 'off');
+
+end
+
+% Central wavelength
+xline(lambda0*1e9, 'k-', ...
+    '\lambda_0 = 890 nm', ...
+    'LineWidth', 1.2, ...
+    'LabelVerticalAlignment', 'bottom', ...
+    'HandleVisibility', 'off');
+
+hold off;
 
 xlabel('\lambda (nm)');
-ylabel('exp(-\alpha L)');
-title('Propagation Amplitude Factor');
+ylabel('Normalised |FFT|');
+
+title('Vec3 FFT Spectrum — Wavelength');
 
 grid on;
+
+% Restrict wavelength to equivalent angular-frequency interval
+lambdaMin = 2*pi*c0 / omegaMax;
+lambdaMax = 2*pi*c0 / omegaMin;
+
+xlim([lambdaMin lambdaMax]*1e9);
+
+% Conventional optical-spectrum orientation
+set(gca, 'XDir', 'reverse');
+
+
+%% ============================================================
+% Optional: zoom around the 890 nm region
+% ============================================================
+
+figure('Color', 'w');
+
+plot(lambdaPlot*1e9, magPlot, 'LineWidth', 1.2);
+hold on;
+
+for k = 1:numel(mValues)
+
+    xline(lambdaModes(k)*1e9, '--', ...
+        sprintf('m=%d', mValues(k)), ...
+        'HandleVisibility', 'off');
+
+end
+
+hold off;
+
+xlabel('\lambda (nm)');
+ylabel('Normalised |FFT|');
+
+title('Fabry-Perot Modes Around 890 nm');
+
+grid on;
+
+% Narrow zoom around target
+xlim([lambda0 - 10e-9, lambda0 + 10e-9]*1e9);
 
 set(gca, 'XDir', 'reverse');
 
-%% ============================================================
-% Plot RAW beta*L
-%
-% This is the directly measured phase from:
-%
-%     betaLRaw = -unwrap(angle(H))
-%
-% No spectral-confidence weighting is applied.
-% Weak-frequency samples that failed the confidence threshold
-% remain NaN and are therefore not plotted.
-% ============================================================
-
-figure;
-
-plot(omegaPlot / 1e15, (betaLGainRaw) * (-180 / pi), ...
-    'LineWidth', 1.2);
-
-xlabel('\omega (10^{15} rad/s)');
-ylabel('\beta L (deg)');
-title('Gain Medium Phase');
-
-grid on;
-
-xlim([omegaMin omegaMax] / 1e15);
-
 
 %% ============================================================
-% Report FFT resolution
+% Calculate theoretical free spectral range
 % ============================================================
 
+fFSR = c0 / (2*n*L);
+omegaFSR = 2*pi*fFSR;
+
+fprintf('Theoretical Fabry-Perot FSR:\n');
+fprintf('  Δf      = %.6f THz\n', fFSR/1e12);
+fprintf('  Δomega  = %.6e rad/s\n', omegaFSR);
+fprintf('  T_RT    = %.6f ps\n', 1/fFSR*1e12);
 fprintf('\n');
-fprintf('True FFT resolution:\n');
-fprintf('  %.6e rad/s\n', deltaOmega);
 
-fprintf('  %.6f x 10^14 rad/s\n', deltaOmega / 1e14);
-
+fprintf('Observed 0.37 ps period corresponds to:\n');
+fprintf('  Δf      = %.6f THz\n', 1/(0.37e-12)/1e12);
+fprintf('  Δomega  = %.6e rad/s\n', 2*pi/(0.37e-12));
 fprintf('\n');
-fprintf('Requested frequency range:\n');
-fprintf('  %.6e to %.6e rad/s\n', omegaMin, omegaMax);
-
-fprintf('\n');
-fprintf('Number of FFT bins in requested range:\n');
-fprintf('  %d\n', sum(mask));
-
-fprintf('\n');
-fprintf('Spectral confidence settings:\n');
-fprintf('  Confidence floor: %.3e of peak FFT magnitude\n', ...
-    confidenceFloor);
-
-fprintf('  Confidence power: %.2f\n', confidencePower);
-
-fprintf('\n');
-fprintf('Maximum spectral magnitude:\n');
-fprintf('  %.6e\n', maxSpectralMagnitude);
-
-
-%% ============================================================
-% Reference quantities
-% ============================================================
-
-fprintf('\n');
-fprintf('Reference wavelength:\n');
-fprintf('  %.6f nm\n', lambda0 * 1e9);
-
-fprintf('Wavelength in medium:\n');
-fprintf('  %.6f nm\n', lambda0/n * 1e9);
-
-fprintf('Probe separation L:\n');
-fprintf('  %.6e m\n', l);
-
-fprintf('\n');
-fprintf('Background phase at omega0:\n');
-
-backgroundAtOmega0 = n * omega0 * l / c0;
-
-fprintf('  %.9f rad\n', backgroundAtOmega0);
-fprintf('  %.6f deg\n', backgroundAtOmega0 * 180/pi);

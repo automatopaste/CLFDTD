@@ -3,6 +3,17 @@ clc;
 close all;
 
 %% ============================================================
+% Configuration
+% ============================================================
+
+c0 = 299792458;          % m/s
+
+% FDTD sampling
+dx0 = 12.4e-6 / 600.0;            % m
+courant = 0.5;
+dt = courant * dx0 / c0;
+
+%% ============================================================
 % Time scaling for each file
 % ============================================================
 %
@@ -137,17 +148,17 @@ for c = 1:4
 
     if c <= 3
 
-        plot(tA, A(:,c) / 1000, 'LineWidth', 1.0);
+        plot(tA * dt * 1e12, A(:,c) / 1000, 'LineWidth', 1.0);
         hold on;
 
-        plot(tB, B(:,c) / 1000, 'LineWidth', 1.0);
+        plot(tB * dt * 1e12, B(:,c) / 1000, 'LineWidth', 1.0);
 
     else
 
-        plot(tA, magnitudeA, 'LineWidth', 1.0);
+        plot(tA * dt * 1e12, magnitudeA, 'LineWidth', 1.0);
         hold on;
 
-        plot(tB, magnitudeB, 'LineWidth', 1.0);
+        plot(tB * dt * 1e12, magnitudeB, 'LineWidth', 1.0);
 
     end
 
@@ -156,7 +167,7 @@ for c = 1:4
     ylabel(labels{c});
 
     if c == 4
-        xlabel('Simulation time');
+        xlabel('Simulation time (picoseconds)');
     end
 
     title(sprintf('%s Comparison', labels{c}));

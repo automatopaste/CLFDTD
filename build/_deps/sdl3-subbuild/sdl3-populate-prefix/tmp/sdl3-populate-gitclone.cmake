@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file LICENSE.rst or https://cmake.org/licensing for details.
+# file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
+cmake_minimum_required(VERSION 3.5)
 
 if(EXISTS "C:/dev/FDTD/CLFDTD/build/_deps/sdl3-subbuild/sdl3-populate-prefix/src/sdl3-populate-stamp/sdl3-populate-gitclone-lastrun.txt" AND EXISTS "C:/dev/FDTD/CLFDTD/build/_deps/sdl3-subbuild/sdl3-populate-prefix/src/sdl3-populate-stamp/sdl3-populate-gitinfo.txt" AND
   "C:/dev/FDTD/CLFDTD/build/_deps/sdl3-subbuild/sdl3-populate-prefix/src/sdl3-populate-stamp/sdl3-populate-gitclone-lastrun.txt" IS_NEWER_THAN "C:/dev/FDTD/CLFDTD/build/_deps/sdl3-subbuild/sdl3-populate-prefix/src/sdl3-populate-stamp/sdl3-populate-gitinfo.txt")

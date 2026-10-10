@@ -100,7 +100,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="C:\dev\FDTD\CLFDTD\build\ZERO_CHECK.vcxproj">
       <Project>{FFFC3D0E-9021-3D40-A411-B518A3BF48D1}</Project>

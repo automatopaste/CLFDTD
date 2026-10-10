@@ -208,13 +208,14 @@ void main() {
 	// sigma0 = 0.0;
 	// T2 = 0.0;
 
-	const ivec3 cellDim = ivec3(600, 8, 8);
-	const ivec3 sourcePosition = ivec3(350, centre.y, centre.z);
+	const ivec3 cavityOffset = ivec3(200, 0, 0);
+	const ivec3 cavityExtent = ivec3(5600, 8, 8);
+	const ivec3 sourcePosition = ivec3(150, centre.y, centre.z);
 
 	if (
-		abs(ijk.x - centre.x) > cellDim.x / 2 ||
-		abs(ijk.y - centre.y) > cellDim.y / 2 ||
-		abs(ijk.z - centre.z) > cellDim.z / 2
+		ijk.x < cavityOffset.x || ijk.x >= cavityOffset.x + cavityExtent.x ||
+		ijk.y < cavityOffset.y || ijk.y >= cavityOffset.y + cavityExtent.y ||
+		ijk.z < cavityOffset.z || ijk.z >= cavityOffset.z + cavityExtent.z
 	) {
 		n = 1.0;
 		sigma0 = 0.0;
@@ -233,12 +234,13 @@ void main() {
 	// const float amplitude = 1.0;
 	// float wavelength = 890e-9 / lengthUnit;
 	// float source_omega_sin = 2.0 * 3.14159265359 * (c / wavelength);
-	// float envelope = clamp(t / (dt * 2000.0), 0.0, 1.0);
+	// float envelope = clamp(t / (dt * 50000.0), 0.0, 1.0);
+	// envelope = 1.0;
 	// float source = amplitude * sin(source_omega_sin * t) * envelope;
 
 	// gaussian carrier pulse
-	const float amplitude = 100.0;
-	const float bandwidth = 5e12 * 20.0;
+	const float amplitude = 1.0;
+	const float bandwidth = 5e12 * 60.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
 	const float t0 = tau * 4.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
@@ -250,7 +252,7 @@ void main() {
 	// const float pi = 3.14159265359;
 	// const float omega0SI = 2.0 * pi * cSI / lambdaSI;
 	// const float source_omega0 = omega0SI * timeUnit;
-	// const float omegaBandwidthSI = 5e12 * 60;
+	// const float omegaBandwidthSI = 5e12 * 1;
 	// const float omegaBandwidth = omegaBandwidthSI * timeUnit;
 	// const float width = 2.0 * pi / omegaBandwidth;
 	// const float t0 = 10.0 * width;

@@ -88,6 +88,8 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3Dsat::U
 
     vkDeviceWaitIdle(engine->_device);
 
+    L3DsatUpdate::write(updateData, engine);
+
     fmt::print("Simulation thread cleaning up...\n");
 
     // cleanup
