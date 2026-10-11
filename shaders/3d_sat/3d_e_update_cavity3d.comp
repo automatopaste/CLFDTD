@@ -2,7 +2,6 @@
 
 #include "include/default_header.glsl"
 #include "include/global_descriptor.glsl"
-#include "3d_sat/config.glsl"
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
 
@@ -43,6 +42,48 @@ layout (push_constant) uniform PushConstants {
 	SampleBuffer sampleBuffer3;
 	SampleBuffer sampleBuffer4;
 } pushConstants;
+
+// PCG hash: maps a 32-bit state to a pseudorandom 32-bit value.
+uint pcgHash(inout uint state) {
+    state = state * 747796405u + 2891336453u;
+
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state)
+                * 277803737u;
+
+    return (word >> 22u) ^ word;
+}
+
+// Convert uint to a uniform float strictly inside (0, 1).
+float randomUniform(inout uint state) {
+    // Use 24 high-quality bits; offset avoids exactly 0 and 1.
+    return (float(pcgHash(state) >> 8u) + 0.5) / 16777216.0;
+}
+
+// mean = 0 and variance = 1e-6.
+vec3 randomGaussianVec3(inout uint state)
+{
+    float u1 = randomUniform(state);
+    float u2 = randomUniform(state);
+
+    float r1 = sqrt(-2.0 * log(u1));
+    float a1 = 6.283185307179586 * u2;
+
+    float u3 = randomUniform(state);
+    float u4 = randomUniform(state);
+
+    float r2 = sqrt(-2.0 * log(u3));
+    float a2 = 6.283185307179586 * u4;
+
+    return 1e-3 * vec3(
+        r1 * cos(a1),
+        r1 * sin(a1),
+        r2 * cos(a2)
+    );
+}
+
+#define PERIODIC_X 0
+#define PERIODIC_Y 0
+#define PERIODIC_Z 0
 
 void main() {
 	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
@@ -199,7 +240,7 @@ void main() {
 	// SI material properties for GaAs
 	const float lambdaSI = 0.89e-6; // m
 	const float T2SI = 0.07e-12; // s
-	const float sigmaSI = -32500.0; // S/m // todo: simulations from 30000 to 25000 at 200000 timesteps
+	const float sigmaSI = -10000.0; // S/m
 	const float IsSI = 65.2 * 1e7; // 65.2 kW per cm2
 
 	const float lambda0 = lambdaSI / lengthUnit;
@@ -274,7 +315,7 @@ void main() {
 		//e.z -= spatial * source;
 	}
 	if (abs(ijk.x - sourcePosition.x) < sourceRadius) {
-		e.z -= source;
+		//e.z -= source;
 	}
 
 	float Z2 = (1.0 + omega0 * omega0 * T2 * T2);
@@ -293,6 +334,12 @@ void main() {
 	vec3 fNew = A1 * curlH + A2 * e + A3 * j + A4 * f;
 	vec3 jNew = j + (dt / 2.0) * (fNew + f);
 	vec3 eNew = e - (dt / (2.0 * epsilon)) * (jNew + j) + (dt / (epsilon * dx)) * curlH;
+
+	// disregard noise for three-dimensional simulation
+	const uint seed = uint(0x96767AE1u);
+	uint state = seed ^ (ijk.x * ijk.y * ijk.z * uint(0x9E3779B9u)) ^ (simStep * uint(0x85EBCA6Bu));
+	vec3 randomGaussian = randomGaussianVec3(state);
+	// eNew += randomGaussian; // three-dimensional noise
 
 	float eMag = length(eNew);
 	float ePeakNew = max(eMag, ePeak);

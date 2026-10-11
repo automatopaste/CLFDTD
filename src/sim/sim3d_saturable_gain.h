@@ -33,6 +33,9 @@ namespace sim3dsat
 		inline T& at(size_t i, size_t j, size_t k) {
 			return data[k * dimensions.x * dimensions.y + j * dimensions.x + i];
 		}
+		inline T& at(ivec3 ijk) {
+			return data[ijk.z * dimensions.x * dimensions.y + ijk.y * dimensions.x + ijk.x];
+		}
 
 	private:
 		T* data{ nullptr };
@@ -46,7 +49,6 @@ namespace sim3dsat
 		field<vec3> F;
 		field<vec3> J;
 		field<vec3> H;
-		field<float> s;
 
 		field<float> psi_dHz_dx;
 		field<float> psi_dHy_dx;
@@ -76,7 +78,8 @@ namespace sim3dsat
 		ivec3 dim;
 		int resolution;
 		int npml;
-		float sigma0;
+		float lengthUnit;
+		float timeUnit;
 	};
 
 	void state_init(State& state);

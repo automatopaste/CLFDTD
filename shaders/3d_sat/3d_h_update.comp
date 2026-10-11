@@ -2,7 +2,6 @@
 
 #include "include/default_header.glsl"
 #include "include/global_descriptor.glsl"
-#include "3d_sat/config.glsl"
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
 
@@ -34,6 +33,10 @@ layout (push_constant) uniform PushConstants {
 	ABuffer aBuffer;
 	BBuffer bBuffer;
 } pushConstants;
+
+#define PERIODIC_X 0
+#define PERIODIC_Y 1
+#define PERIODIC_Z 1
 
 void main() {
 	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
@@ -124,7 +127,6 @@ void main() {
 #else
 	if (ijk.y < dim.y - 1) {
 		vec3 ey1 = imageLoad(eSrc, ijk_jp1).xyz;
-
 		dEz_dy = ey1.z - e.z;
 		dEx_dy = ey1.x - e.x;
 	}
@@ -136,7 +138,6 @@ void main() {
 #else
 	if (ijk.z < dim.z - 1) {
 		vec3 ez1 = imageLoad(eSrc, ijk_kp1).xyz;
-
 		dEy_dz = ez1.y - e.y;
 		dEx_dz = ez1.x - e.x;
 	}

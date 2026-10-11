@@ -2,7 +2,6 @@
 
 #include "include/default_header.glsl"
 #include "include/global_descriptor.glsl"
-#include "3d_sat/config.glsl"
 
 layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
 
@@ -39,7 +38,50 @@ layout (push_constant) uniform PushConstants {
 	BBuffer bBuffer;
 	SampleBuffer sampleBuffer0;
 	SampleBuffer sampleBuffer1;
+	SampleBuffer sampleBuffer2;
 } pushConstants;
+
+// PCG hash: maps a 32-bit state to a pseudorandom 32-bit value.
+uint pcgHash(inout uint state) {
+    state = state * 747796405u + 2891336453u;
+
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state)
+                * 277803737u;
+
+    return (word >> 22u) ^ word;
+}
+
+// Convert uint to a uniform float strictly inside (0, 1).
+float randomUniform(inout uint state) {
+    // Use 24 high-quality bits; offset avoids exactly 0 and 1.
+    return (float(pcgHash(state) >> 8u) + 0.5) / 16777216.0;
+}
+
+// mean = 0 and variance = 1e-6.
+vec3 randomGaussianVec3(inout uint state)
+{
+    float u1 = randomUniform(state);
+    float u2 = randomUniform(state);
+
+    float r1 = sqrt(-2.0 * log(u1));
+    float a1 = 6.283185307179586 * u2;
+
+    float u3 = randomUniform(state);
+    float u4 = randomUniform(state);
+
+    float r2 = sqrt(-2.0 * log(u3));
+    float a2 = 6.283185307179586 * u4;
+
+    return 1e-3 * vec3(
+        r1 * cos(a1),
+        r1 * sin(a1),
+        r2 * cos(a2)
+    );
+}
+
+#define PERIODIC_X 0
+#define PERIODIC_Y 1
+#define PERIODIC_Z 1
 
 void main() {
 	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
@@ -196,7 +238,7 @@ void main() {
 	// SI material properties for GaAs
 	const float lambdaSI = 0.89e-6; // m
 	const float T2SI = 0.07e-12; // s
-	const float sigmaSI = -7000.0; // S/m
+	const float sigmaSI = -2200.0; // S/m
 	const float IsSI = 65.2 * 1e7; // 65.2 kW per cm2
 
 	const float lambda0 = lambdaSI / lengthUnit;
@@ -208,9 +250,9 @@ void main() {
 	// sigma0 = 0.0;
 	// T2 = 0.0;
 
-	const ivec3 cavityOffset = ivec3(200, 0, 0);
-	const ivec3 cavityExtent = ivec3(5600, 8, 8);
-	const ivec3 sourcePosition = ivec3(150, centre.y, centre.z);
+	const ivec3 cavityOffset = ivec3(50, 0, 0);
+	const ivec3 cavityExtent = ivec3(400, 8, 8);
+	const ivec3 sourcePosition = ivec3(25, centre.y, centre.z);
 
 	if (
 		ijk.x < cavityOffset.x || ijk.x >= cavityOffset.x + cavityExtent.x ||
@@ -240,7 +282,7 @@ void main() {
 
 	// gaussian carrier pulse
 	const float amplitude = 1.0;
-	const float bandwidth = 5e12 * 60.0;
+	const float bandwidth = 5e12 * 5.0;
 	const float tau = (sqrt(2.0 * log(2.0)) / (3.14159265359 * bandwidth)) / timeUnit;
 	const float t0 = tau * 4.0;
 	float source_omega0 = 2.0 * 3.14159265359 * (cSI / lambdaSI) * timeUnit;
@@ -291,6 +333,11 @@ void main() {
 	vec3 jNew = j + (dt / 2.0) * (fNew + f);
 	vec3 eNew = e - (dt / (2.0 * epsilon)) * (jNew + j) + (dt / (epsilon * dx)) * curlH;
 
+	const uint seed = uint(0x96767AE1u);
+	uint state = seed ^ (ijk.x * uint(0x9E3779B9u)) ^ (simStep * uint(0x85EBCA6Bu));
+	vec3 randomGaussian = randomGaussianVec3(state);
+	eNew.z += randomGaussian.x; // one-dimensional only
+
 	float eMag = length(eNew);
 	float ePeakNew = max(eMag, ePeak);
 
@@ -299,12 +346,14 @@ void main() {
 	imageStore(jDst, ijk, vec4(jNew, 0.0));
 	imageStore(ePeakDst, ijk, vec4(ePeakNew, 0.0, 0.0, 0.0));
 
-	if (ijk.x == (x / 2) - 0 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer0.values[simStep] = eNew;
 	}
-	if (ijk.x == (x / 2) + 400 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
+	if (ijk.x == (x / 2) + 225 && ijk.y == y / 2 && ijk.z == z / 2 && simStep < maxSimStep) {
 		pushConstants.sampleBuffer1.values[simStep] = eNew;
 	}
 
-	// difference of 800 dx
+	if (simStep == maxSimStep - 1) {
+		pushConstants.sampleBuffer2.values[ijk.x + x * ijk.y + x * y * ijk.z] = eNew;
+	}
 }

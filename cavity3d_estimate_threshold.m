@@ -29,8 +29,8 @@ componentToAnalyse = 3;
 
 % Fit the exponential envelope over this time interval.
 % Adjust these after inspecting the plotted envelopes.
-fitStartTime = 0.0;       % seconds
-fitEndTime   = 0.40e-9;   % seconds
+fitStartTime = 0.6e-12;       % seconds
+fitEndTime   = 1.2e-12;       % seconds
 
 % Envelope processing
 smoothWindowCycles = 5;   % moving-average window in optical cycles
@@ -271,15 +271,16 @@ box on;
 colors = lines(numRuns);
 
 for k = 1:numRuns
-    plot(time{k} * 1e9, envelope{k}, ...
+    plot(time{k} * 1e12, envelope{k}, ...
         'Color', colors(k,:), ...
         'LineWidth', 1.3, ...
         'DisplayName', sprintf('\\sigma_0 = %.4g S/m', gainValues(k)));
 end
 
-xlabel('Time (ns)');
-ylabel('Electric-field envelope (V/m, or simulation units)');
-title('Cavity field envelope for different gain values');
+yscale("log");
+xlabel('Time (ps)');
+ylabel('Electric-field envelope (V/m)');
+title('Cavity field envelopes at point x_2 for different gain values');
 legend('Location', 'best', 'Interpreter', 'tex');
 
 %% ============================================================
@@ -293,58 +294,151 @@ box on;
 
 valid = isfinite(growthRate);
 
-plot(gainValues(valid), growthRate(valid) * 1e-9, ...
+plot(gainValues(valid), growthRate(valid) * 1e-12, ...
     'o-', 'LineWidth', 1.5, 'MarkerSize', 7);
 
 yline(0, 'k--', 'Zero growth', 'LineWidth', 1.2);
 
 xlabel('Signed gain conductivity \sigma_0 (S/m)');
-ylabel('Envelope growth rate (ns^{-1})');
+ylabel('Envelope growth rate (ps^{-1})');
 title('Lasing threshold from exponential growth rate');
 
 %% ============================================================
-% Estimate threshold by interpolation at zero growth
+% Fit a polynomial to growth rate versus gain
 % ============================================================
+
+% Model:
+%   gamma(sigma) = a*x^2 + b*x + c
+%
+% where x is normalized gain conductivity.
+% The lasing threshold is the root gamma(sigma) = 0.
+%
+% Fit in ns^-1 for numerical conditioning.
+
+polynomialDegree = 2;
 
 thresholdGain = NaN;
 crossingFound = false;
 
-validIdx = find(valid);
+valid = isfinite(growthRate) & isfinite(gainValues);
 
-for j = 1:numel(validIdx)-1
-    i1 = validIdx(j);
-    i2 = validIdx(j+1);
+sigmaFit = gainValues(valid);
+gammaFit = growthRate(valid) * 1e-12;  % ps^-1
 
-    r1 = growthRate(i1);
-    r2 = growthRate(i2);
+if numel(sigmaFit) >= polynomialDegree + 1
 
-    if r1 == 0
-        thresholdGain = gainValues(i1);
-        crossingFound = true;
-        break;
-    elseif r1 * r2 < 0
-        % Linear interpolation between the two neighbouring
-        % gain values that straddle zero growth.
-        thresholdGain = gainValues(i1) + ...
-            (0 - r1) * (gainValues(i2) - gainValues(i1)) / ...
-            (r2 - r1);
+    % Normalize conductivity for numerical stability.
+    sigmaCenter = mean(sigmaFit);
+    sigmaScale = std(sigmaFit);
 
-        crossingFound = true;
-        break;
+    if sigmaScale <= 0
+        error('Gain values must contain at least two distinct values.');
     end
+
+    x = (sigmaFit - sigmaCenter) / sigmaScale;
+
+    % Sort samples by conductivity.
+    [x, sortIdx] = sort(x);
+    sigmaFit = sigmaFit(sortIdx);
+    gammaFit = gammaFit(sortIdx);
+
+    % Polynomial least-squares fit.
+    pFit = polyfit(x, gammaFit, polynomialDegree);
+
+    % Evaluate the fitted curve within the simulated gain range.
+    xDense = linspace(min(x), max(x), 2000);
+    gammaDense = polyval(pFit, xDense);
+
+    % Find fitted zero crossings.
+    crossingIdx = find(gammaDense(1:end-1) .* ...
+                       gammaDense(2:end) <= 0);
+
+    % Require measured growth rates to bracket zero as well.
+    observedCrossings = find(gammaFit(1:end-1) .* ...
+                             gammaFit(2:end) <= 0);
+
+    if ~isempty(crossingIdx) && ~isempty(observedCrossings)
+
+        observedX = 0.5 * (x(observedCrossings) + ...
+                           x(observedCrossings + 1));
+
+        fittedX = 0.5 * (xDense(crossingIdx) + ...
+                         xDense(crossingIdx + 1));
+
+        % Select the fitted crossing nearest an observed transition.
+        distances = zeros(size(fittedX));
+
+        for j = 1:numel(fittedX)
+            distances(j) = min(abs(observedX - fittedX(j)));
+        end
+
+        [~, nearestIdx] = min(distances);
+        chosenCrossing = crossingIdx(nearestIdx);
+
+        % Refine the zero-growth root.
+        xThreshold = fzero( ...
+            @(xx) polyval(pFit, xx), ...
+            [xDense(chosenCrossing), ...
+             xDense(chosenCrossing + 1)]);
+
+        thresholdGain = sigmaCenter + sigmaScale*xThreshold;
+        crossingFound = true;
+    end
+
+    % Calculate goodness of fit.
+    gammaPredicted = polyval(pFit, x);
+    ssRes = sum((gammaFit - gammaPredicted).^2);
+    ssTot = sum((gammaFit - mean(gammaFit)).^2);
+    fitR2 = 1 - ssRes / max(ssTot, eps);
+
+    % Plot measured growth rates and polynomial fit.
+    figure('Name', 'Polynomial lasing threshold fit', ...
+           'Color', 'w');
+    hold on;
+    grid on;
+    box on;
+
+    plot(sigmaFit, gammaFit, 'ko', ...
+         'MarkerFaceColor', 'k', ...
+         'MarkerSize', 7, ...
+         'DisplayName', 'Measured growth rates');
+
+    plot(sigmaCenter + sigmaScale*xDense, gammaDense, ...
+         'b-', 'LineWidth', 2, ...
+         'DisplayName', sprintf('Polynomial fit (degree %d)', ...
+                                polynomialDegree));
+
+    yline(0, 'k--', 'Zero growth', 'DisplayName', 'Zero growth estimate', 'LabelHorizontalAlignment', 'Left');
+
+    if crossingFound
+        xline(thresholdGain, 'r--', ...
+              sprintf('Threshold: %.6g S/m', thresholdGain), ...
+              'LineWidth', 1.5, ...
+              'DisplayName', 'Threshold \sigma_0 estimate', ...
+              'LabelOrientation', 'horizontal', ...
+              'LabelHorizontalAlignment', 'left', ...
+              'LabelVerticalAlignment', 'bottom' ...
+              );
+    end
+
+    xlabel('Signed gain conductivity \sigma_0 (S/m)');
+    ylabel('Envelope growth rate (ps^{-1})');
+    title(sprintf('Polynomial lasing threshold fit (R^2 = %.5f)', ...
+                  fitR2));
+    legend('Location', 'best');
+
+else
+    warning('Insufficient valid data for the polynomial fit.');
 end
 
 if crossingFound
-    fprintf('\nEstimated threshold conductivity: sigma0 = %.8g S/m\n', ...
-        thresholdGain);
-
-    xline(thresholdGain, 'r--', ...
-        sprintf('Threshold: %.4g S/m', thresholdGain), ...
-        'LineWidth', 1.3);
+    fprintf('\nPolynomial-fit threshold conductivity: %.8g S/m\n', ...
+            thresholdGain);
+    fprintf('Polynomial degree: %d\n', polynomialDegree);
+    fprintf('Fit R^2: %.6f\n', fitR2);
 else
-    fprintf(['\nNo zero-growth crossing was found. ' ...
-             'Run more simulations with gain values bracketing ' ...
-             'the transition from decay to growth.\n']);
+    fprintf(['\nNo reliable zero-growth crossing was found. ' ...
+             'Ensure measured growth rates bracket zero.\n']);
 end
 
 %% ============================================================

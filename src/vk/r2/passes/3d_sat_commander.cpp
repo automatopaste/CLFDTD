@@ -2,6 +2,7 @@
 
 #include <thread>
 #include <shared_mutex>
+#include <chrono>
 
 #include "vk/vk_engine.h"
 #include "vk/vk_synchronisation.h"
@@ -17,6 +18,7 @@
 void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3Dsat::UpdateData updateData, std::atomic_bool& exitFlag, std::atomic_bool& readFlag)
 {
     fmt::print("Simulation thread launching...\n");
+    auto start = std::chrono::steady_clock::now();
 
     std::array<VkCommandPool, FRAME_OVERLAP> commandPools;
     std::array<VkCommandBuffer, FRAME_OVERLAP> computeCmds;
@@ -88,9 +90,13 @@ void sim_launch(const R2::RenderData renderData, VulkanEngine* engine, L3Dsat::U
 
     vkDeviceWaitIdle(engine->_device);
 
-    L3DsatUpdate::write(updateData, engine);
-
     fmt::print("Simulation thread cleaning up...\n");
+    auto end = std::chrono::steady_clock::now();
+    auto elapsedMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    float time = float(elapsedMilliseconds) / 1000.0f;
+    fmt::print("GPU Simulation took {:.4f} seconds to complete {} steps\n", time, updateData.maxStep);
+
+    L3DsatUpdate::write(updateData, engine);    
 
     // cleanup
 

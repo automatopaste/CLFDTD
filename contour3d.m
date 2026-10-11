@@ -12,7 +12,7 @@ ny = input('Grid size Y: ');
 nz = input('Grid size Z: ');
 
 % Physical cell spacing, in metres
-dx0 = 1.335e-6 / 400.0;
+dx0 = 1.2395543175e-5 / 800.0;
 dy0 = dx0;
 dz0 = dx0;
 

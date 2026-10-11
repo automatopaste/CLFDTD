@@ -35,9 +35,11 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 			updateData.npml = 100;
 			updateData.x = 6000; // ??
-			updateData.y = 8;
-			updateData.z = 8;
-			updateData.maxStep = 2000000; // ??
+			updateData.y = 2;
+			updateData.z = 2;
+			// updateData.maxStep = 2000000;
+
+			updateData.maxStep = 25000; // for cpu comparison
 
 			break;
 		}
@@ -45,7 +47,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 		{
 			constexpr float c0 = 299792458.0f;
 			constexpr float eps0 = 8.8541878128e-12f;
-			constexpr float dx0 = 1.2395543175e-5f / 5600.0f; // 2800 cell simulation of 12.3955um GaAs crystal
+			constexpr float dx0 = 12.4e-6f / 400.0f; // 400 cell simulation of 12.4um GaAs crystal
 			updateData.lengthUnit = dx0; // Normalised simulation length unit
 			updateData.timeUnit = updateData.lengthUnit / c0; // Derived simulation time unit (L / c)
 			constexpr float courant = 0.5f;
@@ -54,11 +56,12 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 			updateData.dt = courant * updateData.dx / updateData.c;
 			// constexpr float f = 7e-12f / (dx0 / c0);
 
-			updateData.npml = 100;
-			updateData.x = 6000;
-			updateData.y = 8;
-			updateData.z = 8;
-			updateData.maxStep = 2000000;
+			updateData.npml = 12;
+			updateData.x = 500;
+			updateData.y = 2;
+			updateData.z = 2;
+			// updateData.maxStep = 250000;
+			updateData.maxStep = 25000; // for cpu comparison
 
 			break;
 		}
@@ -79,7 +82,9 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 			updateData.x = 500;
 			updateData.y = 90;
 			updateData.z = 90;
-			updateData.maxStep = 200000;
+			// updateData.maxStep = 50000;
+
+			updateData.maxStep = 1000; // for cpu comparison
 
 			break;
 		}
@@ -104,7 +109,7 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 			break;
 		}
-	}
+	}	
 	
 	updateData.t = 0.0f;
 	updateData.step = 0;

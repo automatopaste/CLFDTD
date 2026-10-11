@@ -39,8 +39,6 @@ void main() {
 	ivec3 dim = ivec3(x, y, z);
 
 	if (all(lessThan(ijk, dim))) {
-		ivec3 c = ivec3(pushConstants.dimensions.xyz / 2);
-
 		imageStore(eDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
 		imageStore(fDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));
 		imageStore(jDst, ijk, vec4(0.0, 0.0, 0.0, 0.0));

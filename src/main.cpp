@@ -294,6 +294,8 @@ void run_sim_3d_saturable_gain() {
 	bool quit = false;
 	bool fileWritten = false;
 
+	auto start = std::chrono::steady_clock::now();
+
 	while (!quit)
 	{
 		SDL_Event event;
@@ -308,13 +310,18 @@ void run_sim_3d_saturable_gain() {
 			}
 		}
 
-		constexpr int STEPS = 4000;
+		constexpr int STEPS = 1000;
 
 		if (state.step < STEPS) {
 			sim3dsat::state_update(state);
 		}
 
 		if (state.step >= STEPS && !fileWritten) {
+			auto end = std::chrono::steady_clock::now();
+			auto elapsedMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+			float time = float(elapsedMilliseconds) / 1000.0f;
+			fmt::print("CPU Simulation took {:.4f} seconds to complete {} steps\n", time, STEPS);
+
 			fileWritten = true;
 
 			FILE* f = fopen("data.bin", "wb");
@@ -326,7 +333,7 @@ void run_sim_3d_saturable_gain() {
 			fclose(f);
 		}
 
-		if (state.step % 1 == 0) {
+		if (state.step % 100 == 0) {
 			render::render_sim_3d_saturable_gain(renderData, &state);
 			render::render_frame(renderData);
 		}
@@ -343,11 +350,11 @@ void run_sim() {
 
 	engine.init();
 
-	//std::thread cpuSimThread0(run_sim_3d);
+	std::thread cpuSimThread0(run_sim_3d_saturable_gain);
 
 	engine.run();
 
-	//cpuSimThread0.join();
+	cpuSimThread0.join();
 }
 
 int main() {
