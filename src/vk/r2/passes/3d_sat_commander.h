@@ -29,6 +29,7 @@ namespace L3Dsat {
 	};
 
 	enum EFieldUpdateShader {
+		PROPAGATION,
 		GAIN,
 		CAVITY,
 		CAVITY3D,

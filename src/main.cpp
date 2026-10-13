@@ -350,11 +350,11 @@ void run_sim() {
 
 	engine.init();
 
-	std::thread cpuSimThread0(run_sim_3d_saturable_gain);
+	//std::thread cpuSimThread0(run_sim_3d_saturable_gain);
 
 	engine.run();
 
-	cpuSimThread0.join();
+	//cpuSimThread0.join();
 }
 
 int main() {

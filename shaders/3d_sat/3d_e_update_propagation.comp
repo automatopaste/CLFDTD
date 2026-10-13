@@ -1,0 +1,355 @@
+#version 460
+
+#include "include/default_header.glsl"
+#include "include/global_descriptor.glsl"
+
+layout (local_size_x = 8, local_size_y = 8, local_size_z = 8) in;
+
+layout (set = 1, binding = 0, rgba32f) uniform image3D eSrc;
+layout (set = 1, binding = 1, rgba32f) uniform image3D eDst;
+layout (set = 1, binding = 2, rgba32f) uniform image3D fSrc;
+layout (set = 1, binding = 3, rgba32f) uniform image3D fDst;
+layout (set = 1, binding = 4, rgba32f) uniform image3D jSrc;
+layout (set = 1, binding = 5, rgba32f) uniform image3D jDst;
+layout (set = 1, binding = 6, rgba32f) uniform image3D hSrc;
+layout (set = 1, binding = 7, r32f) uniform image3D ePeakSrc;
+layout (set = 1, binding = 8, r32f) uniform image3D ePeakDst;
+
+layout (set = 1, binding = 9, rg32f) uniform image3D psiXSrc;
+layout (set = 1, binding = 10, rg32f) uniform image3D psiXDst;
+layout (set = 1, binding = 11, rg32f) uniform image3D psiYSrc;
+layout (set = 1, binding = 12, rg32f) uniform image3D psiYDst;
+layout (set = 1, binding = 13, rg32f) uniform image3D psiZSrc;
+layout (set = 1, binding = 14, rg32f) uniform image3D psiZDst;
+
+layout (buffer_reference, scalar) readonly buffer ABuffer { float values[]; };
+layout (buffer_reference, scalar) readonly buffer BBuffer { float values[]; };
+
+layout (buffer_reference, scalar) buffer SampleBuffer {
+	vec3 values[];
+};
+
+layout (push_constant) uniform PushConstants {
+	uvec4 dimensions;		// x, y, z, unused
+	vec4 simData;			// dx, dt, t, c
+	vec4 simData2;			// timeUnit, lengthUnit, source omega0
+	ivec4 simDataInt;		// step, npml, sample buffer size, unused
+	ABuffer aBuffer;
+	BBuffer bBuffer;
+	SampleBuffer sampleBuffer0;
+	SampleBuffer sampleBuffer1;
+	SampleBuffer sampleBuffer2;
+} pushConstants;
+
+// PCG hash: maps a 32-bit state to a pseudorandom 32-bit value.
+uint pcgHash(inout uint state) {
+    state = state * 747796405u + 2891336453u;
+
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state)
+                * 277803737u;
+
+    return (word >> 22u) ^ word;
+}
+
+// Convert uint to a uniform float strictly inside (0, 1).
+float randomUniform(inout uint state) {
+    // Use 24 high-quality bits; offset avoids exactly 0 and 1.
+    return (float(pcgHash(state) >> 8u) + 0.5) / 16777216.0;
+}
+
+// mean = 0 and variance = 1e-6.
+vec3 randomGaussianVec3(inout uint state)
+{
+    float u1 = randomUniform(state);
+    float u2 = randomUniform(state);
+
+    float r1 = sqrt(-2.0 * log(u1));
+    float a1 = 6.283185307179586 * u2;
+
+    float u3 = randomUniform(state);
+    float u4 = randomUniform(state);
+
+    float r2 = sqrt(-2.0 * log(u3));
+    float a2 = 6.283185307179586 * u4;
+
+    return 1e-3 * vec3(
+        r1 * cos(a1),
+        r1 * sin(a1),
+        r2 * cos(a2)
+    );
+}
+
+#define PERIODIC_X 0
+#define PERIODIC_Y 0
+#define PERIODIC_Z 1
+
+void main() {
+	ivec3 ijk = ivec3(gl_GlobalInvocationID.xyz);
+	uint x = pushConstants.dimensions.x;
+	uint y = pushConstants.dimensions.y;
+	uint z = pushConstants.dimensions.z;
+	ivec3 dim = ivec3(x, y, z);
+	ivec3 centre = ivec3(dim / 2);
+	const int npml = pushConstants.simDataInt.y;
+	
+#if PERIODIC_X
+    if (ijk.x < 0 || ijk.x >= dim.x) {
+        return;
+    }
+#else
+    if (ijk.x < 1 || ijk.x >= dim.x) {
+        return;
+    }
+#endif
+
+#if PERIODIC_Y
+    if (ijk.y < 0 || ijk.y >= dim.y) {
+        return;
+    }
+#else
+    if (ijk.y < 1 || ijk.y >= dim.y) {
+        return;
+    }
+#endif
+
+#if PERIODIC_Z
+    if (ijk.z < 0 || ijk.z >= dim.z) {
+        return;
+    }
+#else
+    if (ijk.z < 1 || ijk.z >= dim.z) {
+        return;
+    }
+#endif
+
+	ivec3 ijk_im1 = ijk + ivec3(-1,  0,  0);
+	ivec3 ijk_jm1 = ijk + ivec3( 0, -1,  0);
+	ivec3 ijk_km1 = ijk + ivec3( 0,  0, -1);
+
+#if PERIODIC_X
+    if (ijk_im1.x < 0) {
+        ijk_im1.x = dim.x - 1;
+    }
+#endif
+
+#if PERIODIC_Y
+    if (ijk_jm1.y < 0) {
+        ijk_jm1.y = dim.y - 1;
+    }
+#endif
+
+#if PERIODIC_Z
+    if (ijk_km1.z < 0) {
+        ijk_km1.z = dim.z - 1;
+    }
+#endif
+
+	vec3 h      = imageLoad(hSrc, ijk).xyz;
+	vec3 h_im1  = imageLoad(hSrc, ijk_im1).xyz;
+	vec3 h_jm1  = imageLoad(hSrc, ijk_jm1).xyz;
+	vec3 h_km1  = imageLoad(hSrc, ijk_km1).xyz;
+
+	vec3 e = imageLoad(eSrc, ijk).xyz;
+	vec3 j = imageLoad(jSrc, ijk).xyz;
+	vec3 f = imageLoad(fSrc, ijk).xyz;
+
+	float ePeak = imageLoad(ePeakSrc, ijk).x;
+
+	float dHz_dx = h.z - h_im1.z;
+	float dHy_dx = h.y - h_im1.y;
+	float dHz_dy = h.z - h_jm1.z;
+	float dHx_dy = h.x - h_jm1.x;
+	float dHy_dz = h.y - h_km1.y;
+	float dHx_dz = h.x - h_km1.x;
+
+	int ni = min(ijk.x, int(x) - 1 - ijk.x);
+	int nj = min(ijk.y, int(y) - 1 - ijk.y);
+	int nk = min(ijk.z, int(z) - 1 - ijk.z);
+
+	float psi_dHz_dx_new = 0.0;
+	float psi_dHy_dx_new = 0.0;
+	float psi_dHz_dy_new = 0.0;
+	float psi_dHx_dy_new = 0.0;
+	float psi_dHy_dz_new = 0.0;
+	float psi_dHx_dz_new = 0.0;
+	
+#if !PERIODIC_X
+	if (ni < npml) {
+		const float a = pushConstants.aBuffer.values[ni];
+		const float b = pushConstants.bBuffer.values[ni];
+		int xLoc = ijk.x < centre.x ? ni : (npml * 2) - 1 - ni;
+		ivec3 loc = ivec3(xLoc, ijk.y, ijk.z);
+		vec2 psiX = imageLoad(psiXSrc, loc).xy;
+		psi_dHz_dx_new = b * psiX.x + a * dHz_dx;
+		psi_dHy_dx_new = b * psiX.y + a * dHy_dx;
+		imageStore(psiXDst, loc, vec4(psi_dHz_dx_new, psi_dHy_dx_new, 0.0, 0.0));
+	}
+#endif
+#if !PERIODIC_Y
+	if (nj < npml) {
+		const float a = pushConstants.aBuffer.values[nj];
+		const float b = pushConstants.bBuffer.values[nj];
+		int yLoc = ijk.y < centre.y ? nj : (npml * 2) - 1 - nj;
+		ivec3 loc = ivec3(ijk.x, yLoc, ijk.z);
+		vec2 psiY = imageLoad(psiYSrc, loc).xy;
+		psi_dHz_dy_new = b * psiY.x + a * dHz_dy;
+		psi_dHx_dy_new = b * psiY.y + a * dHx_dy;
+		imageStore(psiYDst, loc, vec4(psi_dHz_dy_new, psi_dHx_dy_new, 0.0, 0.0));
+	}
+#endif
+#if !PERIODIC_Z
+	if (nk < npml) {
+		const float a = pushConstants.aBuffer.values[nk];
+		const float b = pushConstants.bBuffer.values[nk];
+		int zLoc = ijk.z < centre.z ? nk : (npml * 2) - 1 - nk;
+		ivec3 loc = ivec3(ijk.x, ijk.y, zLoc);
+		vec2 psiZ = imageLoad(psiZSrc, loc).xy;
+		psi_dHy_dz_new = b * psiZ.x + a * dHy_dz;
+		psi_dHx_dz_new = b * psiZ.y + a * dHx_dz;
+		imageStore(psiZDst, loc, vec4(psi_dHy_dz_new, psi_dHx_dz_new, 0.0, 0.0));
+	}
+#endif
+
+	vec3 curlH = vec3(
+		(dHz_dy + psi_dHz_dy_new) -
+		(dHy_dz + psi_dHy_dz_new),
+
+		(dHx_dz + psi_dHx_dz_new) -
+		(dHz_dx + psi_dHz_dx_new),
+
+		(dHy_dx + psi_dHy_dx_new) -
+		(dHx_dy + psi_dHx_dy_new)
+	);
+
+	const float dx = pushConstants.simData.x;
+	const float dt = pushConstants.simData.y;
+	const float t = pushConstants.simData.z;
+	const float c = pushConstants.simData.w;
+	const float timeUnit = pushConstants.simData2.x;
+	const float lengthUnit = pushConstants.simData2.y;
+	const int simStep = pushConstants.simDataInt.x;
+	const int maxSimStep = pushConstants.simDataInt.z;
+	
+	// Normalised simulation
+	const float epsSI = 8.8541878128e-12;
+	const float cSI = 299792458.0;
+	const float eps0 = 1.0;
+
+	// SI material properties for GaAs
+	const float lambdaSI = 0.89e-6; // m
+	const float T2SI = 0.07e-12; // s
+	const float sigmaSI = -2200.0; // S/m
+	const float IsSI = 65.2 * 1e7; // 65.2 kW per cm2
+
+	const float lambda0 = lambdaSI / lengthUnit;
+	float T2 = T2SI / timeUnit;
+	float sigma0 = sigmaSI * (timeUnit / epsSI);
+	const float Is0 = IsSI / (epsSI * cSI);
+
+	// pure vacuum propagation
+
+	float n = 1.0;
+	sigma0 = 0.0;
+	T2 = 0.0;
+
+	const ivec3 cavityOffset = ivec3(50, 0, 0);
+	const ivec3 cavityExtent = ivec3(400, 8, 8);
+	const ivec3 sourcePosition = ivec3(centre.x, centre.y, centre.z);
+
+	if (
+		ijk.x < cavityOffset.x || ijk.x >= cavityOffset.x + cavityExtent.x ||
+		ijk.y < cavityOffset.y || ijk.y >= cavityOffset.y + cavityExtent.y ||
+		ijk.z < cavityOffset.z || ijk.z >= cavityOffset.z + cavityExtent.z
+	) {
+		n = 1.0;
+		sigma0 = 0.0;
+		T2 = 0.0;
+	}
+
+	const float omega0 = (2.0 * 3.14159265359 * c) / lambda0;
+	const float epsR = n * n;
+	const float epsilon = eps0 * epsR;
+
+	//const float source_wavelength = 840e-9 / lengthUnit;
+	// const float source_omega0 = pushConstants.simData2.z * 1e15 * timeUnit;
+	//const float source_omega0 = c / source_wavelength;
+	
+	// sin source with ramp turn-on
+	// const float amplitude = 1.0;
+	// float wavelength = 890e-9 / lengthUnit;
+	// float source_omega_sin = 2.0 * 3.14159265359 * (c / wavelength);
+	// float envelope = clamp(t / (dt * 50000.0), 0.0, 1.0);
+	// envelope = 1.0;
+	// float source = amplitude * sin(source_omega_sin * t) * envelope;
+
+	// gaussian carrier pulse
+	const float amplitude = 1.0;
+	const float frequencyHz = 299792458.0 / 1e-6;
+	const float bandwidthHz = 0.2 * frequencyHz;
+	const float tau = (sqrt(2.0) / (3.14159265359 * bandwidthHz)) / timeUnit;
+	const float t0 = tau * 10.0;
+	float source_omega0 = 2.0 * 3.14159265359 * frequencyHz * timeUnit;
+	float envelope = exp(-0.5 * pow((t - t0) / tau, 2.0));
+	float source = amplitude * envelope * cos(source_omega0 * (t - t0));
+
+	// sinc pulse centered around source_omega0
+	// const float amplitude = 1.0;
+	// const float pi = 3.14159265359;
+	// const float omega0SI = 2.0 * pi * cSI / lambdaSI;
+	// const float source_omega0 = omega0SI * timeUnit;
+	// const float omegaBandwidthSI = 5e12 * 1;
+	// const float omegaBandwidth = omegaBandwidthSI * timeUnit;
+	// const float width = 2.0 * pi / omegaBandwidth;
+	// const float t0 = 10.0 * width;
+	// const float px = (t - t0) / width;
+	// const float envelope = (abs(px) > 1e-6) ? sin(px) / px : 1.0;
+	// float source = amplitude * envelope * cos(source_omega0 * (t - t0));
+	// if (isnan(source)) {
+	// 	source = 0.0;
+	// }
+
+	const float sourceRadiusSI = 1e-9;
+	float sourceRadius = sourceRadiusSI / lengthUnit;
+	float d = distance(vec3(sourcePosition), vec3(ijk));
+	if (d <= sourceRadius) {
+		float spatial = 0.5 * (1.0 + cos(3.14159265 * d / sourceRadius));
+		//e.z -= spatial * source;
+	}
+	if (abs(ijk.x - sourcePosition.x) < sourceRadius) {
+		e.z -= source;
+	}
+
+	float Z2 = (1.0 + omega0 * omega0 * T2 * T2);
+
+	float I = 0.5 * c * n * eps0 * ePeak * ePeak;
+	float s = 1.0 / (1.0 + I / Is0);
+	// s = 1.0;
+
+	float B = 8.0 * epsilon * T2 * (dt + T2) + dt * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2));
+
+	float A1 = (4.0 * dt * s * sigma0 * (dt + 2.0 * T2)) / (B * dx);
+	float A2 = (8.0 * epsilon * s * sigma0 * dt) / B;
+	float A3 = -(4.0 * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2))) / B;
+	float A4 = (-(8.0 * epsilon * T2 * (dt - T2)) / B) - ((dt * dt * (2.0 * epsilon * Z2 + s * sigma0 * (dt + 2.0 * T2))) / B);
+
+	vec3 fNew = A1 * curlH + A2 * e + A3 * j + A4 * f;
+	vec3 jNew = j + (dt / 2.0) * (fNew + f);
+	vec3 eNew = e - (dt / (2.0 * epsilon)) * (jNew + j) + (dt / (epsilon * dx)) * curlH;
+
+	const uint seed = uint(0x96767AE1u);
+	uint state = seed ^ (ijk.x * uint(0x9E3779B9u)) ^ (simStep * uint(0x85EBCA6Bu));
+	vec3 randomGaussian = randomGaussianVec3(state);
+	// eNew.z += randomGaussian.x; // one-dimensional only
+
+	float eMag = length(eNew);
+	float ePeakNew = max(eMag, ePeak);
+
+	imageStore(eDst, ijk, vec4(eNew, 0.0));
+	imageStore(fDst, ijk, vec4(fNew, 0.0));
+	imageStore(jDst, ijk, vec4(jNew, 0.0));
+	imageStore(ePeakDst, ijk, vec4(ePeakNew, 0.0, 0.0, 0.0));
+
+	if (ijk.x == (x / 2) + 10 && ijk.y == y / 2 + 10 && ijk.z == z / 2 && simStep < maxSimStep) {
+		pushConstants.sampleBuffer0.values[simStep] = eNew;
+	}
+}

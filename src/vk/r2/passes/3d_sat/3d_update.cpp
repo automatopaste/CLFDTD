@@ -18,9 +18,31 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	L3Dsat::UpdateData& updateData = data.updateData;
 
-	updateData.updateShader = L3Dsat::CAVITY3D;
+	updateData.updateShader = L3Dsat::PROPAGATION;
 
 	switch (updateData.updateShader) {
+		case L3Dsat::PROPAGATION:
+		{
+			constexpr float c0 = 299792458.0f;
+			constexpr float eps0 = 8.8541878128e-12f;
+			constexpr float dx0 = 1e-6f / 50.0f;
+			updateData.lengthUnit = dx0; // Normalised simulation length unit
+			updateData.timeUnit = updateData.lengthUnit / c0; // Derived simulation time unit (L / c)
+			constexpr float courant = 0.5f;
+			updateData.dx = 1.0f;
+			updateData.c = 1.0f;
+			updateData.dt = courant * updateData.dx / updateData.c;
+
+			updateData.npml = 50;
+			updateData.x = 300; // ??
+			updateData.y = 300;
+			updateData.z = 8;
+			// updateData.maxStep = 2000000;
+
+			updateData.maxStep = 4497; // for cpu comparison
+
+			break;
+		}
 		case L3Dsat::GAIN:
 		{
 			constexpr float c0 = 299792458.0f;
@@ -251,6 +273,9 @@ void L3DsatUpdate::init(R2::RenderData& renderData, VulkanEngine* engine)
 
 	const char* eUpdateShader;
 	switch (updateData.updateShader) {
+	case L3Dsat::PROPAGATION:
+		eUpdateShader = "3d_sat/3d_e_update_propagation.comp";
+		break;
 	case L3Dsat::GAIN:
 		eUpdateShader = "3d_sat/3d_e_update_gain.comp";
 		break;
@@ -556,6 +581,9 @@ void L3DsatUpdate::write(L3Dsat::UpdateData& updateData, VulkanEngine* engine)
 
 	const char* suffix;
 	switch (updateData.updateShader) {
+	case L3Dsat::PROPAGATION:
+		suffix = "_propagation";
+		break;
 	case L3Dsat::GAIN:
 		suffix = "_gain";
 		break;
